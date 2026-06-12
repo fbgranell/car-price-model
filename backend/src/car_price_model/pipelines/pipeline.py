@@ -29,6 +29,6 @@ def run_cleaning():
     df["brand"] = cleaning.threshold_column(df['brand'], 4700)
     df["location"] = cleaning.map_column(df["location"])
     df["location"] = cleaning.threshold_column(df["location"], 900)
-    df = cleaning.drop_duplicates(df)
+    df = cleaning.deduplicate_merging_locations(df)
     df = cleaning.drop_unwanted_columns(df)
     writing.write_parquet(df, "interim", "listings")
