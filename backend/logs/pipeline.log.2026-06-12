@@ -1,0 +1,12 @@
+2026-06-12 20:06:29,723 INFO car_price_model.utils.logging — ============================================================
+2026-06-12 20:06:29,723 INFO car_price_model.utils.logging — Pipeline run started
+2026-06-12 20:06:30,966 INFO car_price_model.utils.decorators — filter_out_new_cars: 358821 rows in -> 354350 rows out (-4471)
+2026-06-12 20:06:36,308 INFO car_price_model.utils.decorators — drop_zero_cars: 354350 rows in -> 285768 rows out (-68582)
+2026-06-12 20:06:36,516 INFO car_price_model.utils.decorators — drop_null_values: 285768 rows in -> 285571 rows out (-197)
+2026-06-12 20:06:37,369 INFO car_price_model.utils.decorators — deduplicate_merging_locations: 285571 rows in -> 53046 rows out (-232525)
+2026-06-12 20:10:18,590 INFO car_price_model.utils.logging — ============================================================
+2026-06-12 20:10:18,590 INFO car_price_model.utils.logging — Pipeline run started
+2026-06-12 20:10:19,846 INFO car_price_model.processing.cleaning — filter_out_new_cars: 358821 rows in -> 354350 rows out (-4471)
+2026-06-12 20:10:25,190 INFO car_price_model.processing.cleaning — drop_zero_cars: 354350 rows in -> 285768 rows out (-68582)
+2026-06-12 20:10:25,397 INFO car_price_model.processing.cleaning — drop_null_values: 285768 rows in -> 285571 rows out (-197)
+2026-06-12 20:10:26,253 INFO car_price_model.processing.cleaning — deduplicate_merging_locations: 285571 rows in -> 53046 rows out (-232525)

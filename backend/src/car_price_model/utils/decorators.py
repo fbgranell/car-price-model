@@ -10,11 +10,12 @@ def log_row_count(func):
         result = func(df, *args, **kwargs)
         rows_out = len(result) if result is not None else 0
         logger.info(
-            "%s: %d rows in -> %d rows out (%+d)",
+            "%s: %s rows in -> %s rows out (%s | %s)",
             func.__name__,
-            rows_in,
-            rows_out,
-            rows_out - rows_in,
+            format(rows_in, ","),
+            format(rows_out, ","),
+            format(rows_out - rows_in, "+,"),  # <-- Cleaned up "+text," to just "+,"
+            format((rows_out - rows_in) / rows_in * 100, "+.2f") + "%",
         )
         return result
 

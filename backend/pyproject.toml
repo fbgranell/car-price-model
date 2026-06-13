@@ -1,12 +1,12 @@
 [project]
 name = "car-price-model"
-version = "0.2.0"
+version = "0.2.1"
 description = "Predicting used cars prices"
 requires-python = ">=3.10"
 dependencies = [
     "numpy==2.2.6",
     "pandas==2.3.3",
-    "scikit-learn==1.1.2",
+    "scikit-learn==1.7.2",
     "xgboost==3.2.0",
     "matplotlib==3.10.9",
 ]

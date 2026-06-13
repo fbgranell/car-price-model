@@ -3,18 +3,17 @@ import regex as re
 import numpy as np
 from car_price_model.data_io.reading import read_mapping
 from car_price_model.utils.decorators import log_row_count
-import functools
 
 
 def drop_unwanted_columns(df: pd.DataFrame) -> pd.DataFrame:
-    """Drop unwanted columns from the dataframe."""
-    # `autonomy`, `seller` and `warranty` are dropped because they have little to no variance.
+    """Drop unwanted columns(IDs or constants) from the dataframe."""
     unwanted_columns = ["id", "link", "transmission", "seller", "warranty", "autonomy"]
     return df.drop(unwanted_columns, axis=1)
 
 
 @log_row_count
 def deduplicate_merging_locations(df: pd.DataFrame) -> pd.DataFrame:
+    """Deduplicate duplicated listings by merging locations."""
     locations_df = df.groupby("id", as_index=False)["location"].agg(
         lambda x: x.unique().tolist()
     )
@@ -26,6 +25,13 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
     """Rename columns to match the expected format."""
     rename_dict = {"0-100": "zero_to_hundred"}
     return df.rename(columns=rename_dict)
+
+
+def split_cylinders(df: pd.DataFrame) -> pd.DataFrame:
+    """Split cylinders into separate columns."""
+    df["n_cylinders"] = df["cylinders"].str.split(" ", n=1).str[0].str.replace("0", "")
+    df["cylinder_layout"] = df["cylinders"].str.split(" ", n=1).str[1]
+    return df.drop("cylinders", axis=1)
 
 
 @log_row_count
@@ -73,9 +79,10 @@ def capitalize_columns(df: pd.DataFrame, columns: list) -> pd.DataFrame:
 
 
 @log_row_count
-def drop_zero_cars(df: pd.DataFrame) -> pd.DataFrame:
+def drop_zero_cars(df: pd.DataFrame, columns_to_ignore: list = []) -> pd.DataFrame:
     """Drop cars with zero values, those correspond to inconsistent data."""
-    return df[(df != 0).all(axis=1)].copy().reset_index(drop=True)
+    columns_to_check = [col for col in df.columns if col not in columns_to_ignore]
+    return df[(df[columns_to_check] != 0).all(axis=1)].copy().reset_index(drop=True)
 
 
 def map_column(series, default=None):
@@ -85,21 +92,42 @@ def map_column(series, default=None):
 
 
 @log_row_count
-def drop_null_values(df: pd.DataFrame) -> pd.DataFrame:
+def drop_null_values(df: pd.DataFrame, columns_to_ignore: list = []) -> pd.DataFrame:
     """Drop rows with null values."""
-    return df.dropna().copy().reset_index(drop=True)
+    columns_to_check = [col for col in df.columns if col not in columns_to_ignore]
+    return df.dropna(subset=columns_to_check).copy().reset_index(drop=True)
 
 
-def threshold_column(series: pd.Series, threshold: int) -> pd.Series:
+@log_row_count
+def drop_electric_and_commertial_cars(df: pd.DataFrame) -> pd.DataFrame:
+    """Drop electric cars from the dataframe."""
+    return (
+        df[(df["fuel"] != "eléctrico") & (df["class"] != "commercial")]
+        .copy()
+        .reset_index(drop=True)
+    )
+
+
+def lump_rare_categories(
+    df: pd.DataFrame, columns: str | list[str], threshold: int, pct: bool = False
+) -> pd.DataFrame:
     """Keep values that appear more than the threshold."""
-    other_categories = series.value_counts()[
-        series.value_counts().values < threshold
-    ].index
-    return pd.Series(np.where(series.isin(other_categories), "other", series))
+    if isinstance(columns, str):
+        columns = [columns]
+
+    for column in columns:
+        if pct:
+            threshold = len(df) * threshold
+        other_categories = (
+            df[column]
+            .value_counts()[df[column].value_counts().values < threshold]
+            .index
+        )
+        df[column] = np.where(df[column].isin(other_categories), "other", df[column])
+    return df
 
 
 def _map_value(value, mapping, default=None):
-    # Loop through the JSON keys and values
     for spanish_value, english_value in mapping.items():
         if spanish_value in value.lower():
             return english_value
