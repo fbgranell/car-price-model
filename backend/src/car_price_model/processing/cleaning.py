@@ -21,15 +21,25 @@ def deduplicate_merging_locations(df: pd.DataFrame) -> pd.DataFrame:
     return df.merge(locations_df, on="id", how="left")
 
 
+@log_row_count
+def drop_duplicates(df: pd.DataFrame) -> pd.DataFrame:
+    """Drop duplicate rows."""
+    return (
+        df.drop_duplicates(subset=df.columns.drop("location"))
+        .copy()
+        .reset_index(drop=True)
+    )
+
+
 def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
     """Rename columns to match the expected format."""
-    rename_dict = {"0-100": "zero_to_hundred"}
+    rename_dict = {"0-100": "zero_to_hundred", "year": "age"}
     return df.rename(columns=rename_dict)
 
 
 def split_cylinders(df: pd.DataFrame) -> pd.DataFrame:
     """Split cylinders into separate columns."""
-    df["n_cylinders"] = df["cylinders"].str.split(" ", n=1).str[0].str.replace("0", "")
+    df["n_cylinders"] = df["cylinders"].str.split(" ", n=1).str[0]
     df["cylinder_layout"] = df["cylinders"].str.split(" ", n=1).str[1]
     return df.drop("cylinders", axis=1)
 
@@ -50,9 +60,9 @@ def remove_thousand_separators(series: pd.Series) -> pd.Series:
     return series.map(lambda x: x.replace(".", ""))
 
 
-def extract_year(series: pd.Series) -> pd.Series:
-    """Extract year from the dataframe."""
-    return series.map(lambda x: re.findall(r"[\d]{4}", x)[0])
+def extract_age(series: pd.Series) -> pd.Series:
+    """Extract age from the dataframe."""
+    return 2023 - series.map(lambda x: re.findall(r"[\d]{4}", x)[0]).astype(int)
 
 
 def lowercase_columns(df: pd.DataFrame) -> pd.DataFrame:

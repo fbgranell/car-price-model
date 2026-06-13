@@ -64,3 +64,10 @@ def trim_outliers(
         filtered_df = filtered_df[filtered_df[column] <= upper_bound]
 
     return filtered_df
+
+
+@log_row_count
+def remove_top_n_outliers(df: pd.DataFrame, column: str, n: int) -> pd.DataFrame:
+    """Removes the rows containing the top N largest values in a specific column."""
+    top_n_indices = df[column].nlargest(n).index
+    return df.drop(index=top_n_indices)

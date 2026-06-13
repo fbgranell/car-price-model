@@ -14,7 +14,7 @@ def run_cleaning():
     df["km"] = cleaning.remove_thousand_separators(cleaning.remove_units(df["km"]))
     df["doors"] = cleaning.remove_units(df["doors"])
     df["emissions"] = cleaning.remove_units(df["emissions"])
-    df["year"] = cleaning.extract_year(df["year"])
+    df["age"] = cleaning.extract_age(df["age"])
     df = cleaning.split_cylinders(df)
     df = cleaning.convert_columns_to_numeric(
         df,
@@ -51,6 +51,7 @@ def run_cleaning():
             "doors",
             "height",
             "max_par",
+            "age",
         ],
     )
     df = cleaning.drop_null_values(df, columns_to_ignore=["n_cylinders"])
@@ -61,4 +62,5 @@ def run_cleaning():
     df["cylinder_layout"] = cleaning.map_column(df["cylinder_layout"], default="other")
     df = cleaning.lump_rare_categories(df, columns=["color", "brand"], threshold=500)
     df = cleaning.drop_unwanted_columns(df)
+    df = cleaning.drop_duplicates(df)
     writing.write_parquet(df, "interim", "listings")

@@ -18,11 +18,11 @@ def list_all_files(directory: str) -> list:
         for f in os.listdir(dictory_path)
         if os.path.isfile(os.path.join(dictory_path, f))
     ]
-    files_path = [os.path.join(dictory_path, f) for f in files]
+    files_path = [os.path.join(directory, f) for f in files]
     return files_path
 
 
-def get_pyproject_root():
+def get_pyproject_root() -> str:
     """
     Get the pyproject.toml root directory.
 

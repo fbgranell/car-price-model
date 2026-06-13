@@ -1,5 +1,6 @@
 import pandas as pd
 from car_price_model.utils.utils import list_all_files, get_pyproject_root
+from pathlib import Path
 
 
 def read_dataset(file_path) -> pd.DataFrame:
@@ -9,9 +10,11 @@ def read_dataset(file_path) -> pd.DataFrame:
     Args:
         file_path: Path to the CSV or parquet file
     """
-    if file_path.endswith(".csv"):
+
+    file_path = Path(get_pyproject_root()) / Path(file_path)
+    if file_path.suffix == ".csv":
         return pd.read_csv(file_path, dtype=str)
-    elif file_path.endswith(".parquet"):
+    elif file_path.suffix == ".parquet":
         return pd.read_parquet(file_path)
     else:
         raise ValueError("File must be a CSV or parquet file")
