@@ -1,6 +1,7 @@
 import pandas as pd
 from car_price_model.utils.utils import list_all_files, get_pyproject_root
 from pathlib import Path
+import joblib
 
 
 def read_dataset(file_path) -> pd.DataFrame:
@@ -50,6 +51,12 @@ def read_mapping(column: str) -> dict:
         "r",
     ) as f:
         return json.load(f)
+
+
+def read_object(path, absolute=False):
+    if not absolute:
+        path = Path(get_pyproject_root()) / path
+    return joblib.load(path)
 
 
 def _read_json(file_path) -> dict:

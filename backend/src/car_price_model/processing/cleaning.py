@@ -5,10 +5,9 @@ from car_price_model.data_io.reading import read_mapping
 from car_price_model.utils.decorators import log_row_count
 
 
-def drop_unwanted_columns(df: pd.DataFrame) -> pd.DataFrame:
+def drop_columns(df: pd.DataFrame, columns: list) -> pd.DataFrame:
     """Drop unwanted columns(IDs or constants) from the dataframe."""
-    unwanted_columns = ["id", "link", "transmission", "seller", "warranty", "autonomy"]
-    return df.drop(unwanted_columns, axis=1)
+    return df.drop(columns, axis=1)
 
 
 @log_row_count
