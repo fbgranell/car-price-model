@@ -3,14 +3,18 @@ import pandas as pd
 
 
 class FeatureEngineer:
+    """
+    Feature engineering class for car price model.
+    """
+
     def __init__(self, location_tiers: int = 4):
         self.mapping = {}
         self.location_tiers = location_tiers
 
-    def fit_transform_location_tiers(self, df):
+    def transform_onehot_locations_tiers(self, df):
         """Fit and transform the location column into tiers."""
-        self.fit_location_tiers(df)
-        return self.transform_location_tiers(df)
+        df = self.transform_location_tiers(df)
+        return self.onehot_location_tiers(df)
 
     def fit_location_tiers(self, df):
         """Learn {location: tier} from train data only. Returns mapping dict."""

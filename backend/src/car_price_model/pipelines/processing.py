@@ -71,7 +71,7 @@ def run_cleaning():
 
 
 def run_postprocessing():
-    """Filter outliers, train-test split, create features, encode categories"""
+    """Filter outliers, train-test split, create features, encode categories & save objects."""
     df = reading.read_dataset("data/interim/listings.parquet")
     df = cleaning.drop_columns(
         df, ["emissions", "curban", "extraurban", "seats", "doors", "height", "max_par", "zero_to_hundred"]
@@ -81,21 +81,28 @@ def run_postprocessing():
     df = remove_top_n_outliers(df, "age", 1)
     writing.write_parquet(df, "processed", "listings")
 
-    train_df, test_df = train_test_split(df, test_size=0.2, random_state=42, stratify=df["cylinder_layout"])
-
-    fe = FeatureEngineer()
-    train_df = fe.fit_transform_location_tiers(train_df)
-    train_df = fe.onehot_location_tiers(train_df)
+    # 80/10/10 train-val-test split
+    train_val_df, test_df = train_test_split(df, test_size=0.1, random_state=42, stratify=df["cylinder_layout"])
+    train_df, val_df = train_test_split(
+        train_val_df,
+        test_size=1 / 9,
+        random_state=42,
+        stratify=train_val_df["cylinder_layout"],
+    )
+    fe = FeatureEngineer()  # location tiers are defined on train data to avoid any kind of leakage
+    fe.fit_location_tiers(train_df)
+    train_df = fe.transform_onehot_locations_tiers(train_df)
+    val_df = fe.transform_onehot_locations_tiers(val_df)
+    test_df = fe.transform_onehot_locations_tiers(test_df)
 
     category_columns = ["fuel", "gearbox", "color", "brand", "class", "cylinder_layout"]
     encoder = Encoder(category_columns)
     train_df = encoder.fit_transform(train_df)
-
-    test_df = fe.transform_location_tiers(test_df)
-    test_df = fe.onehot_location_tiers(test_df)
+    val_df = encoder.transform(val_df)
     test_df = encoder.transform(test_df)
 
     writing.write_parquet(train_df, "processed", "listings_train")
+    writing.write_parquet(val_df, "processed", "listings_val")
     writing.write_parquet(test_df, "processed", "listings_test")
     writing.write_object(fe, "models/feature_engineer.joblib")
     writing.write_object(encoder, "models/encoder.joblib")
