@@ -2,6 +2,7 @@ import pandas as pd
 from car_price_model.utils.utils import list_all_files, get_pyproject_root
 from pathlib import Path
 import joblib
+import json
 
 
 def read_dataset(file_path) -> pd.DataFrame:
@@ -44,13 +45,7 @@ def read_mapping(column: str) -> dict:
     Args:
         column: Name of the column to read
     """
-    import json
-
-    with open(
-        f"{get_pyproject_root()}/src/car_price_model/processing/mappings/{column}.json",
-        "r",
-    ) as f:
-        return json.load(f)
+    return read_json(f"src/car_price_model/processing/mappings/{column}.json")
 
 
 def read_object(path, absolute=False):
@@ -59,14 +54,13 @@ def read_object(path, absolute=False):
     return joblib.load(path)
 
 
-def _read_json(file_path) -> dict:
+def read_json(file_path) -> dict:
     """
     Read data from a JSON file.
 
     Args:
         file_path: Path to the JSON file
     """
-    import json
 
-    with open(file_path, "r") as f:
+    with open(f"{get_pyproject_root()}/{file_path}", "r") as f:
         return json.load(f)

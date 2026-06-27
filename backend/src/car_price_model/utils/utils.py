@@ -32,4 +32,9 @@ def get_pyproject_root() -> str:
 def load_env():
     """Load environment variables from .env file."""
     path = os.path.dirname(get_pyproject_root()) + "/.env"
-    load_dotenv(path)
+    is_env_loaded = load_dotenv(path)
+    if not is_env_loaded:
+        raise ValueError(f".env file could not be found on path {path}")
+    
+def file_exists(path):
+    return os.path.isfile(f"{get_pyproject_root()}/{path}")
