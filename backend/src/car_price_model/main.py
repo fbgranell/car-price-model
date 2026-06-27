@@ -6,4 +6,4 @@ if __name__ == "__main__":
     setup_logging(level="DEBUG")
     process_pipeline.run_cleaning()
     process_pipeline.run_postprocessing()
-    modeling_pipeline.run_training(tuning=True)
+    modeling_pipeline.run_training(tuning=False)

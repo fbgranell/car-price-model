@@ -53,7 +53,7 @@ def _r2_objective(trial, X_train, y_train):
     for X_tr, X_va, y_tr, y_va in _kfold_split(X_train, y_train):
         model.fit(X_tr, y_tr, eval_set=[(X_va, y_va)], verbose=False)
         scores.append(r2_score(y_va, model.predict(X_va)))
-    return np.mean(scores)
+    return np.mean(scores).item()
 
 
 def _kfold_split(X_train, y_train):
