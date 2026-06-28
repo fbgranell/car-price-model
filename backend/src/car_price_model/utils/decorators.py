@@ -14,7 +14,7 @@ def log_row_count(func):
             func.__name__,
             format(rows_in, ","),
             format(rows_out, ","),
-            format(rows_out - rows_in, "+,"),  # <-- Cleaned up "+text," to just "+,"
+            format(rows_out - rows_in, "+,"),  
             format((rows_out - rows_in) / rows_in * 100, "+.2f") + "%",
         )
         return result
