@@ -74,7 +74,7 @@ def run_postprocessing():
     """Filter outliers, train-test split, create features, encode categories & save objects."""
     df = reading.read_dataset("data/interim/listings.parquet")
     df = cleaning.drop_columns(
-        df, ["emissions", "curban", "extraurban", "seats", "doors", "height", "max_par", "zero_to_hundred"]
+        df, ["emissions", "curban", "extraurban", "seats", "doors", "height", "max_par", "zero_to_hundred", "location", "color", "cylinder_layout"]
     )
     df = trim_outliers(df, "price", upper_quantile=0.99)
     df = trim_outliers(df, "boot", upper_quantile=0.99)
@@ -82,18 +82,14 @@ def run_postprocessing():
     writing.write_parquet(df, "processed", "listings")
 
     # 85-15 train-test split
-    train_df, test_df = train_test_split(df, test_size=0.15, random_state=42, stratify=df["cylinder_layout"])
-    fe = FeatureEngineer()  # location tiers are defined on train data to avoid any kind of leakage
-    fe.fit_location_tiers(train_df)
-    train_df = fe.transform_onehot_locations_tiers(train_df)
-    test_df = fe.transform_onehot_locations_tiers(test_df)
+    train_df, test_df = train_test_split(df, test_size=0.15, random_state=42)
 
-    category_columns = ["fuel", "gearbox", "color", "brand", "class", "cylinder_layout"]
+
+    category_columns = ["fuel", "gearbox", "brand", "class"]
     encoder = Encoder(category_columns)
     train_df = encoder.fit_transform(train_df)
     test_df = encoder.transform(test_df)
 
     writing.write_parquet(train_df, "processed", "listings_train")
     writing.write_parquet(test_df, "processed", "listings_test")
-    writing.write_object(fe, "models/feature_engineer.joblib")
     writing.write_object(encoder, "models/encoder.joblib")
