@@ -51,17 +51,17 @@ def filter_out_new_cars(df: pd.DataFrame) -> pd.DataFrame:
 
 def remove_units(series: pd.Series) -> pd.Series:
     """Remove units from the dataframe (they are constant for all rows)."""
-    return series.map(lambda x: re.findall(r"\d+", x)[0])
+    return series.map(lambda x: re.findall(r"\d+", str(x))[0])
 
 
 def remove_thousand_separators(series: pd.Series) -> pd.Series:
     """Remove thousand separators (points) from the dataframe."""
-    return series.map(lambda x: x.replace(".", ""))
+    return series.map(lambda x: str(x).replace(".", ""))
 
 
 def extract_age(series: pd.Series) -> pd.Series:
     """Extract age from the dataframe."""
-    return 2023 - series.map(lambda x: re.findall(r"[\d]{4}", x)[0]).astype(int)
+    return 2023 - series.map(lambda x: re.findall(r"[\d]{4}", str(x))[0]).astype(int)
 
 
 def lowercase_columns(df: pd.DataFrame) -> pd.DataFrame:
@@ -127,11 +127,8 @@ def lump_rare_categories(
     for column in columns:
         if pct:
             threshold = len(df) * threshold
-        other_categories = (
-            df[column]
-            .value_counts()[df[column].value_counts().values < threshold]
-            .index
-        )
+        counts = df[column].value_counts()
+        other_categories = counts[counts < threshold].index
         df[column] = np.where(df[column].isin(other_categories), "other", df[column])
     return df
 
