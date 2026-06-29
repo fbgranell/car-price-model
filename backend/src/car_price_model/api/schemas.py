@@ -40,4 +40,4 @@ def year_valid(cls, v):
 
 
 class PricePrediction(BaseModel):
-    predicted_price: float
+    predicted_price: int
