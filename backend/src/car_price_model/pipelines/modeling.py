@@ -8,7 +8,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def run_training(tuning: bool = False):
+
+def run(tuning: bool = False):
     df_train = reading.read_dataset("data/processed/listings_train.parquet")
     df_test = reading.read_dataset("data/processed/listings_test.parquet")
 
@@ -21,7 +22,9 @@ def run_training(tuning: bool = False):
     car_price_model.fit(df_train)
     metrics = car_price_model.evaluate(df_test)
     logger.info(
-        "Saving CarPriceModel powered by XGBoost with r2: %.2f | mae: %.2f | rmse: %.2f", 
-        metrics["r2"], metrics["mae"], metrics["rmse"]
+        "Saving CarPriceModel powered by XGBoost with r2: %.2f | mae: %.2f | rmse: %.2f",
+        metrics["r2"],
+        metrics["mae"],
+        metrics["rmse"],
     )
     writing.write_object(car_price_model, "models/car_price_model.joblib")
