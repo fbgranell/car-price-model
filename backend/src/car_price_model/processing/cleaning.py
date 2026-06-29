@@ -59,9 +59,11 @@ def remove_thousand_separators(series: pd.Series) -> pd.Series:
     return series.map(lambda x: str(x).replace(".", ""))
 
 
-def extract_age(series: pd.Series) -> pd.Series:
+def extract_age(series: pd.Series, year_reference: int = 2023) -> pd.Series:
     """Extract age from the dataframe."""
-    return 2023 - series.map(lambda x: re.findall(r"[\d]{4}", str(x))[0]).astype(int)
+    return year_reference - series.map(
+        lambda x: re.findall(r"[\d]{4}", str(x))[0]
+    ).astype(int)
 
 
 def lowercase_columns(df: pd.DataFrame) -> pd.DataFrame:
