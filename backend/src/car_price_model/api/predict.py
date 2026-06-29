@@ -13,14 +13,18 @@ from datetime import datetime
 
 
 def predict_price(specs: CarSpecs) -> PricePrediction:
-    df = pd.DataFrame([specs.model_dump()]).rename(columns={"class_": "class"})
-    current_year = datetime.now().year
-    df["age"] = cleaning.extract_age(df["year"], reference_year=current_year)
-    df.drop(columns=["year"], inplace=True)
-    numeric_columns = ["cv", "km", "boot", "length", "width", "max_sp", "cmixto", "displac", "gear", "n_cylinders"]
-    df = cleaning.convert_columns_to_numeric(df, numeric_columns)
+    df = _prepare_prediction_data(specs)
     encoder = get_encoder()
     df = encoder.transform(df)
     car_price_model = get_model()
-    price = car_price_model.predict(df)
-    return PricePrediction(predicted_price=float(price[0]))
+    price = round(car_price_model.predict(df)[0], -1)
+    return PricePrediction(predicted_price=price)
+
+
+def _prepare_prediction_data(specs: CarSpecs):
+    df = pd.DataFrame([specs.model_dump()]).rename(columns={"class_": "class"})
+    df["age"] = cleaning.extract_age(df["year"], reference_year=datetime.now().year)
+    df.drop(columns=["year"], inplace=True)
+    numeric_columns = ["cv", "km", "boot", "length", "width", "max_sp", "cmixto", "displac", "gear", "n_cylinders"]
+    df = cleaning.convert_columns_to_numeric(df, numeric_columns)
+    return df
