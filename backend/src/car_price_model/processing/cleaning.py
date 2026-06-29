@@ -13,9 +13,7 @@ def drop_columns(df: pd.DataFrame, columns: list) -> pd.DataFrame:
 @log_row_count
 def deduplicate_merging_locations(df: pd.DataFrame) -> pd.DataFrame:
     """Deduplicate duplicated listings by merging locations."""
-    locations_df = df.groupby("id", as_index=False)["location"].agg(
-        lambda x: x.unique().tolist()
-    )
+    locations_df = df.groupby("id", as_index=False)["location"].agg(lambda x: x.unique().tolist())
     df = df.drop(columns=["location"]).drop_duplicates(subset=["id"])
     return df.merge(locations_df, on="id", how="left")
 
@@ -23,11 +21,7 @@ def deduplicate_merging_locations(df: pd.DataFrame) -> pd.DataFrame:
 @log_row_count
 def drop_duplicates(df: pd.DataFrame) -> pd.DataFrame:
     """Drop duplicate rows."""
-    return (
-        df.drop_duplicates(subset=df.columns.drop("location"))
-        .copy()
-        .reset_index(drop=True)
-    )
+    return df.drop_duplicates(subset=df.columns.drop("location")).copy().reset_index(drop=True)
 
 
 def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
@@ -59,11 +53,9 @@ def remove_thousand_separators(series: pd.Series) -> pd.Series:
     return series.map(lambda x: str(x).replace(".", ""))
 
 
-def extract_age(series: pd.Series, year_reference: int = 2023) -> pd.Series:
+def extract_age(series: pd.Series, reference_year: int = 2023) -> pd.Series:
     """Extract age from the dataframe."""
-    return year_reference - series.map(
-        lambda x: re.findall(r"[\d]{4}", str(x))[0]
-    ).astype(int)
+    return reference_year - series.map(lambda x: re.findall(r"[\d]{4}", str(x))[0]).astype(int)
 
 
 def lowercase_columns(df: pd.DataFrame) -> pd.DataFrame:
@@ -112,16 +104,10 @@ def drop_null_values(df: pd.DataFrame, columns_to_ignore: list = []) -> pd.DataF
 @log_row_count
 def drop_electric_and_commertial_cars(df: pd.DataFrame) -> pd.DataFrame:
     """Drop electric cars from the dataframe."""
-    return (
-        df[(df["fuel"] != "eléctrico") & (df["class"] != "commercial")]
-        .copy()
-        .reset_index(drop=True)
-    )
+    return df[(df["fuel"] != "eléctrico") & (df["class"] != "commercial")].copy().reset_index(drop=True)
 
 
-def lump_rare_categories(
-    df: pd.DataFrame, columns: str | list[str], threshold: int, pct: bool = False
-) -> pd.DataFrame:
+def lump_rare_categories(df: pd.DataFrame, columns: str | list[str], threshold: int, pct: bool = False) -> pd.DataFrame:
     """Keep values that appear more than the threshold."""
     if isinstance(columns, str):
         columns = [columns]
