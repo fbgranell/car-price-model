@@ -54,7 +54,8 @@ def remove_thousand_separators(series: pd.Series) -> pd.Series:
 
 
 def extract_age(series: pd.Series, reference_year: int = 2023) -> pd.Series:
-    """Extract age from the dataframe."""
+    """Extract age from the dataframe. `reference_year` was originally 2023 when the
+    model was trained; in production, it's set to current year to enable extrapolation"""
     return reference_year - series.map(lambda x: re.findall(r"[\d]{4}", str(x))[0]).astype(int)
 
 
