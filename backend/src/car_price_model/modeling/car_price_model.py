@@ -1,13 +1,12 @@
 from xgboost import XGBRegressor
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score
-import mlflow
 import car_price_model.data_io.reading as reading
 import pandas as pd
-from car_price_model.utils.utils import get_pyproject_root
 
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 class CarPriceModel:
     """Car price model estimator using XGBoost."""
@@ -15,6 +14,7 @@ class CarPriceModel:
     def __init__(self, params=None):
         self._init_params(params)
         self.model = XGBRegressor(**self.params)
+        self.column_order = []
 
     def _init_params(self, params: dict | None = None):
         if params is None:
@@ -24,15 +24,15 @@ class CarPriceModel:
         params["enable_categorical"] = True
         self.params = params
 
-
     def fit(self, df: pd.DataFrame):
         """Fit the model with training data."""
         X, y = self.split_features(df)
+        self.column_order = list(X.columns)
         self.model.fit(X, y)
 
     def predict(self, df: pd.DataFrame) -> pd.Series:
         """Predict prices for given data."""
-        preds = self.model.predict(df)
+        preds = self.model.predict(df[self.column_order])
         return preds
 
     def evaluate(self, df: pd.DataFrame) -> dict[str, float]:
