@@ -8,12 +8,14 @@ from pydantic import Field, field_validator
 from datetime import datetime
 from car_price_model.api.enums import Fuel, Gearbox, CarClass
 
+CURRENT_YEAR = datetime.now().year
+
 
 class CarSpecs(BaseModel):
     """Defines the incoming request shape. Numeric fields are bounded to roughly the
     min/max range seen in training; categorical fields are limited to known values."""
 
-    year: int
+    year: int = Field(ge=1990, le=CURRENT_YEAR)
     cv: int = Field(ge=0, le=1000)
     km: int = Field(ge=0, le=1000)
     fuel: Fuel
