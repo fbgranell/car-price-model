@@ -4,7 +4,7 @@ using Pydantic models. Pydantic validates automatically: it is the contract betw
 """
 
 from pydantic import BaseModel
-from pydantic import Field, field_validator
+from pydantic import Field
 from datetime import datetime
 from car_price_model.api.enums import Fuel, Gearbox, CarClass
 
@@ -30,15 +30,6 @@ class CarSpecs(BaseModel):
     gear: int = Field(ge=0, le=10)
     class_: CarClass
     n_cylinders: int = Field(ge=0, le=15)
-
-
-@field_validator("year")
-@classmethod
-def year_valid(cls, v):
-    current = datetime.now().year
-    if not (1990 <= v <= current):
-        raise ValueError(f"year must be 1990–{current}")
-    return v
 
 
 class PricePrediction(BaseModel):
