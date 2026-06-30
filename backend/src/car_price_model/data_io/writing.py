@@ -24,7 +24,7 @@ def write_object(obj, path, absolute=False):
     joblib.dump(obj, path)
 
 
-def save_json(obj, path, absolute=False):
+def write_json(obj, path, absolute=False):
     os.makedirs(Path(path).parent, exist_ok=True)
     if not absolute:
         path = Path(get_pyproject_root()) / path

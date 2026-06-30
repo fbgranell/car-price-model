@@ -16,7 +16,7 @@ def run(tuning: bool = False):
     params_path = "models/best_params.json"
     if tuning or not file_exists(params_path):
         best_params = tune.optimize_hyperparameters(df_train)
-        writing.save_json(best_params, params_path)
+        writing.write_json(best_params, params_path)
 
     car_price_model = CarPriceModel()
     car_price_model.fit(df_train)
