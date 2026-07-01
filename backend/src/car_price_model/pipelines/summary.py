@@ -15,8 +15,7 @@ def run(tuning: bool = False):
     summary = {}
     summary["global"] = {}
     for col in df.columns:
-        if col != "price":
-            summary["global"][col] = get_col_summary(df[col])
+        summary["global"][col] = get_col_summary(df[col])
     summary["global"]["sigma"] = model.sigma
 
     summary["by_class"] = {}
