@@ -28,7 +28,6 @@ def run():
     df = trim_outliers(df, "price", upper_quantile=0.99)
     df = trim_outliers(df, "boot", upper_quantile=0.99)
     df = remove_top_n_outliers(df, "age", 1)
-    writing.write_parquet(df, "processed", "listings")
 
     # 85-15 train-test split
     train_df, test_df = train_test_split(df, test_size=0.15, random_state=42)
@@ -37,7 +36,9 @@ def run():
     encoder = Encoder(category_columns)
     train_df = encoder.fit_transform(train_df)
     test_df = encoder.transform(test_df)
+    df = encoder.transform(df)
 
     writing.write_parquet(train_df, "processed", "listings_train")
     writing.write_parquet(test_df, "processed", "listings_test")
     writing.write_object(encoder, "models/encoder.joblib")
+    writing.write_parquet(df, "processed", "listings")

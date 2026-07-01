@@ -22,9 +22,10 @@ def run(tuning: bool = False):
     car_price_model.fit(df_train)
     metrics = car_price_model.evaluate(df_test)
     logger.info(
-        "Saving CarPriceModel powered by XGBoost with r2: %.2f | mae: %.2f | rmse: %.2f",
+        "Saving CarPriceModel powered by XGBoost with r2: %.2f | mae: %.2f | rmse: %.2f | sigma: %.2f",
         metrics["r2"],
         metrics["mae"],
         metrics["rmse"],
+        metrics["sigma"],
     )
     writing.write_object(car_price_model, "models/car_price_model.joblib")

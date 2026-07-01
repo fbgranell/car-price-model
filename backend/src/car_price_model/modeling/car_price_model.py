@@ -2,7 +2,7 @@ from xgboost import XGBRegressor
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score
 import car_price_model.data_io.reading as reading
 import pandas as pd
-
+import numpy as np
 import logging
 
 logger = logging.getLogger(__name__)
@@ -35,16 +35,21 @@ class CarPriceModel:
         preds = self.model.predict(df[self.column_order])
         return preds
 
-    def evaluate(self, df: pd.DataFrame) -> dict[str, float]:
-        X, y = self.split_features(df)
+    def evaluate(self, test_df: pd.DataFrame) -> dict[str, float]:
+        X, y = self.split_features(test_df)
         preds = self.predict(X)
-        return {
-            "r2": r2_score(y, preds),
-            "mae": mean_absolute_error(y, preds),
-            "rmse": root_mean_squared_error(y, preds),
-        }
+        self.r2 = r2_score(y, preds)
+        self.mae = mean_absolute_error(y, preds)
+        self.rmse = root_mean_squared_error(y, preds)
+        self.sigma = self._get_residual_std(y, preds)
+        return {"r2": self.r2, "mae": self.mae, "rmse": self.rmse, "sigma": self.sigma}
 
     @staticmethod
     def split_features(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
         """Split data into features and target."""
         return df.drop("price", axis=1), df["price"]
+
+    @staticmethod
+    def _get_residual_std(y: pd.Series, preds: pd.Series) -> float:
+        residuals = y - preds
+        return np.std(residuals).item()
