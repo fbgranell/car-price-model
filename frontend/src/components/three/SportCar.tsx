@@ -15,7 +15,7 @@ export default function SportCar({ initialDissolve = 0 }: { initialDissolve?: nu
   // to the scene graph with unpatched materials - avoids a race with the dissolve transition.
   const model = useMemo(() => {
     const clone = scene.clone()
-    applyCarMaterials(clone, '#1c1f22')
+    applyCarMaterials(clone, '#323041')
     applyOutlines(clone, 0.0)
     dampenReflections(clone, { maxMetalness: 0.9, minRoughness: 0.12 })
     applyDissolveEffect(clone, '#00D4FF', initialDissolve)

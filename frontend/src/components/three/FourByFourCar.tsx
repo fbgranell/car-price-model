@@ -17,7 +17,7 @@ export default function FourByFourCar({ initialDissolve = 0 }: { initialDissolve
     const clone = scene.clone()
     dampenReflections(clone, { maxMetalness: 0.9, minRoughness: 0.3 })
     applyOutlines(clone, 0.000)
-    fixGlassRendering(clone)
+    // fixGlassRendering(clone)
     applyDissolveEffect(clone, '#00D4FF', initialDissolve)
     return clone
   }, [scene])

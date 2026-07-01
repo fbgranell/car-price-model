@@ -51,7 +51,7 @@ type MatProps = {
  */
 export function fixGlassRendering(model: THREE.Object3D) {
   const thickness = 0.02
-  const MIN_CHANNEL = 0.5
+  const MIN_CHANNEL = 0.2
 
   model.traverse((child) => {
     const mesh = child as THREE.Mesh
