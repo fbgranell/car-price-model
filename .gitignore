@@ -10,6 +10,12 @@ mlruns/
 mlartifacts/
 mlflow.db
 
+# Node / frontend
+node_modules/
+node_modules/*
+*.tsbuildinfo
+.vercel
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

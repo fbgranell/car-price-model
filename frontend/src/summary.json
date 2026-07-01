@@ -1,0 +1,6816 @@
+{
+  "global": {
+    "age": {
+      "mean": 6,
+      "median": 5,
+      "min": 0,
+      "p1": 0,
+      "p99": 18,
+      "max": 25
+    },
+    "cv": {
+      "mean": 140,
+      "median": 130,
+      "min": 40,
+      "p1": 60,
+      "p99": 350,
+      "max": 630
+    },
+    "km": {
+      "mean": 80,
+      "median": 70,
+      "min": 0,
+      "p1": 0,
+      "p99": 280,
+      "max": 990
+    },
+    "fuel": {
+      "mode": "diesel",
+      "unique": [
+        "diesel",
+        "gasoline",
+        "hybrid"
+      ]
+    },
+    "gearbox": {
+      "mode": "manual",
+      "unique": [
+        "automatic",
+        "manual"
+      ]
+    },
+    "brand": {
+      "mode": "peugeot",
+      "unique": [
+        "bmw",
+        "volkswagen",
+        "ford",
+        "audi",
+        "land",
+        "citroen",
+        "nissan",
+        "peugeot",
+        "hyundai",
+        "other",
+        "renault",
+        "seat",
+        "fiat",
+        "mercedes",
+        "opel",
+        "mazda",
+        "mini",
+        "dacia",
+        "toyota",
+        "volvo",
+        "kia",
+        "skoda"
+      ]
+    },
+    "price": {
+      "mean": 20780,
+      "median": 18950,
+      "min": 500,
+      "p1": 1950,
+      "p99": 56000,
+      "max": 69990
+    },
+    "boot": {
+      "mean": 430,
+      "median": 420,
+      "min": 30,
+      "p1": 100,
+      "p99": 780,
+      "max": 860
+    },
+    "length": {
+      "mean": 440,
+      "median": 440,
+      "min": 250,
+      "p1": 270,
+      "p99": 500,
+      "max": 530
+    },
+    "width": {
+      "mean": 180,
+      "median": 180,
+      "min": 150,
+      "p1": 160,
+      "p99": 200,
+      "max": 220
+    },
+    "max_sp": {
+      "mean": 200,
+      "median": 190,
+      "min": 120,
+      "p1": 140,
+      "p99": 250,
+      "max": 350
+    },
+    "cmixto": {
+      "mean": 5,
+      "median": 5,
+      "min": 1,
+      "p1": 1,
+      "p99": 10,
+      "max": 18
+    },
+    "displac": {
+      "mean": 1600,
+      "median": 1600,
+      "min": 700,
+      "p1": 900,
+      "p99": 3200,
+      "max": 6600
+    },
+    "gear": {
+      "mean": 6,
+      "median": 6,
+      "min": 1,
+      "p1": 1,
+      "p99": 9,
+      "max": 10
+    },
+    "class": {
+      "mode": "standard",
+      "unique": [
+        "sport",
+        "4x4",
+        "standard"
+      ]
+    },
+    "n_cylinders": {
+      "mean": 4,
+      "median": 4,
+      "min": 2,
+      "p1": 3,
+      "p99": 6,
+      "max": 12
+    },
+    "sigma": 2440.275458696896
+  },
+  "by_class": {
+    "sport": {
+      "age": {
+        "mean": 8,
+        "median": 7,
+        "min": 0,
+        "p1": 0,
+        "p99": 19,
+        "max": 25
+      },
+      "cv": {
+        "mean": 210,
+        "median": 190,
+        "min": 40,
+        "p1": 60,
+        "p99": 510,
+        "max": 630
+      },
+      "km": {
+        "mean": 100,
+        "median": 90,
+        "min": 0,
+        "p1": 0,
+        "p99": 290,
+        "max": 710
+      },
+      "fuel": {
+        "mode": "diesel",
+        "unique": [
+          "diesel",
+          "gasoline",
+          "hybrid"
+        ]
+      },
+      "gearbox": {
+        "mode": "automatic",
+        "unique": [
+          "automatic",
+          "manual"
+        ]
+      },
+      "brand": {
+        "mode": "bmw",
+        "unique": [
+          "bmw",
+          "volkswagen",
+          "fiat",
+          "mercedes",
+          "peugeot",
+          "other",
+          "opel",
+          "mazda",
+          "nissan",
+          "audi",
+          "ford",
+          "mini",
+          "hyundai",
+          "renault",
+          "land",
+          "volvo",
+          "toyota"
+        ]
+      },
+      "boot": {
+        "mean": 380,
+        "median": 430,
+        "min": 90,
+        "p1": 100,
+        "p99": 650,
+        "max": 660
+      },
+      "length": {
+        "mean": 450,
+        "median": 460,
+        "min": 250,
+        "p1": 250,
+        "p99": 500,
+        "max": 530
+      },
+      "width": {
+        "mean": 180,
+        "median": 180,
+        "min": 150,
+        "p1": 150,
+        "p99": 200,
+        "max": 200
+      },
+      "max_sp": {
+        "mean": 230,
+        "median": 230,
+        "min": 140,
+        "p1": 140,
+        "p99": 290,
+        "max": 330
+      },
+      "cmixto": {
+        "mean": 6,
+        "median": 6,
+        "min": 2,
+        "p1": 2,
+        "p99": 14,
+        "max": 18
+      },
+      "displac": {
+        "mean": 2300,
+        "median": 2000,
+        "min": 700,
+        "p1": 700,
+        "p99": 5400,
+        "max": 6600
+      },
+      "gear": {
+        "mean": 7,
+        "median": 7,
+        "min": 4,
+        "p1": 5,
+        "p99": 9,
+        "max": 10
+      },
+      "n_cylinders": {
+        "mean": 5,
+        "median": 4,
+        "min": 2,
+        "p1": 3,
+        "p99": 8,
+        "max": 12
+      }
+    },
+    "4x4": {
+      "age": {
+        "mean": 5,
+        "median": 5,
+        "min": 0,
+        "p1": 0,
+        "p99": 16,
+        "max": 20
+      },
+      "cv": {
+        "mean": 150,
+        "median": 140,
+        "min": 80,
+        "p1": 80,
+        "p99": 310,
+        "max": 580
+      },
+      "km": {
+        "mean": 70,
+        "median": 60,
+        "min": 0,
+        "p1": 0,
+        "p99": 270,
+        "max": 960
+      },
+      "fuel": {
+        "mode": "diesel",
+        "unique": [
+          "diesel",
+          "gasoline",
+          "hybrid"
+        ]
+      },
+      "gearbox": {
+        "mode": "manual",
+        "unique": [
+          "manual",
+          "automatic"
+        ]
+      },
+      "brand": {
+        "mode": "peugeot",
+        "unique": [
+          "ford",
+          "audi",
+          "land",
+          "citroen",
+          "nissan",
+          "bmw",
+          "peugeot",
+          "hyundai",
+          "fiat",
+          "seat",
+          "volkswagen",
+          "renault",
+          "dacia",
+          "toyota",
+          "other",
+          "mercedes",
+          "volvo",
+          "kia",
+          "opel",
+          "mazda",
+          "skoda",
+          "mini"
+        ]
+      },
+      "boot": {
+        "mean": 470,
+        "median": 460,
+        "min": 80,
+        "p1": 80,
+        "p99": 780,
+        "max": 860
+      },
+      "length": {
+        "mean": 440,
+        "median": 440,
+        "min": 350,
+        "p1": 370,
+        "p99": 500,
+        "max": 520
+      },
+      "width": {
+        "mean": 180,
+        "median": 180,
+        "min": 160,
+        "p1": 170,
+        "p99": 210,
+        "max": 210
+      },
+      "max_sp": {
+        "mean": 190,
+        "median": 190,
+        "min": 140,
+        "p1": 160,
+        "p99": 240,
+        "max": 350
+      },
+      "cmixto": {
+        "mean": 5,
+        "median": 5,
+        "min": 1,
+        "p1": 1,
+        "p99": 9,
+        "max": 17
+      },
+      "displac": {
+        "mean": 1700,
+        "median": 1600,
+        "min": 900,
+        "p1": 900,
+        "p99": 3000,
+        "max": 6200
+      },
+      "gear": {
+        "mean": 6,
+        "median": 6,
+        "min": 1,
+        "p1": 1,
+        "p99": 9,
+        "max": 10
+      },
+      "n_cylinders": {
+        "mean": 4,
+        "median": 4,
+        "min": 3,
+        "p1": 3,
+        "p99": 6,
+        "max": 12
+      }
+    },
+    "standard": {
+      "age": {
+        "mean": 6,
+        "median": 5,
+        "min": 0,
+        "p1": 0,
+        "p99": 18,
+        "max": 22
+      },
+      "cv": {
+        "mean": 120,
+        "median": 120,
+        "min": 40,
+        "p1": 60,
+        "p99": 310,
+        "max": 630
+      },
+      "km": {
+        "mean": 90,
+        "median": 80,
+        "min": 0,
+        "p1": 0,
+        "p99": 280,
+        "max": 990
+      },
+      "fuel": {
+        "mode": "diesel",
+        "unique": [
+          "diesel",
+          "gasoline",
+          "hybrid"
+        ]
+      },
+      "gearbox": {
+        "mode": "manual",
+        "unique": [
+          "manual",
+          "automatic"
+        ]
+      },
+      "brand": {
+        "mode": "citroen",
+        "unique": [
+          "other",
+          "peugeot",
+          "bmw",
+          "citroen",
+          "renault",
+          "seat",
+          "audi",
+          "ford",
+          "mazda",
+          "opel",
+          "volkswagen",
+          "nissan",
+          "dacia",
+          "kia",
+          "hyundai",
+          "mercedes",
+          "toyota",
+          "mini",
+          "skoda",
+          "fiat",
+          "volvo"
+        ]
+      },
+      "boot": {
+        "mean": 400,
+        "median": 380,
+        "min": 30,
+        "p1": 140,
+        "p99": 800,
+        "max": 850
+      },
+      "length": {
+        "mean": 430,
+        "median": 430,
+        "min": 270,
+        "p1": 270,
+        "p99": 500,
+        "max": 530
+      },
+      "width": {
+        "mean": 180,
+        "median": 180,
+        "min": 150,
+        "p1": 160,
+        "p99": 190,
+        "max": 220
+      },
+      "max_sp": {
+        "mean": 190,
+        "median": 190,
+        "min": 120,
+        "p1": 140,
+        "p99": 250,
+        "max": 310
+      },
+      "cmixto": {
+        "mean": 5,
+        "median": 4,
+        "min": 1,
+        "p1": 1,
+        "p99": 8,
+        "max": 18
+      },
+      "displac": {
+        "mean": 1600,
+        "median": 1500,
+        "min": 800,
+        "p1": 900,
+        "p99": 3000,
+        "max": 6300
+      },
+      "gear": {
+        "mean": 6,
+        "median": 6,
+        "min": 1,
+        "p1": 1,
+        "p99": 9,
+        "max": 9
+      },
+      "n_cylinders": {
+        "mean": 4,
+        "median": 4,
+        "min": 2,
+        "p1": 2,
+        "p99": 6,
+        "max": 12
+      }
+    }
+  },
+  "by_brand": {
+    "sport": {
+      "bmw": {
+        "age": {
+          "mean": 7,
+          "median": 6,
+          "min": 0,
+          "p1": 0,
+          "p99": 17,
+          "max": 19
+        },
+        "cv": {
+          "mean": 230,
+          "median": 190,
+          "min": 120,
+          "p1": 120,
+          "p99": 560,
+          "max": 580
+        },
+        "km": {
+          "mean": 100,
+          "median": 100,
+          "min": 0,
+          "p1": 0,
+          "p99": 300,
+          "max": 500
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "automatic",
+            "manual"
+          ]
+        },
+        "boot": {
+          "mean": 430,
+          "median": 460,
+          "min": 150,
+          "p1": 150,
+          "p99": 570,
+          "max": 580
+        },
+        "length": {
+          "mean": 460,
+          "median": 460,
+          "min": 410,
+          "p1": 410,
+          "p99": 500,
+          "max": 500
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 200,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 230,
+          "median": 230,
+          "min": 200,
+          "p1": 200,
+          "p99": 250,
+          "max": 280
+        },
+        "cmixto": {
+          "mean": 6,
+          "median": 5,
+          "min": 2,
+          "p1": 2,
+          "p99": 12,
+          "max": 15
+        },
+        "displac": {
+          "mean": 2400,
+          "median": 2000,
+          "min": 1500,
+          "p1": 1500,
+          "p99": 4400,
+          "max": 5000
+        },
+        "gear": {
+          "mean": 7,
+          "median": 8,
+          "min": 6,
+          "p1": 6,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 5,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 8,
+          "max": 10
+        }
+      },
+      "volkswagen": {
+        "age": {
+          "mean": 8,
+          "median": 7,
+          "min": 0,
+          "p1": 0,
+          "p99": 17,
+          "max": 18
+        },
+        "cv": {
+          "mean": 160,
+          "median": 150,
+          "min": 100,
+          "p1": 100,
+          "p99": 280,
+          "max": 320
+        },
+        "km": {
+          "mean": 120,
+          "median": 100,
+          "min": 0,
+          "p1": 0,
+          "p99": 450,
+          "max": 710
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 420,
+          "median": 530,
+          "min": 200,
+          "p1": 200,
+          "p99": 560,
+          "max": 560
+        },
+        "length": {
+          "mean": 460,
+          "median": 480,
+          "min": 410,
+          "p1": 410,
+          "p99": 490,
+          "max": 490
+        },
+        "width": {
+          "mean": 180,
+          "median": 190,
+          "min": 170,
+          "p1": 170,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 220,
+          "median": 220,
+          "min": 180,
+          "p1": 180,
+          "p99": 250,
+          "max": 250
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 4,
+          "p1": 4,
+          "p99": 8,
+          "max": 9
+        },
+        "displac": {
+          "mean": 1800,
+          "median": 2000,
+          "min": 1200,
+          "p1": 1200,
+          "p99": 2000,
+          "max": 2000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 4,
+          "p1": 4,
+          "p99": 7,
+          "max": 7
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "fiat": {
+        "age": {
+          "mean": 6,
+          "median": 6,
+          "min": 1,
+          "p1": 1,
+          "p99": 13,
+          "max": 13
+        },
+        "cv": {
+          "mean": 70,
+          "median": 70,
+          "min": 70,
+          "p1": 70,
+          "p99": 140,
+          "max": 140
+        },
+        "km": {
+          "mean": 60,
+          "median": 60,
+          "min": 0,
+          "p1": 0,
+          "p99": 210,
+          "max": 350
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "gasoline",
+            "diesel"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 180,
+          "median": 180,
+          "min": 140,
+          "p1": 140,
+          "p99": 180,
+          "max": 180
+        },
+        "length": {
+          "mean": 360,
+          "median": 360,
+          "min": 360,
+          "p1": 360,
+          "p99": 400,
+          "max": 400
+        },
+        "width": {
+          "mean": 160,
+          "median": 160,
+          "min": 160,
+          "p1": 160,
+          "p99": 170,
+          "max": 170
+        },
+        "max_sp": {
+          "mean": 160,
+          "median": 160,
+          "min": 160,
+          "p1": 160,
+          "p99": 220,
+          "max": 220
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 3,
+          "p1": 3,
+          "p99": 6,
+          "max": 6
+        },
+        "displac": {
+          "mean": 1200,
+          "median": 1200,
+          "min": 900,
+          "p1": 900,
+          "p99": 1400,
+          "max": 1400
+        },
+        "gear": {
+          "mean": 5,
+          "median": 5,
+          "min": 5,
+          "p1": 5,
+          "p99": 6,
+          "max": 6
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 2,
+          "p1": 2,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "mercedes": {
+        "age": {
+          "mean": 8,
+          "median": 6,
+          "min": 0,
+          "p1": 0,
+          "p99": 19,
+          "max": 21
+        },
+        "cv": {
+          "mean": 210,
+          "median": 180,
+          "min": 120,
+          "p1": 120,
+          "p99": 510,
+          "max": 580
+        },
+        "km": {
+          "mean": 90,
+          "median": 80,
+          "min": 0,
+          "p1": 0,
+          "p99": 280,
+          "max": 440
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "automatic",
+            "manual"
+          ]
+        },
+        "boot": {
+          "mean": 430,
+          "median": 470,
+          "min": 210,
+          "p1": 210,
+          "p99": 650,
+          "max": 660
+        },
+        "length": {
+          "mean": 470,
+          "median": 470,
+          "min": 410,
+          "p1": 410,
+          "p99": 500,
+          "max": 510
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 170,
+          "p1": 170,
+          "p99": 200,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 230,
+          "median": 230,
+          "min": 210,
+          "p1": 210,
+          "p99": 250,
+          "max": 290
+        },
+        "cmixto": {
+          "mean": 6,
+          "median": 5,
+          "min": 2,
+          "p1": 2,
+          "p99": 13,
+          "max": 15
+        },
+        "displac": {
+          "mean": 2400,
+          "median": 2100,
+          "min": 1500,
+          "p1": 1500,
+          "p99": 5500,
+          "max": 6200
+        },
+        "gear": {
+          "mean": 8,
+          "median": 7,
+          "min": 5,
+          "p1": 5,
+          "p99": 9,
+          "max": 9
+        },
+        "n_cylinders": {
+          "mean": 5,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 8,
+          "max": 8
+        }
+      },
+      "peugeot": {
+        "age": {
+          "mean": 14,
+          "median": 14,
+          "min": 8,
+          "p1": 8,
+          "p99": 19,
+          "max": 19
+        },
+        "cv": {
+          "mean": 150,
+          "median": 130,
+          "min": 110,
+          "p1": 110,
+          "p99": 240,
+          "max": 270
+        },
+        "km": {
+          "mean": 130,
+          "median": 120,
+          "min": 20,
+          "p1": 20,
+          "p99": 270,
+          "max": 280
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "gasoline",
+            "diesel"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 270,
+          "median": 230,
+          "min": 140,
+          "p1": 140,
+          "p99": 400,
+          "max": 400
+        },
+        "length": {
+          "mean": 440,
+          "median": 440,
+          "min": 380,
+          "p1": 380,
+          "p99": 480,
+          "max": 480
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 170,
+          "p1": 170,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 210,
+          "median": 200,
+          "min": 190,
+          "p1": 190,
+          "p99": 250,
+          "max": 250
+        },
+        "cmixto": {
+          "mean": 7,
+          "median": 7,
+          "min": 5,
+          "p1": 5,
+          "p99": 9,
+          "max": 9
+        },
+        "displac": {
+          "mean": 1800,
+          "median": 1600,
+          "min": 1600,
+          "p1": 1600,
+          "p99": 2700,
+          "max": 2700
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 4,
+          "p1": 4,
+          "p99": 6,
+          "max": 6
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 6,
+          "max": 6
+        }
+      },
+      "other": {
+        "age": {
+          "mean": 10,
+          "median": 10,
+          "min": 1,
+          "p1": 1,
+          "p99": 20,
+          "max": 21
+        },
+        "cv": {
+          "mean": 250,
+          "median": 260,
+          "min": 40,
+          "p1": 40,
+          "p99": 560,
+          "max": 630
+        },
+        "km": {
+          "mean": 90,
+          "median": 80,
+          "min": 0,
+          "p1": 0,
+          "p99": 260,
+          "max": 700
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "gasoline",
+            "diesel",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 240,
+          "median": 180,
+          "min": 100,
+          "p1": 100,
+          "p99": 500,
+          "max": 630
+        },
+        "length": {
+          "mean": 410,
+          "median": 440,
+          "min": 250,
+          "p1": 250,
+          "p99": 500,
+          "max": 530
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 150,
+          "p1": 150,
+          "p99": 200,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 240,
+          "median": 250,
+          "min": 140,
+          "p1": 140,
+          "p99": 310,
+          "max": 320
+        },
+        "cmixto": {
+          "mean": 8,
+          "median": 7,
+          "min": 3,
+          "p1": 3,
+          "p99": 17,
+          "max": 18
+        },
+        "displac": {
+          "mean": 2600,
+          "median": 2700,
+          "min": 700,
+          "p1": 700,
+          "p99": 6200,
+          "max": 6600
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 5,
+          "median": 6,
+          "min": 3,
+          "p1": 3,
+          "p99": 12,
+          "max": 12
+        }
+      },
+      "opel": {
+        "age": {
+          "mean": 11,
+          "median": 12,
+          "min": 5,
+          "p1": 5,
+          "p99": 18,
+          "max": 18
+        },
+        "cv": {
+          "mean": 140,
+          "median": 140,
+          "min": 90,
+          "p1": 90,
+          "p99": 170,
+          "max": 170
+        },
+        "km": {
+          "mean": 100,
+          "median": 80,
+          "min": 20,
+          "p1": 20,
+          "p99": 250,
+          "max": 250
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "gasoline",
+            "diesel"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 250,
+          "median": 260,
+          "min": 200,
+          "p1": 200,
+          "p99": 280,
+          "max": 280
+        },
+        "length": {
+          "mean": 450,
+          "median": 460,
+          "min": 390,
+          "p1": 390,
+          "p99": 470,
+          "max": 470
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 170,
+          "p1": 170,
+          "p99": 180,
+          "max": 180
+        },
+        "max_sp": {
+          "mean": 200,
+          "median": 210,
+          "min": 180,
+          "p1": 180,
+          "p99": 220,
+          "max": 220
+        },
+        "cmixto": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 8,
+          "max": 8
+        },
+        "displac": {
+          "mean": 1600,
+          "median": 1600,
+          "min": 1400,
+          "p1": 1400,
+          "p99": 2000,
+          "max": 2000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 6,
+          "max": 6
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "mazda": {
+        "age": {
+          "mean": 7,
+          "median": 6,
+          "min": 1,
+          "p1": 1,
+          "p99": 18,
+          "max": 19
+        },
+        "cv": {
+          "mean": 160,
+          "median": 160,
+          "min": 130,
+          "p1": 130,
+          "p99": 210,
+          "max": 230
+        },
+        "km": {
+          "mean": 70,
+          "median": 60,
+          "min": 10,
+          "p1": 10,
+          "p99": 160,
+          "max": 170
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 150,
+          "median": 150,
+          "min": 130,
+          "p1": 130,
+          "p99": 230,
+          "max": 280
+        },
+        "length": {
+          "mean": 400,
+          "median": 390,
+          "min": 390,
+          "p1": 390,
+          "p99": 430,
+          "max": 440
+        },
+        "width": {
+          "mean": 170,
+          "median": 170,
+          "min": 170,
+          "p1": 170,
+          "p99": 180,
+          "max": 180
+        },
+        "max_sp": {
+          "mean": 210,
+          "median": 200,
+          "min": 190,
+          "p1": 190,
+          "p99": 230,
+          "max": 240
+        },
+        "cmixto": {
+          "mean": 7,
+          "median": 7,
+          "min": 6,
+          "p1": 6,
+          "p99": 10,
+          "max": 11
+        },
+        "displac": {
+          "mean": 1800,
+          "median": 2000,
+          "min": 1300,
+          "p1": 1300,
+          "p99": 2000,
+          "max": 2000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 6,
+          "max": 6
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 2,
+          "p1": 2,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "nissan": {
+        "age": {
+          "mean": 10,
+          "median": 8,
+          "min": 3,
+          "p1": 3,
+          "p99": 17,
+          "max": 17
+        },
+        "cv": {
+          "mean": 250,
+          "median": 330,
+          "min": 90,
+          "p1": 90,
+          "p99": 330,
+          "max": 330
+        },
+        "km": {
+          "mean": 70,
+          "median": 60,
+          "min": 10,
+          "p1": 10,
+          "p99": 160,
+          "max": 160
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 230,
+          "median": 240,
+          "min": 140,
+          "p1": 140,
+          "p99": 260,
+          "max": 260
+        },
+        "length": {
+          "mean": 410,
+          "median": 420,
+          "min": 380,
+          "p1": 380,
+          "p99": 430,
+          "max": 430
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 170,
+          "p1": 170,
+          "p99": 180,
+          "max": 180
+        },
+        "max_sp": {
+          "mean": 230,
+          "median": 250,
+          "min": 180,
+          "p1": 180,
+          "p99": 250,
+          "max": 250
+        },
+        "cmixto": {
+          "mean": 10,
+          "median": 12,
+          "min": 7,
+          "p1": 7,
+          "p99": 12,
+          "max": 12
+        },
+        "displac": {
+          "mean": 3000,
+          "median": 3700,
+          "min": 1400,
+          "p1": 1400,
+          "p99": 3700,
+          "max": 3700
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 7,
+          "max": 7
+        },
+        "n_cylinders": {
+          "mean": 5,
+          "median": 6,
+          "min": 4,
+          "p1": 4,
+          "p99": 6,
+          "max": 6
+        }
+      },
+      "audi": {
+        "age": {
+          "mean": 9,
+          "median": 8,
+          "min": 2,
+          "p1": 2,
+          "p99": 24,
+          "max": 25
+        },
+        "cv": {
+          "mean": 230,
+          "median": 200,
+          "min": 100,
+          "p1": 100,
+          "p99": 560,
+          "max": 610
+        },
+        "km": {
+          "mean": 120,
+          "median": 110,
+          "min": 0,
+          "p1": 0,
+          "p99": 270,
+          "max": 290
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "gasoline",
+            "diesel"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "automatic",
+            "manual"
+          ]
+        },
+        "boot": {
+          "mean": 410,
+          "median": 460,
+          "min": 90,
+          "p1": 100,
+          "p99": 600,
+          "max": 600
+        },
+        "length": {
+          "mean": 460,
+          "median": 460,
+          "min": 400,
+          "p1": 400,
+          "p99": 500,
+          "max": 500
+        },
+        "width": {
+          "mean": 190,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 200,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 240,
+          "median": 240,
+          "min": 180,
+          "p1": 180,
+          "p99": 280,
+          "max": 330
+        },
+        "cmixto": {
+          "mean": 6,
+          "median": 6,
+          "min": 4,
+          "p1": 4,
+          "p99": 12,
+          "max": 14
+        },
+        "displac": {
+          "mean": 2400,
+          "median": 2000,
+          "min": 1400,
+          "p1": 1400,
+          "p99": 4200,
+          "max": 5200
+        },
+        "gear": {
+          "mean": 7,
+          "median": 7,
+          "min": 5,
+          "p1": 5,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 5,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 8,
+          "max": 10
+        }
+      },
+      "ford": {
+        "age": {
+          "mean": 6,
+          "median": 6,
+          "min": 2,
+          "p1": 2,
+          "p99": 14,
+          "max": 17
+        },
+        "cv": {
+          "mean": 390,
+          "median": 420,
+          "min": 290,
+          "p1": 290,
+          "p99": 460,
+          "max": 460
+        },
+        "km": {
+          "mean": 50,
+          "median": 50,
+          "min": 0,
+          "p1": 0,
+          "p99": 140,
+          "max": 160
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 390,
+          "median": 410,
+          "min": 330,
+          "p1": 330,
+          "p99": 410,
+          "max": 410
+        },
+        "length": {
+          "mean": 480,
+          "median": 480,
+          "min": 480,
+          "p1": 480,
+          "p99": 480,
+          "max": 480
+        },
+        "width": {
+          "mean": 190,
+          "median": 190,
+          "min": 190,
+          "p1": 190,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 240,
+          "median": 250,
+          "min": 230,
+          "p1": 230,
+          "p99": 250,
+          "max": 250
+        },
+        "cmixto": {
+          "mean": 11,
+          "median": 12,
+          "min": 8,
+          "p1": 8,
+          "p99": 14,
+          "max": 14
+        },
+        "displac": {
+          "mean": 4000,
+          "median": 5000,
+          "min": 2300,
+          "p1": 2300,
+          "p99": 5000,
+          "max": 5000
+        },
+        "gear": {
+          "mean": 7,
+          "median": 6,
+          "min": 6,
+          "p1": 6,
+          "p99": 10,
+          "max": 10
+        },
+        "n_cylinders": {
+          "mean": 7,
+          "median": 8,
+          "min": 4,
+          "p1": 4,
+          "p99": 8,
+          "max": 8
+        }
+      },
+      "mini": {
+        "age": {
+          "mean": 8,
+          "median": 7,
+          "min": 1,
+          "p1": 1,
+          "p99": 18,
+          "max": 18
+        },
+        "cv": {
+          "mean": 150,
+          "median": 140,
+          "min": 90,
+          "p1": 90,
+          "p99": 230,
+          "max": 230
+        },
+        "km": {
+          "mean": 80,
+          "median": 70,
+          "min": 0,
+          "p1": 0,
+          "p99": 200,
+          "max": 690
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "gasoline",
+            "diesel"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 160,
+          "median": 160,
+          "min": 120,
+          "p1": 120,
+          "p99": 280,
+          "max": 280
+        },
+        "length": {
+          "mean": 380,
+          "median": 380,
+          "min": 360,
+          "p1": 360,
+          "p99": 390,
+          "max": 390
+        },
+        "width": {
+          "mean": 170,
+          "median": 170,
+          "min": 170,
+          "p1": 170,
+          "p99": 170,
+          "max": 170
+        },
+        "max_sp": {
+          "mean": 210,
+          "median": 210,
+          "min": 180,
+          "p1": 180,
+          "p99": 240,
+          "max": 240
+        },
+        "cmixto": {
+          "mean": 6,
+          "median": 5,
+          "min": 4,
+          "p1": 4,
+          "p99": 9,
+          "max": 9
+        },
+        "displac": {
+          "mean": 1700,
+          "median": 1600,
+          "min": 1500,
+          "p1": 1500,
+          "p99": 2000,
+          "max": 2000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "hyundai": {
+        "age": {
+          "mean": 14,
+          "median": 14,
+          "min": 7,
+          "p1": 7,
+          "p99": 18,
+          "max": 18
+        },
+        "cv": {
+          "mean": 120,
+          "median": 100,
+          "min": 100,
+          "p1": 100,
+          "p99": 140,
+          "max": 140
+        },
+        "km": {
+          "mean": 120,
+          "median": 140,
+          "min": 60,
+          "p1": 60,
+          "p99": 200,
+          "max": 200
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 360,
+          "median": 320,
+          "min": 310,
+          "p1": 310,
+          "p99": 420,
+          "max": 420
+        },
+        "length": {
+          "mean": 430,
+          "median": 440,
+          "min": 420,
+          "p1": 420,
+          "p99": 440,
+          "max": 440
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 180,
+          "max": 180
+        },
+        "max_sp": {
+          "mean": 190,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 200,
+          "max": 200
+        },
+        "cmixto": {
+          "mean": 7,
+          "median": 8,
+          "min": 6,
+          "p1": 6,
+          "p99": 8,
+          "max": 8
+        },
+        "displac": {
+          "mean": 1600,
+          "median": 1600,
+          "min": 1600,
+          "p1": 1600,
+          "p99": 1600,
+          "max": 1600
+        },
+        "gear": {
+          "mean": 5,
+          "median": 5,
+          "min": 5,
+          "p1": 5,
+          "p99": 6,
+          "max": 6
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "renault": {
+        "age": {
+          "mean": 14,
+          "median": 13,
+          "min": 11,
+          "p1": 11,
+          "p99": 17,
+          "max": 17
+        },
+        "cv": {
+          "mean": 130,
+          "median": 130,
+          "min": 100,
+          "p1": 100,
+          "p99": 180,
+          "max": 180
+        },
+        "km": {
+          "mean": 130,
+          "median": 130,
+          "min": 60,
+          "p1": 60,
+          "p99": 200,
+          "max": 200
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 240,
+          "median": 210,
+          "min": 190,
+          "p1": 190,
+          "p99": 420,
+          "max": 420
+        },
+        "length": {
+          "mean": 440,
+          "median": 450,
+          "min": 380,
+          "p1": 380,
+          "p99": 460,
+          "max": 460
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 170,
+          "p1": 170,
+          "p99": 180,
+          "max": 180
+        },
+        "max_sp": {
+          "mean": 200,
+          "median": 200,
+          "min": 180,
+          "p1": 190,
+          "p99": 220,
+          "max": 220
+        },
+        "cmixto": {
+          "mean": 6,
+          "median": 6,
+          "min": 4,
+          "p1": 5,
+          "p99": 8,
+          "max": 8
+        },
+        "displac": {
+          "mean": 1700,
+          "median": 1900,
+          "min": 1100,
+          "p1": 1200,
+          "p99": 2000,
+          "max": 2000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 4,
+          "p1": 4,
+          "p99": 6,
+          "max": 6
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "land": {
+        "age": {
+          "mean": 6,
+          "median": 7,
+          "min": 5,
+          "p1": 5,
+          "p99": 7,
+          "max": 7
+        },
+        "cv": {
+          "mean": 160,
+          "median": 150,
+          "min": 150,
+          "p1": 150,
+          "p99": 180,
+          "max": 180
+        },
+        "km": {
+          "mean": 80,
+          "median": 90,
+          "min": 40,
+          "p1": 40,
+          "p99": 100,
+          "max": 100
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 250,
+          "median": 250,
+          "min": 250,
+          "p1": 250,
+          "p99": 250,
+          "max": 250
+        },
+        "length": {
+          "mean": 440,
+          "median": 440,
+          "min": 440,
+          "p1": 440,
+          "p99": 440,
+          "max": 440
+        },
+        "width": {
+          "mean": 200,
+          "median": 200,
+          "min": 200,
+          "p1": 200,
+          "p99": 200,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 180,
+          "max": 180
+        },
+        "cmixto": {
+          "mean": 6,
+          "median": 6,
+          "min": 6,
+          "p1": 6,
+          "p99": 6,
+          "max": 6
+        },
+        "displac": {
+          "mean": 2000,
+          "median": 2000,
+          "min": 2000,
+          "p1": 2000,
+          "p99": 2000,
+          "max": 2000
+        },
+        "gear": {
+          "mean": 9,
+          "median": 9,
+          "min": 9,
+          "p1": 9,
+          "p99": 9,
+          "max": 9
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "volvo": {
+        "age": {
+          "mean": 14,
+          "median": 15,
+          "min": 11,
+          "p1": 11,
+          "p99": 17,
+          "max": 17
+        },
+        "cv": {
+          "mean": 170,
+          "median": 180,
+          "min": 150,
+          "p1": 150,
+          "p99": 180,
+          "max": 180
+        },
+        "km": {
+          "mean": 160,
+          "median": 140,
+          "min": 90,
+          "p1": 90,
+          "p99": 230,
+          "max": 240
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 190,
+          "median": 200,
+          "min": 170,
+          "p1": 170,
+          "p99": 200,
+          "max": 200
+        },
+        "length": {
+          "mean": 460,
+          "median": 460,
+          "min": 460,
+          "p1": 460,
+          "p99": 460,
+          "max": 460
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 180,
+          "max": 180
+        },
+        "max_sp": {
+          "mean": 220,
+          "median": 220,
+          "min": 210,
+          "p1": 210,
+          "p99": 220,
+          "max": 220
+        },
+        "cmixto": {
+          "mean": 7,
+          "median": 7,
+          "min": 6,
+          "p1": 6,
+          "p99": 7,
+          "max": 7
+        },
+        "displac": {
+          "mean": 2300,
+          "median": 2400,
+          "min": 2000,
+          "p1": 2000,
+          "p99": 2400,
+          "max": 2400
+        },
+        "gear": {
+          "mean": 5,
+          "median": 5,
+          "min": 5,
+          "p1": 5,
+          "p99": 6,
+          "max": 6
+        },
+        "n_cylinders": {
+          "mean": 5,
+          "median": 5,
+          "min": 5,
+          "p1": 5,
+          "p99": 5,
+          "max": 5
+        }
+      },
+      "toyota": {
+        "age": {
+          "mean": 6,
+          "median": 7,
+          "min": 4,
+          "p1": 4,
+          "p99": 8,
+          "max": 8
+        },
+        "cv": {
+          "mean": 250,
+          "median": 200,
+          "min": 200,
+          "p1": 200,
+          "p99": 340,
+          "max": 340
+        },
+        "km": {
+          "mean": 60,
+          "median": 40,
+          "min": 20,
+          "p1": 30,
+          "p99": 120,
+          "max": 120
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "automatic",
+            "manual"
+          ]
+        },
+        "boot": {
+          "mean": 260,
+          "median": 240,
+          "min": 240,
+          "p1": 240,
+          "p99": 290,
+          "max": 290
+        },
+        "length": {
+          "mean": 430,
+          "median": 420,
+          "min": 420,
+          "p1": 420,
+          "p99": 440,
+          "max": 440
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 230,
+          "median": 230,
+          "min": 230,
+          "p1": 230,
+          "p99": 250,
+          "max": 250
+        },
+        "cmixto": {
+          "mean": 8,
+          "median": 8,
+          "min": 8,
+          "p1": 8,
+          "p99": 8,
+          "max": 8
+        },
+        "displac": {
+          "mean": 2300,
+          "median": 2000,
+          "min": 2000,
+          "p1": 2000,
+          "p99": 3000,
+          "max": 3000
+        },
+        "gear": {
+          "mean": 7,
+          "median": 6,
+          "min": 6,
+          "p1": 6,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 5,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 6,
+          "max": 6
+        }
+      }
+    },
+    "4x4": {
+      "ford": {
+        "age": {
+          "mean": 4,
+          "median": 4,
+          "min": 0,
+          "p1": 1,
+          "p99": 13,
+          "max": 14
+        },
+        "cv": {
+          "mean": 150,
+          "median": 140,
+          "min": 90,
+          "p1": 90,
+          "p99": 240,
+          "max": 450
+        },
+        "km": {
+          "mean": 60,
+          "median": 40,
+          "min": 0,
+          "p1": 0,
+          "p99": 230,
+          "max": 890
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 430,
+          "median": 460,
+          "min": 310,
+          "p1": 310,
+          "p99": 600,
+          "max": 600
+        },
+        "length": {
+          "mean": 450,
+          "median": 450,
+          "min": 400,
+          "p1": 400,
+          "p99": 480,
+          "max": 500
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 190,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 190,
+          "median": 190,
+          "min": 160,
+          "p1": 160,
+          "p99": 220,
+          "max": 230
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 1,
+          "p1": 1,
+          "p99": 7,
+          "max": 10
+        },
+        "displac": {
+          "mean": 1600,
+          "median": 1500,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2500,
+          "max": 3000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 8,
+          "max": 10
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 5,
+          "max": 6
+        }
+      },
+      "audi": {
+        "age": {
+          "mean": 5,
+          "median": 5,
+          "min": 1,
+          "p1": 1,
+          "p99": 16,
+          "max": 17
+        },
+        "cv": {
+          "mean": 170,
+          "median": 150,
+          "min": 110,
+          "p1": 110,
+          "p99": 380,
+          "max": 500
+        },
+        "km": {
+          "mean": 80,
+          "median": 70,
+          "min": 0,
+          "p1": 0,
+          "p99": 320,
+          "max": 550
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "automatic",
+            "manual"
+          ]
+        },
+        "boot": {
+          "mean": 500,
+          "median": 530,
+          "min": 330,
+          "p1": 340,
+          "p99": 860,
+          "max": 860
+        },
+        "length": {
+          "mean": 450,
+          "median": 450,
+          "min": 400,
+          "p1": 400,
+          "p99": 510,
+          "max": 510
+        },
+        "width": {
+          "mean": 190,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 200,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 210,
+          "median": 210,
+          "min": 190,
+          "p1": 190,
+          "p99": 250,
+          "max": 350
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 2,
+          "p1": 3,
+          "p99": 10,
+          "max": 11
+        },
+        "displac": {
+          "mean": 1900,
+          "median": 2000,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 3400,
+          "max": 5900
+        },
+        "gear": {
+          "mean": 7,
+          "median": 7,
+          "min": 6,
+          "p1": 6,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 7,
+          "max": 12
+        }
+      },
+      "land": {
+        "age": {
+          "mean": 6,
+          "median": 6,
+          "min": 0,
+          "p1": 1,
+          "p99": 14,
+          "max": 16
+        },
+        "cv": {
+          "mean": 190,
+          "median": 160,
+          "min": 150,
+          "p1": 150,
+          "p99": 400,
+          "max": 510
+        },
+        "km": {
+          "mean": 90,
+          "median": 90,
+          "min": 0,
+          "p1": 0,
+          "p99": 250,
+          "max": 350
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "hybrid",
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "automatic",
+            "manual"
+          ]
+        },
+        "boot": {
+          "mean": 610,
+          "median": 580,
+          "min": 260,
+          "p1": 260,
+          "p99": 780,
+          "max": 860
+        },
+        "length": {
+          "mean": 460,
+          "median": 460,
+          "min": 440,
+          "p1": 440,
+          "p99": 500,
+          "max": 500
+        },
+        "width": {
+          "mean": 200,
+          "median": 210,
+          "min": 190,
+          "p1": 190,
+          "p99": 210,
+          "max": 210
+        },
+        "max_sp": {
+          "mean": 190,
+          "median": 190,
+          "min": 180,
+          "p1": 180,
+          "p99": 240,
+          "max": 240
+        },
+        "cmixto": {
+          "mean": 6,
+          "median": 5,
+          "min": 2,
+          "p1": 2,
+          "p99": 8,
+          "max": 13
+        },
+        "displac": {
+          "mean": 2200,
+          "median": 2000,
+          "min": 1500,
+          "p1": 1500,
+          "p99": 3000,
+          "max": 5000
+        },
+        "gear": {
+          "mean": 8,
+          "median": 8,
+          "min": 6,
+          "p1": 6,
+          "p99": 9,
+          "max": 9
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 6,
+          "max": 8
+        }
+      },
+      "citroen": {
+        "age": {
+          "mean": 3,
+          "median": 3,
+          "min": 0,
+          "p1": 0,
+          "p99": 11,
+          "max": 15
+        },
+        "cv": {
+          "mean": 120,
+          "median": 110,
+          "min": 80,
+          "p1": 80,
+          "p99": 180,
+          "max": 180
+        },
+        "km": {
+          "mean": 40,
+          "median": 30,
+          "min": 0,
+          "p1": 0,
+          "p99": 200,
+          "max": 730
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 470,
+          "median": 410,
+          "min": 410,
+          "p1": 410,
+          "p99": 580,
+          "max": 580
+        },
+        "length": {
+          "mean": 430,
+          "median": 420,
+          "min": 420,
+          "p1": 420,
+          "p99": 460,
+          "max": 480
+        },
+        "width": {
+          "mean": 190,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 200,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 190,
+          "median": 180,
+          "min": 160,
+          "p1": 160,
+          "p99": 210,
+          "max": 220
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 6,
+          "max": 7
+        },
+        "displac": {
+          "mean": 1400,
+          "median": 1500,
+          "min": 1200,
+          "p1": 1200,
+          "p99": 2000,
+          "max": 2200
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "nissan": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 0,
+          "p1": 0,
+          "p99": 16,
+          "max": 18
+        },
+        "cv": {
+          "mean": 130,
+          "median": 120,
+          "min": 90,
+          "p1": 100,
+          "p99": 190,
+          "max": 260
+        },
+        "km": {
+          "mean": 90,
+          "median": 80,
+          "min": 0,
+          "p1": 0,
+          "p99": 280,
+          "max": 920
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 420,
+          "median": 430,
+          "min": 130,
+          "p1": 130,
+          "p99": 560,
+          "max": 690
+        },
+        "length": {
+          "mean": 440,
+          "median": 440,
+          "min": 410,
+          "p1": 410,
+          "p99": 480,
+          "max": 520
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 180,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 180,
+          "median": 180,
+          "min": 160,
+          "p1": 170,
+          "p99": 200,
+          "max": 220
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 4,
+          "p1": 4,
+          "p99": 9,
+          "max": 12
+        },
+        "displac": {
+          "mean": 1500,
+          "median": 1500,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2500,
+          "max": 3500
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 1,
+          "p1": 1,
+          "p99": 7,
+          "max": 7
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 6
+        }
+      },
+      "bmw": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 0,
+          "p1": 1,
+          "p99": 18,
+          "max": 20
+        },
+        "cv": {
+          "mean": 180,
+          "median": 150,
+          "min": 120,
+          "p1": 120,
+          "p99": 330,
+          "max": 580
+        },
+        "km": {
+          "mean": 90,
+          "median": 80,
+          "min": 0,
+          "p1": 0,
+          "p99": 290,
+          "max": 470
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "automatic",
+            "manual"
+          ]
+        },
+        "boot": {
+          "mean": 520,
+          "median": 500,
+          "min": 410,
+          "p1": 410,
+          "p99": 650,
+          "max": 750
+        },
+        "length": {
+          "mean": 450,
+          "median": 440,
+          "min": 440,
+          "p1": 440,
+          "p99": 490,
+          "max": 520
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 170,
+          "p1": 170,
+          "p99": 200,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 210,
+          "median": 210,
+          "min": 190,
+          "p1": 190,
+          "p99": 240,
+          "max": 250
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 2,
+          "p1": 2,
+          "p99": 9,
+          "max": 13
+        },
+        "displac": {
+          "mean": 2100,
+          "median": 2000,
+          "min": 1500,
+          "p1": 1500,
+          "p99": 3000,
+          "max": 4800
+        },
+        "gear": {
+          "mean": 7,
+          "median": 8,
+          "min": 6,
+          "p1": 6,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 6,
+          "max": 8
+        }
+      },
+      "peugeot": {
+        "age": {
+          "mean": 4,
+          "median": 4,
+          "min": 0,
+          "p1": 0,
+          "p99": 9,
+          "max": 15
+        },
+        "cv": {
+          "mean": 130,
+          "median": 130,
+          "min": 80,
+          "p1": 80,
+          "p99": 220,
+          "max": 300
+        },
+        "km": {
+          "mean": 60,
+          "median": 50,
+          "min": 0,
+          "p1": 0,
+          "p99": 190,
+          "max": 500
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "hybrid",
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 500,
+          "median": 520,
+          "min": 360,
+          "p1": 360,
+          "p99": 780,
+          "max": 780
+        },
+        "length": {
+          "mean": 440,
+          "median": 440,
+          "min": 420,
+          "p1": 420,
+          "p99": 460,
+          "max": 480
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 170,
+          "p1": 170,
+          "p99": 180,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 190,
+          "median": 190,
+          "min": 170,
+          "p1": 170,
+          "p99": 220,
+          "max": 240
+        },
+        "cmixto": {
+          "mean": 4,
+          "median": 4,
+          "min": 2,
+          "p1": 2,
+          "p99": 6,
+          "max": 7
+        },
+        "displac": {
+          "mean": 1400,
+          "median": 1500,
+          "min": 1200,
+          "p1": 1200,
+          "p99": 2000,
+          "max": 2200
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "hyundai": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 2,
+          "p1": 2,
+          "p99": 17,
+          "max": 18
+        },
+        "cv": {
+          "mean": 140,
+          "median": 130,
+          "min": 90,
+          "p1": 100,
+          "p99": 200,
+          "max": 250
+        },
+        "km": {
+          "mean": 80,
+          "median": 70,
+          "min": 0,
+          "p1": 0,
+          "p99": 270,
+          "max": 460
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "gasoline",
+            "diesel"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 490,
+          "median": 510,
+          "min": 320,
+          "p1": 320,
+          "p99": 770,
+          "max": 770
+        },
+        "length": {
+          "mean": 440,
+          "median": 450,
+          "min": 410,
+          "p1": 410,
+          "p99": 480,
+          "max": 490
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 190,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 180,
+          "median": 180,
+          "min": 170,
+          "p1": 170,
+          "p99": 200,
+          "max": 210
+        },
+        "cmixto": {
+          "mean": 6,
+          "median": 5,
+          "min": 4,
+          "p1": 4,
+          "p99": 8,
+          "max": 10
+        },
+        "displac": {
+          "mean": 1600,
+          "median": 1600,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2200,
+          "max": 3000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 4,
+          "p1": 5,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 6
+        }
+      },
+      "fiat": {
+        "age": {
+          "mean": 5,
+          "median": 5,
+          "min": 0,
+          "p1": 0,
+          "p99": 8,
+          "max": 9
+        },
+        "cv": {
+          "mean": 120,
+          "median": 120,
+          "min": 100,
+          "p1": 100,
+          "p99": 170,
+          "max": 170
+        },
+        "km": {
+          "mean": 70,
+          "median": 60,
+          "min": 0,
+          "p1": 0,
+          "p99": 180,
+          "max": 600
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "gasoline",
+            "diesel"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 350,
+          "median": 350,
+          "min": 350,
+          "p1": 350,
+          "p99": 350,
+          "max": 350
+        },
+        "length": {
+          "mean": 430,
+          "median": 420,
+          "min": 420,
+          "p1": 420,
+          "p99": 430,
+          "max": 430
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 200,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 180,
+          "median": 190,
+          "min": 170,
+          "p1": 170,
+          "p99": 200,
+          "max": 200
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 4,
+          "p1": 4,
+          "p99": 7,
+          "max": 9
+        },
+        "displac": {
+          "mean": 1400,
+          "median": 1400,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2000,
+          "max": 2000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 9,
+          "max": 9
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "seat": {
+        "age": {
+          "mean": 4,
+          "median": 4,
+          "min": 0,
+          "p1": 0,
+          "p99": 7,
+          "max": 16
+        },
+        "cv": {
+          "mean": 130,
+          "median": 120,
+          "min": 90,
+          "p1": 90,
+          "p99": 190,
+          "max": 200
+        },
+        "km": {
+          "mean": 70,
+          "median": 50,
+          "min": 0,
+          "p1": 0,
+          "p99": 500,
+          "max": 900
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "diesel",
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 490,
+          "median": 510,
+          "min": 280,
+          "p1": 400,
+          "p99": 760,
+          "max": 760
+        },
+        "length": {
+          "mean": 430,
+          "median": 440,
+          "min": 410,
+          "p1": 410,
+          "p99": 470,
+          "max": 470
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 180,
+          "max": 180
+        },
+        "max_sp": {
+          "mean": 190,
+          "median": 190,
+          "min": 170,
+          "p1": 170,
+          "p99": 210,
+          "max": 220
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 4,
+          "p1": 4,
+          "p99": 7,
+          "max": 9
+        },
+        "displac": {
+          "mean": 1400,
+          "median": 1500,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2000,
+          "max": 2000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 7,
+          "max": 7
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "volkswagen": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 2,
+          "p1": 2,
+          "p99": 18,
+          "max": 20
+        },
+        "cv": {
+          "mean": 150,
+          "median": 150,
+          "min": 100,
+          "p1": 100,
+          "p99": 290,
+          "max": 340
+        },
+        "km": {
+          "mean": 90,
+          "median": 80,
+          "min": 10,
+          "p1": 10,
+          "p99": 280,
+          "max": 370
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "automatic",
+            "manual"
+          ]
+        },
+        "boot": {
+          "mean": 530,
+          "median": 560,
+          "min": 230,
+          "p1": 230,
+          "p99": 810,
+          "max": 810
+        },
+        "length": {
+          "mean": 440,
+          "median": 450,
+          "min": 410,
+          "p1": 410,
+          "p99": 490,
+          "max": 490
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 200,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 200,
+          "median": 200,
+          "min": 180,
+          "p1": 180,
+          "p99": 240,
+          "max": 240
+        },
+        "cmixto": {
+          "mean": 6,
+          "median": 5,
+          "min": 4,
+          "p1": 4,
+          "p99": 10,
+          "max": 15
+        },
+        "displac": {
+          "mean": 1800,
+          "median": 2000,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 3000,
+          "max": 4900
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 6,
+          "max": 10
+        }
+      },
+      "renault": {
+        "age": {
+          "mean": 5,
+          "median": 5,
+          "min": 1,
+          "p1": 1,
+          "p99": 13,
+          "max": 15
+        },
+        "cv": {
+          "mean": 110,
+          "median": 110,
+          "min": 90,
+          "p1": 90,
+          "p99": 180,
+          "max": 190
+        },
+        "km": {
+          "mean": 70,
+          "median": 60,
+          "min": 0,
+          "p1": 0,
+          "p99": 200,
+          "max": 880
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 440,
+          "median": 450,
+          "min": 380,
+          "p1": 380,
+          "p99": 540,
+          "max": 580
+        },
+        "length": {
+          "mean": 430,
+          "median": 420,
+          "min": 410,
+          "p1": 410,
+          "p99": 470,
+          "max": 470
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 180,
+          "median": 180,
+          "min": 170,
+          "p1": 170,
+          "p99": 200,
+          "max": 210
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 4,
+          "p1": 4,
+          "p99": 7,
+          "max": 7
+        },
+        "displac": {
+          "mean": 1300,
+          "median": 1300,
+          "min": 900,
+          "p1": 900,
+          "p99": 2000,
+          "max": 2000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 1,
+          "p1": 1,
+          "p99": 7,
+          "max": 7
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "dacia": {
+        "age": {
+          "mean": 6,
+          "median": 6,
+          "min": 1,
+          "p1": 1,
+          "p99": 12,
+          "max": 13
+        },
+        "cv": {
+          "mean": 110,
+          "median": 110,
+          "min": 80,
+          "p1": 90,
+          "p99": 130,
+          "max": 150
+        },
+        "km": {
+          "mean": 80,
+          "median": 80,
+          "min": 0,
+          "p1": 0,
+          "p99": 210,
+          "max": 550
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 460,
+          "median": 480,
+          "min": 410,
+          "p1": 410,
+          "p99": 480,
+          "max": 480
+        },
+        "length": {
+          "mean": 430,
+          "median": 430,
+          "min": 430,
+          "p1": 430,
+          "p99": 430,
+          "max": 430
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 180,
+          "max": 180
+        },
+        "max_sp": {
+          "mean": 170,
+          "median": 170,
+          "min": 150,
+          "p1": 150,
+          "p99": 190,
+          "max": 200
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 4,
+          "p1": 4,
+          "p99": 8,
+          "max": 8
+        },
+        "displac": {
+          "mean": 1400,
+          "median": 1500,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 1600,
+          "max": 1600
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 6,
+          "max": 6
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "toyota": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 0,
+          "p1": 1,
+          "p99": 18,
+          "max": 20
+        },
+        "cv": {
+          "mean": 160,
+          "median": 140,
+          "min": 120,
+          "p1": 120,
+          "p99": 220,
+          "max": 290
+        },
+        "km": {
+          "mean": 90,
+          "median": 80,
+          "min": 0,
+          "p1": 0,
+          "p99": 270,
+          "max": 540
+        },
+        "fuel": {
+          "mode": "hybrid",
+          "unique": [
+            "gasoline",
+            "hybrid",
+            "diesel"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 450,
+          "median": 380,
+          "min": 100,
+          "p1": 100,
+          "p99": 620,
+          "max": 620
+        },
+        "length": {
+          "mean": 450,
+          "median": 440,
+          "min": 380,
+          "p1": 380,
+          "p99": 480,
+          "max": 500
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 170,
+          "p1": 170,
+          "p99": 190,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 180,
+          "median": 180,
+          "min": 170,
+          "p1": 170,
+          "p99": 200,
+          "max": 210
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 9,
+          "max": 13
+        },
+        "displac": {
+          "mean": 2200,
+          "median": 2000,
+          "min": 1800,
+          "p1": 1800,
+          "p99": 3000,
+          "max": 4500
+        },
+        "gear": {
+          "mean": 2,
+          "median": 1,
+          "min": 1,
+          "p1": 1,
+          "p99": 6,
+          "max": 6
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 4,
+          "max": 8
+        }
+      },
+      "other": {
+        "age": {
+          "mean": 5,
+          "median": 5,
+          "min": 0,
+          "p1": 0,
+          "p99": 16,
+          "max": 19
+        },
+        "cv": {
+          "mean": 170,
+          "median": 150,
+          "min": 80,
+          "p1": 90,
+          "p99": 380,
+          "max": 500
+        },
+        "km": {
+          "mean": 80,
+          "median": 60,
+          "min": 0,
+          "p1": 0,
+          "p99": 300,
+          "max": 960
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "automatic",
+            "manual"
+          ]
+        },
+        "boot": {
+          "mean": 460,
+          "median": 450,
+          "min": 80,
+          "p1": 80,
+          "p99": 780,
+          "max": 780
+        },
+        "length": {
+          "mean": 450,
+          "median": 440,
+          "min": 350,
+          "p1": 350,
+          "p99": 490,
+          "max": 510
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 160,
+          "p1": 160,
+          "p99": 210,
+          "max": 210
+        },
+        "max_sp": {
+          "mean": 200,
+          "median": 190,
+          "min": 140,
+          "p1": 140,
+          "p99": 250,
+          "max": 280
+        },
+        "cmixto": {
+          "mean": 6,
+          "median": 6,
+          "min": 2,
+          "p1": 2,
+          "p99": 10,
+          "max": 17
+        },
+        "displac": {
+          "mean": 1900,
+          "median": 1800,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 3600,
+          "max": 6200
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 1,
+          "p1": 1,
+          "p99": 9,
+          "max": 9
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 6,
+          "max": 8
+        }
+      },
+      "mercedes": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 0,
+          "p1": 0,
+          "p99": 16,
+          "max": 18
+        },
+        "cv": {
+          "mean": 180,
+          "median": 170,
+          "min": 120,
+          "p1": 120,
+          "p99": 430,
+          "max": 580
+        },
+        "km": {
+          "mean": 80,
+          "median": 70,
+          "min": 0,
+          "p1": 0,
+          "p99": 300,
+          "max": 650
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "automatic",
+            "manual"
+          ]
+        },
+        "boot": {
+          "mean": 500,
+          "median": 450,
+          "min": 360,
+          "p1": 380,
+          "p99": 690,
+          "max": 690
+        },
+        "length": {
+          "mean": 460,
+          "median": 460,
+          "min": 440,
+          "p1": 440,
+          "p99": 510,
+          "max": 520
+        },
+        "width": {
+          "mean": 190,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 190,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 210,
+          "median": 210,
+          "min": 180,
+          "p1": 180,
+          "p99": 250,
+          "max": 250
+        },
+        "cmixto": {
+          "mean": 6,
+          "median": 5,
+          "min": 2,
+          "p1": 2,
+          "p99": 11,
+          "max": 16
+        },
+        "displac": {
+          "mean": 2100,
+          "median": 2100,
+          "min": 1300,
+          "p1": 1300,
+          "p99": 4000,
+          "max": 6200
+        },
+        "gear": {
+          "mean": 8,
+          "median": 7,
+          "min": 6,
+          "p1": 6,
+          "p99": 9,
+          "max": 9
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 8,
+          "max": 8
+        }
+      },
+      "volvo": {
+        "age": {
+          "mean": 5,
+          "median": 5,
+          "min": 1,
+          "p1": 1,
+          "p99": 14,
+          "max": 19
+        },
+        "cv": {
+          "mean": 190,
+          "median": 190,
+          "min": 120,
+          "p1": 120,
+          "p99": 410,
+          "max": 410
+        },
+        "km": {
+          "mean": 90,
+          "median": 80,
+          "min": 0,
+          "p1": 0,
+          "p99": 280,
+          "max": 800
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "hybrid",
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "automatic",
+            "manual"
+          ]
+        },
+        "boot": {
+          "mean": 460,
+          "median": 490,
+          "min": 310,
+          "p1": 310,
+          "p99": 640,
+          "max": 720
+        },
+        "length": {
+          "mean": 460,
+          "median": 460,
+          "min": 440,
+          "p1": 440,
+          "p99": 500,
+          "max": 500
+        },
+        "width": {
+          "mean": 190,
+          "median": 190,
+          "min": 180,
+          "p1": 180,
+          "p99": 200,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 210,
+          "median": 200,
+          "min": 180,
+          "p1": 180,
+          "p99": 230,
+          "max": 230
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 2,
+          "p1": 2,
+          "p99": 8,
+          "max": 9
+        },
+        "displac": {
+          "mean": 1900,
+          "median": 2000,
+          "min": 1500,
+          "p1": 1500,
+          "p99": 2400,
+          "max": 2500
+        },
+        "gear": {
+          "mean": 7,
+          "median": 8,
+          "min": 6,
+          "p1": 6,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 5,
+          "max": 5
+        }
+      },
+      "kia": {
+        "age": {
+          "mean": 5,
+          "median": 4,
+          "min": 0,
+          "p1": 0,
+          "p99": 15,
+          "max": 18
+        },
+        "cv": {
+          "mean": 130,
+          "median": 130,
+          "min": 80,
+          "p1": 80,
+          "p99": 200,
+          "max": 200
+        },
+        "km": {
+          "mean": 60,
+          "median": 50,
+          "min": 0,
+          "p1": 0,
+          "p99": 220,
+          "max": 860
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 430,
+          "median": 440,
+          "min": 120,
+          "p1": 120,
+          "p99": 670,
+          "max": 670
+        },
+        "length": {
+          "mean": 440,
+          "median": 440,
+          "min": 410,
+          "p1": 410,
+          "p99": 480,
+          "max": 480
+        },
+        "width": {
+          "mean": 180,
+          "median": 190,
+          "min": 180,
+          "p1": 180,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 180,
+          "median": 180,
+          "min": 160,
+          "p1": 160,
+          "p99": 200,
+          "max": 220
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 1,
+          "p1": 1,
+          "p99": 8,
+          "max": 8
+        },
+        "displac": {
+          "mean": 1600,
+          "median": 1600,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2200,
+          "max": 2500
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "opel": {
+        "age": {
+          "mean": 4,
+          "median": 4,
+          "min": 0,
+          "p1": 0,
+          "p99": 14,
+          "max": 16
+        },
+        "cv": {
+          "mean": 130,
+          "median": 130,
+          "min": 80,
+          "p1": 80,
+          "p99": 220,
+          "max": 300
+        },
+        "km": {
+          "mean": 60,
+          "median": 50,
+          "min": 0,
+          "p1": 0,
+          "p99": 200,
+          "max": 800
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "gasoline",
+            "diesel",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 420,
+          "median": 410,
+          "min": 350,
+          "p1": 350,
+          "p99": 520,
+          "max": 540
+        },
+        "length": {
+          "mean": 430,
+          "median": 420,
+          "min": 420,
+          "p1": 420,
+          "p99": 460,
+          "max": 500
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 190,
+          "median": 190,
+          "min": 170,
+          "p1": 170,
+          "p99": 220,
+          "max": 220
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 2,
+          "p1": 2,
+          "p99": 8,
+          "max": 9
+        },
+        "displac": {
+          "mean": 1400,
+          "median": 1400,
+          "min": 1200,
+          "p1": 1200,
+          "p99": 2000,
+          "max": 2400
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "mazda": {
+        "age": {
+          "mean": 5,
+          "median": 5,
+          "min": 1,
+          "p1": 1,
+          "p99": 13,
+          "max": 14
+        },
+        "cv": {
+          "mean": 140,
+          "median": 150,
+          "min": 100,
+          "p1": 100,
+          "p99": 190,
+          "max": 270
+        },
+        "km": {
+          "mean": 70,
+          "median": 60,
+          "min": 0,
+          "p1": 0,
+          "p99": 230,
+          "max": 300
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "diesel",
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 430,
+          "median": 460,
+          "min": 350,
+          "p1": 350,
+          "p99": 490,
+          "max": 510
+        },
+        "length": {
+          "mean": 450,
+          "median": 450,
+          "min": 430,
+          "p1": 430,
+          "p99": 470,
+          "max": 510
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 190,
+          "median": 200,
+          "min": 170,
+          "p1": 170,
+          "p99": 210,
+          "max": 210
+        },
+        "cmixto": {
+          "mean": 6,
+          "median": 6,
+          "min": 4,
+          "p1": 4,
+          "p99": 8,
+          "max": 11
+        },
+        "displac": {
+          "mean": 2000,
+          "median": 2000,
+          "min": 1500,
+          "p1": 1500,
+          "p99": 2500,
+          "max": 3700
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 6,
+          "p1": 6,
+          "p99": 6,
+          "max": 6
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 4,
+          "max": 6
+        }
+      },
+      "skoda": {
+        "age": {
+          "mean": 4,
+          "median": 4,
+          "min": 0,
+          "p1": 0,
+          "p99": 11,
+          "max": 16
+        },
+        "cv": {
+          "mean": 140,
+          "median": 150,
+          "min": 90,
+          "p1": 90,
+          "p99": 220,
+          "max": 240
+        },
+        "km": {
+          "mean": 70,
+          "median": 60,
+          "min": 0,
+          "p1": 0,
+          "p99": 200,
+          "max": 300
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "gasoline",
+            "diesel"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 530,
+          "median": 520,
+          "min": 400,
+          "p1": 400,
+          "p99": 650,
+          "max": 650
+        },
+        "length": {
+          "mean": 440,
+          "median": 440,
+          "min": 420,
+          "p1": 420,
+          "p99": 470,
+          "max": 470
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 190,
+          "median": 190,
+          "min": 180,
+          "p1": 180,
+          "p99": 220,
+          "max": 220
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 4,
+          "p1": 4,
+          "p99": 7,
+          "max": 7
+        },
+        "displac": {
+          "mean": 1600,
+          "median": 1500,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2000,
+          "max": 2000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 7,
+          "min": 5,
+          "p1": 5,
+          "p99": 7,
+          "max": 7
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "mini": {
+        "age": {
+          "mean": 6,
+          "median": 6,
+          "min": 1,
+          "p1": 1,
+          "p99": 12,
+          "max": 13
+        },
+        "cv": {
+          "mean": 150,
+          "median": 140,
+          "min": 90,
+          "p1": 90,
+          "p99": 230,
+          "max": 310
+        },
+        "km": {
+          "mean": 80,
+          "median": 70,
+          "min": 0,
+          "p1": 0,
+          "p99": 210,
+          "max": 240
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "gasoline",
+            "diesel",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "automatic",
+            "manual"
+          ]
+        },
+        "boot": {
+          "mean": 400,
+          "median": 400,
+          "min": 350,
+          "p1": 350,
+          "p99": 450,
+          "max": 450
+        },
+        "length": {
+          "mean": 420,
+          "median": 430,
+          "min": 410,
+          "p1": 410,
+          "p99": 430,
+          "max": 430
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 180,
+          "max": 180
+        },
+        "max_sp": {
+          "mean": 200,
+          "median": 200,
+          "min": 170,
+          "p1": 170,
+          "p99": 230,
+          "max": 250
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 4,
+          "min": 2,
+          "p1": 2,
+          "p99": 7,
+          "max": 8
+        },
+        "displac": {
+          "mean": 1700,
+          "median": 1600,
+          "min": 1500,
+          "p1": 1500,
+          "p99": 2000,
+          "max": 2000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 6,
+          "p1": 6,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 4
+        }
+      }
+    },
+    "standard": {
+      "other": {
+        "age": {
+          "mean": 8,
+          "median": 7,
+          "min": 0,
+          "p1": 0,
+          "p99": 18,
+          "max": 22
+        },
+        "cv": {
+          "mean": 150,
+          "median": 140,
+          "min": 40,
+          "p1": 50,
+          "p99": 430,
+          "max": 570
+        },
+        "km": {
+          "mean": 100,
+          "median": 90,
+          "min": 0,
+          "p1": 0,
+          "p99": 300,
+          "max": 990
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 360,
+          "median": 380,
+          "min": 130,
+          "p1": 130,
+          "p99": 840,
+          "max": 840
+        },
+        "length": {
+          "mean": 430,
+          "median": 440,
+          "min": 270,
+          "p1": 270,
+          "p99": 510,
+          "max": 530
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 150,
+          "p1": 150,
+          "p99": 200,
+          "max": 210
+        },
+        "max_sp": {
+          "mean": 200,
+          "median": 200,
+          "min": 140,
+          "p1": 140,
+          "p99": 290,
+          "max": 310
+        },
+        "cmixto": {
+          "mean": 6,
+          "median": 5,
+          "min": 2,
+          "p1": 2,
+          "p99": 12,
+          "max": 18
+        },
+        "displac": {
+          "mean": 1800,
+          "median": 1600,
+          "min": 800,
+          "p1": 800,
+          "p99": 4800,
+          "max": 6000
+        },
+        "gear": {
+          "mean": 5,
+          "median": 6,
+          "min": 1,
+          "p1": 1,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 2,
+          "p1": 2,
+          "p99": 8,
+          "max": 12
+        }
+      },
+      "peugeot": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 0,
+          "p1": 0,
+          "p99": 18,
+          "max": 19
+        },
+        "cv": {
+          "mean": 110,
+          "median": 110,
+          "min": 60,
+          "p1": 60,
+          "p99": 210,
+          "max": 270
+        },
+        "km": {
+          "mean": 90,
+          "median": 80,
+          "min": 0,
+          "p1": 0,
+          "p99": 270,
+          "max": 500
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 440,
+          "median": 420,
+          "min": 140,
+          "p1": 140,
+          "p99": 820,
+          "max": 830
+        },
+        "length": {
+          "mean": 430,
+          "median": 420,
+          "min": 340,
+          "p1": 340,
+          "p99": 480,
+          "max": 490
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 150,
+          "p1": 160,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 190,
+          "median": 190,
+          "min": 120,
+          "p1": 120,
+          "p99": 240,
+          "max": 250
+        },
+        "cmixto": {
+          "mean": 4,
+          "median": 4,
+          "min": 1,
+          "p1": 1,
+          "p99": 7,
+          "max": 10
+        },
+        "displac": {
+          "mean": 1500,
+          "median": 1500,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2000,
+          "max": 2900
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 4,
+          "p1": 4,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 6
+        }
+      },
+      "bmw": {
+        "age": {
+          "mean": 6,
+          "median": 6,
+          "min": 0,
+          "p1": 1,
+          "p99": 18,
+          "max": 19
+        },
+        "cv": {
+          "mean": 170,
+          "median": 150,
+          "min": 100,
+          "p1": 100,
+          "p99": 340,
+          "max": 510
+        },
+        "km": {
+          "mean": 100,
+          "median": 90,
+          "min": 0,
+          "p1": 0,
+          "p99": 300,
+          "max": 850
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 460,
+          "median": 470,
+          "min": 330,
+          "p1": 330,
+          "p99": 640,
+          "max": 640
+        },
+        "length": {
+          "mean": 460,
+          "median": 460,
+          "min": 420,
+          "p1": 420,
+          "p99": 510,
+          "max": 530
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 220,
+          "median": 210,
+          "min": 180,
+          "p1": 190,
+          "p99": 250,
+          "max": 250
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 4,
+          "min": 2,
+          "p1": 2,
+          "p99": 8,
+          "max": 14
+        },
+        "displac": {
+          "mean": 2000,
+          "median": 2000,
+          "min": 1500,
+          "p1": 1500,
+          "p99": 3000,
+          "max": 5000
+        },
+        "gear": {
+          "mean": 7,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 6,
+          "max": 10
+        }
+      },
+      "citroen": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 0,
+          "p1": 0,
+          "p99": 17,
+          "max": 19
+        },
+        "cv": {
+          "mean": 110,
+          "median": 100,
+          "min": 60,
+          "p1": 60,
+          "p99": 160,
+          "max": 240
+        },
+        "km": {
+          "mean": 80,
+          "median": 60,
+          "min": 0,
+          "p1": 0,
+          "p99": 260,
+          "max": 900
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 430,
+          "median": 380,
+          "min": 140,
+          "p1": 140,
+          "p99": 780,
+          "max": 780
+        },
+        "length": {
+          "mean": 420,
+          "median": 430,
+          "min": 340,
+          "p1": 340,
+          "p99": 480,
+          "max": 500
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 160,
+          "p1": 160,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 180,
+          "median": 180,
+          "min": 150,
+          "p1": 150,
+          "p99": 210,
+          "max": 240
+        },
+        "cmixto": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 7,
+          "max": 10
+        },
+        "displac": {
+          "mean": 1400,
+          "median": 1500,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2000,
+          "max": 3000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 5,
+          "min": 4,
+          "p1": 5,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 6
+        }
+      },
+      "renault": {
+        "age": {
+          "mean": 7,
+          "median": 6,
+          "min": 0,
+          "p1": 1,
+          "p99": 18,
+          "max": 21
+        },
+        "cv": {
+          "mean": 110,
+          "median": 110,
+          "min": 60,
+          "p1": 60,
+          "p99": 200,
+          "max": 300
+        },
+        "km": {
+          "mean": 90,
+          "median": 80,
+          "min": 0,
+          "p1": 0,
+          "p99": 270,
+          "max": 480
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 380,
+          "median": 380,
+          "min": 170,
+          "p1": 190,
+          "p99": 610,
+          "max": 650
+        },
+        "length": {
+          "mean": 430,
+          "median": 440,
+          "min": 360,
+          "p1": 360,
+          "p99": 490,
+          "max": 490
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 160,
+          "p1": 160,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 180,
+          "median": 190,
+          "min": 150,
+          "p1": 150,
+          "p99": 230,
+          "max": 260
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 8,
+          "max": 11
+        },
+        "displac": {
+          "mean": 1400,
+          "median": 1500,
+          "min": 900,
+          "p1": 900,
+          "p99": 2000,
+          "max": 3000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 1,
+          "p1": 1,
+          "p99": 7,
+          "max": 7
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 6
+        }
+      },
+      "seat": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 0,
+          "p1": 1,
+          "p99": 17,
+          "max": 19
+        },
+        "cv": {
+          "mean": 120,
+          "median": 110,
+          "min": 60,
+          "p1": 60,
+          "p99": 290,
+          "max": 300
+        },
+        "km": {
+          "mean": 90,
+          "median": 80,
+          "min": 0,
+          "p1": 0,
+          "p99": 290,
+          "max": 500
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 400,
+          "median": 380,
+          "min": 210,
+          "p1": 210,
+          "p99": 620,
+          "max": 810
+        },
+        "length": {
+          "mean": 430,
+          "median": 430,
+          "min": 360,
+          "p1": 360,
+          "p99": 470,
+          "max": 480
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 160,
+          "p1": 160,
+          "p99": 180,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 200,
+          "median": 200,
+          "min": 160,
+          "p1": 160,
+          "p99": 250,
+          "max": 270
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 1,
+          "p1": 1,
+          "p99": 7,
+          "max": 8
+        },
+        "displac": {
+          "mean": 1500,
+          "median": 1500,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2000,
+          "max": 2000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 7,
+          "max": 7
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "audi": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 0,
+          "p1": 0,
+          "p99": 18,
+          "max": 21
+        },
+        "cv": {
+          "mean": 150,
+          "median": 140,
+          "min": 90,
+          "p1": 90,
+          "p99": 410,
+          "max": 600
+        },
+        "km": {
+          "mean": 90,
+          "median": 80,
+          "min": 0,
+          "p1": 0,
+          "p99": 300,
+          "max": 650
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "gasoline",
+            "diesel",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 410,
+          "median": 420,
+          "min": 210,
+          "p1": 210,
+          "p99": 560,
+          "max": 560
+        },
+        "length": {
+          "mean": 440,
+          "median": 450,
+          "min": 400,
+          "p1": 400,
+          "p99": 510,
+          "max": 530
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 170,
+          "p1": 170,
+          "p99": 200,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 210,
+          "median": 210,
+          "min": 180,
+          "p1": 180,
+          "p99": 250,
+          "max": 300
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 1,
+          "p1": 1,
+          "p99": 10,
+          "max": 14
+        },
+        "displac": {
+          "mean": 1800,
+          "median": 2000,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 4000,
+          "max": 6300
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 1,
+          "p1": 1,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 8,
+          "max": 12
+        }
+      },
+      "ford": {
+        "age": {
+          "mean": 7,
+          "median": 6,
+          "min": 1,
+          "p1": 1,
+          "p99": 19,
+          "max": 20
+        },
+        "cv": {
+          "mean": 120,
+          "median": 120,
+          "min": 60,
+          "p1": 60,
+          "p99": 250,
+          "max": 350
+        },
+        "km": {
+          "mean": 100,
+          "median": 90,
+          "min": 0,
+          "p1": 0,
+          "p99": 290,
+          "max": 460
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 380,
+          "median": 320,
+          "min": 190,
+          "p1": 190,
+          "p99": 850,
+          "max": 850
+        },
+        "length": {
+          "mean": 430,
+          "median": 430,
+          "min": 360,
+          "p1": 360,
+          "p99": 490,
+          "max": 490
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 160,
+          "p1": 160,
+          "p99": 200,
+          "max": 210
+        },
+        "max_sp": {
+          "mean": 190,
+          "median": 180,
+          "min": 150,
+          "p1": 150,
+          "p99": 250,
+          "max": 270
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 4,
+          "p1": 4,
+          "p99": 8,
+          "max": 11
+        },
+        "displac": {
+          "mean": 1500,
+          "median": 1500,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2300,
+          "max": 3000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 1,
+          "p1": 4,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 6
+        }
+      },
+      "mazda": {
+        "age": {
+          "mean": 7,
+          "median": 6,
+          "min": 1,
+          "p1": 1,
+          "p99": 16,
+          "max": 17
+        },
+        "cv": {
+          "mean": 130,
+          "median": 120,
+          "min": 70,
+          "p1": 70,
+          "p99": 190,
+          "max": 260
+        },
+        "km": {
+          "mean": 100,
+          "median": 90,
+          "min": 10,
+          "p1": 10,
+          "p99": 240,
+          "max": 330
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 380,
+          "median": 360,
+          "min": 110,
+          "p1": 110,
+          "p99": 550,
+          "max": 550
+        },
+        "length": {
+          "mean": 450,
+          "median": 450,
+          "min": 390,
+          "p1": 390,
+          "p99": 490,
+          "max": 490
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 170,
+          "p1": 170,
+          "p99": 180,
+          "max": 180
+        },
+        "max_sp": {
+          "mean": 190,
+          "median": 200,
+          "min": 140,
+          "p1": 140,
+          "p99": 220,
+          "max": 250
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 3,
+          "p1": 3,
+          "p99": 7,
+          "max": 10
+        },
+        "displac": {
+          "mean": 1900,
+          "median": 2000,
+          "min": 1300,
+          "p1": 1300,
+          "p99": 2500,
+          "max": 2500
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 6,
+          "max": 6
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "opel": {
+        "age": {
+          "mean": 7,
+          "median": 6,
+          "min": 1,
+          "p1": 1,
+          "p99": 17,
+          "max": 19
+        },
+        "cv": {
+          "mean": 110,
+          "median": 110,
+          "min": 60,
+          "p1": 70,
+          "p99": 200,
+          "max": 320
+        },
+        "km": {
+          "mean": 90,
+          "median": 90,
+          "min": 0,
+          "p1": 0,
+          "p99": 280,
+          "max": 910
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 380,
+          "median": 370,
+          "min": 140,
+          "p1": 140,
+          "p99": 850,
+          "max": 850
+        },
+        "length": {
+          "mean": 440,
+          "median": 440,
+          "min": 370,
+          "p1": 370,
+          "p99": 500,
+          "max": 500
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 160,
+          "p1": 170,
+          "p99": 190,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 190,
+          "median": 190,
+          "min": 150,
+          "p1": 150,
+          "p99": 230,
+          "max": 250
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 7,
+          "max": 11
+        },
+        "displac": {
+          "mean": 1500,
+          "median": 1500,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2000,
+          "max": 2800
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 8,
+          "max": 9
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 6
+        }
+      },
+      "volkswagen": {
+        "age": {
+          "mean": 7,
+          "median": 6,
+          "min": 0,
+          "p1": 1,
+          "p99": 18,
+          "max": 20
+        },
+        "cv": {
+          "mean": 120,
+          "median": 120,
+          "min": 60,
+          "p1": 60,
+          "p99": 300,
+          "max": 340
+        },
+        "km": {
+          "mean": 100,
+          "median": 90,
+          "min": 0,
+          "p1": 0,
+          "p99": 290,
+          "max": 800
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 400,
+          "median": 380,
+          "min": 140,
+          "p1": 140,
+          "p99": 700,
+          "max": 700
+        },
+        "length": {
+          "mean": 430,
+          "median": 430,
+          "min": 350,
+          "p1": 350,
+          "p99": 490,
+          "max": 530
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 160,
+          "p1": 160,
+          "p99": 180,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 200,
+          "median": 200,
+          "min": 140,
+          "p1": 140,
+          "p99": 250,
+          "max": 290
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 2,
+          "p1": 2,
+          "p99": 8,
+          "max": 12
+        },
+        "displac": {
+          "mean": 1500,
+          "median": 1600,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2000,
+          "max": 4200
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 4,
+          "p1": 5,
+          "p99": 7,
+          "max": 7
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 8
+        }
+      },
+      "nissan": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 0,
+          "p1": 0,
+          "p99": 16,
+          "max": 19
+        },
+        "cv": {
+          "mean": 90,
+          "median": 90,
+          "min": 70,
+          "p1": 70,
+          "p99": 120,
+          "max": 190
+        },
+        "km": {
+          "mean": 70,
+          "median": 60,
+          "min": 0,
+          "p1": 0,
+          "p99": 180,
+          "max": 680
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "gasoline",
+            "diesel"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 310,
+          "median": 300,
+          "min": 130,
+          "p1": 130,
+          "p99": 380,
+          "max": 460
+        },
+        "length": {
+          "mean": 400,
+          "median": 400,
+          "min": 360,
+          "p1": 360,
+          "p99": 440,
+          "max": 460
+        },
+        "width": {
+          "mean": 180,
+          "median": 170,
+          "min": 170,
+          "p1": 170,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 180,
+          "median": 180,
+          "min": 160,
+          "p1": 160,
+          "p99": 200,
+          "max": 220
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 4,
+          "p1": 4,
+          "p99": 6,
+          "max": 7
+        },
+        "displac": {
+          "mean": 1200,
+          "median": 1000,
+          "min": 900,
+          "p1": 900,
+          "p99": 1600,
+          "max": 2200
+        },
+        "gear": {
+          "mean": 5,
+          "median": 5,
+          "min": 1,
+          "p1": 1,
+          "p99": 6,
+          "max": 6
+        },
+        "n_cylinders": {
+          "mean": 3,
+          "median": 3,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "dacia": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 1,
+          "p1": 1,
+          "p99": 13,
+          "max": 15
+        },
+        "cv": {
+          "mean": 90,
+          "median": 90,
+          "min": 70,
+          "p1": 70,
+          "p99": 120,
+          "max": 130
+        },
+        "km": {
+          "mean": 70,
+          "median": 60,
+          "min": 0,
+          "p1": 0,
+          "p99": 220,
+          "max": 280
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "diesel",
+            "gasoline"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 420,
+          "median": 320,
+          "min": 200,
+          "p1": 200,
+          "p99": 830,
+          "max": 830
+        },
+        "length": {
+          "mean": 420,
+          "median": 410,
+          "min": 400,
+          "p1": 400,
+          "p99": 450,
+          "max": 450
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 170,
+          "p1": 170,
+          "p99": 180,
+          "max": 200
+        },
+        "max_sp": {
+          "mean": 170,
+          "median": 170,
+          "min": 150,
+          "p1": 150,
+          "p99": 180,
+          "max": 190
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 3,
+          "p1": 3,
+          "p99": 7,
+          "max": 8
+        },
+        "displac": {
+          "mean": 1200,
+          "median": 1400,
+          "min": 900,
+          "p1": 900,
+          "p99": 1600,
+          "max": 1600
+        },
+        "gear": {
+          "mean": 5,
+          "median": 5,
+          "min": 5,
+          "p1": 5,
+          "p99": 6,
+          "max": 6
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "kia": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 0,
+          "p1": 1,
+          "p99": 16,
+          "max": 17
+        },
+        "cv": {
+          "mean": 110,
+          "median": 110,
+          "min": 60,
+          "p1": 70,
+          "p99": 200,
+          "max": 370
+        },
+        "km": {
+          "mean": 70,
+          "median": 60,
+          "min": 0,
+          "p1": 0,
+          "p99": 240,
+          "max": 990
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "gasoline",
+            "diesel",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 390,
+          "median": 380,
+          "min": 70,
+          "p1": 70,
+          "p99": 620,
+          "max": 620
+        },
+        "length": {
+          "mean": 430,
+          "median": 430,
+          "min": 350,
+          "p1": 360,
+          "p99": 490,
+          "max": 490
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 160,
+          "p1": 160,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 180,
+          "median": 180,
+          "min": 150,
+          "p1": 150,
+          "p99": 230,
+          "max": 270
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 1,
+          "p1": 1,
+          "p99": 7,
+          "max": 11
+        },
+        "displac": {
+          "mean": 1300,
+          "median": 1400,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2000,
+          "max": 3300
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 7,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 6
+        }
+      },
+      "hyundai": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 0,
+          "p1": 0,
+          "p99": 18,
+          "max": 20
+        },
+        "cv": {
+          "mean": 100,
+          "median": 100,
+          "min": 60,
+          "p1": 60,
+          "p99": 280,
+          "max": 320
+        },
+        "km": {
+          "mean": 70,
+          "median": 60,
+          "min": 0,
+          "p1": 0,
+          "p99": 250,
+          "max": 970
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "gasoline",
+            "diesel",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 370,
+          "median": 380,
+          "min": 220,
+          "p1": 220,
+          "p99": 600,
+          "max": 840
+        },
+        "length": {
+          "mean": 420,
+          "median": 430,
+          "min": 360,
+          "p1": 360,
+          "p99": 480,
+          "max": 520
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 150,
+          "p1": 160,
+          "p99": 180,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 180,
+          "median": 180,
+          "min": 150,
+          "p1": 150,
+          "p99": 250,
+          "max": 250
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 1,
+          "p1": 1,
+          "p99": 7,
+          "max": 12
+        },
+        "displac": {
+          "mean": 1300,
+          "median": 1200,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2000,
+          "max": 3800
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 4,
+          "p1": 4,
+          "p99": 7,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 6
+        }
+      },
+      "mercedes": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 0,
+          "p1": 0,
+          "p99": 19,
+          "max": 21
+        },
+        "cv": {
+          "mean": 160,
+          "median": 150,
+          "min": 80,
+          "p1": 80,
+          "p99": 420,
+          "max": 630
+        },
+        "km": {
+          "mean": 90,
+          "median": 80,
+          "min": 0,
+          "p1": 0,
+          "p99": 310,
+          "max": 780
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "automatic",
+          "unique": [
+            "automatic",
+            "manual"
+          ]
+        },
+        "boot": {
+          "mean": 440,
+          "median": 460,
+          "min": 220,
+          "p1": 290,
+          "p99": 690,
+          "max": 830
+        },
+        "length": {
+          "mean": 460,
+          "median": 440,
+          "min": 380,
+          "p1": 380,
+          "p99": 510,
+          "max": 530
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 170,
+          "p1": 180,
+          "p99": 190,
+          "max": 220
+        },
+        "max_sp": {
+          "mean": 220,
+          "median": 220,
+          "min": 170,
+          "p1": 170,
+          "p99": 250,
+          "max": 270
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 4,
+          "min": 1,
+          "p1": 1,
+          "p99": 11,
+          "max": 15
+        },
+        "displac": {
+          "mean": 1900,
+          "median": 2000,
+          "min": 1300,
+          "p1": 1300,
+          "p99": 4000,
+          "max": 6200
+        },
+        "gear": {
+          "mean": 7,
+          "median": 7,
+          "min": 1,
+          "p1": 1,
+          "p99": 9,
+          "max": 9
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 8,
+          "max": 12
+        }
+      },
+      "toyota": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 0,
+          "p1": 1,
+          "p99": 17,
+          "max": 19
+        },
+        "cv": {
+          "mean": 110,
+          "median": 110,
+          "min": 70,
+          "p1": 70,
+          "p99": 220,
+          "max": 260
+        },
+        "km": {
+          "mean": 80,
+          "median": 70,
+          "min": 0,
+          "p1": 0,
+          "p99": 270,
+          "max": 460
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 320,
+          "median": 290,
+          "min": 30,
+          "p1": 30,
+          "p99": 580,
+          "max": 600
+        },
+        "length": {
+          "mean": 410,
+          "median": 400,
+          "min": 300,
+          "p1": 300,
+          "p99": 480,
+          "max": 530
+        },
+        "width": {
+          "mean": 170,
+          "median": 180,
+          "min": 160,
+          "p1": 160,
+          "p99": 180,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 180,
+          "median": 180,
+          "min": 150,
+          "p1": 150,
+          "p99": 220,
+          "max": 230
+        },
+        "cmixto": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 8,
+          "max": 10
+        },
+        "displac": {
+          "mean": 1500,
+          "median": 1500,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2200,
+          "max": 2500
+        },
+        "gear": {
+          "mean": 4,
+          "median": 5,
+          "min": 1,
+          "p1": 1,
+          "p99": 6,
+          "max": 7
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "mini": {
+        "age": {
+          "mean": 7,
+          "median": 6,
+          "min": 0,
+          "p1": 1,
+          "p99": 20,
+          "max": 22
+        },
+        "cv": {
+          "mean": 130,
+          "median": 120,
+          "min": 80,
+          "p1": 80,
+          "p99": 250,
+          "max": 310
+        },
+        "km": {
+          "mean": 80,
+          "median": 70,
+          "min": 0,
+          "p1": 0,
+          "p99": 230,
+          "max": 280
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "gasoline",
+            "diesel"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "automatic",
+            "manual"
+          ]
+        },
+        "boot": {
+          "mean": 250,
+          "median": 280,
+          "min": 150,
+          "p1": 150,
+          "p99": 360,
+          "max": 610
+        },
+        "length": {
+          "mean": 390,
+          "median": 400,
+          "min": 360,
+          "p1": 360,
+          "p99": 420,
+          "max": 430
+        },
+        "width": {
+          "mean": 170,
+          "median": 170,
+          "min": 170,
+          "p1": 170,
+          "p99": 180,
+          "max": 180
+        },
+        "max_sp": {
+          "mean": 200,
+          "median": 200,
+          "min": 160,
+          "p1": 160,
+          "p99": 250,
+          "max": 260
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 3,
+          "p1": 3,
+          "p99": 7,
+          "max": 9
+        },
+        "displac": {
+          "mean": 1600,
+          "median": 1500,
+          "min": 1200,
+          "p1": 1200,
+          "p99": 2000,
+          "max": 2000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 3,
+          "median": 3,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "skoda": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 0,
+          "p1": 1,
+          "p99": 17,
+          "max": 20
+        },
+        "cv": {
+          "mean": 110,
+          "median": 110,
+          "min": 60,
+          "p1": 60,
+          "p99": 220,
+          "max": 270
+        },
+        "km": {
+          "mean": 90,
+          "median": 80,
+          "min": 0,
+          "p1": 0,
+          "p99": 320,
+          "max": 400
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "gasoline",
+            "diesel",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 480,
+          "median": 530,
+          "min": 250,
+          "p1": 250,
+          "p99": 660,
+          "max": 660
+        },
+        "length": {
+          "mean": 440,
+          "median": 450,
+          "min": 360,
+          "p1": 360,
+          "p99": 490,
+          "max": 490
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 160,
+          "p1": 160,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 200,
+          "median": 200,
+          "min": 160,
+          "p1": 160,
+          "p99": 250,
+          "max": 250
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 4,
+          "min": 1,
+          "p1": 1,
+          "p99": 7,
+          "max": 10
+        },
+        "displac": {
+          "mean": 1400,
+          "median": 1400,
+          "min": 1000,
+          "p1": 1000,
+          "p99": 2000,
+          "max": 2800
+        },
+        "gear": {
+          "mean": 6,
+          "median": 5,
+          "min": 5,
+          "p1": 5,
+          "p99": 7,
+          "max": 7
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 3,
+          "p1": 3,
+          "p99": 4,
+          "max": 6
+        }
+      },
+      "fiat": {
+        "age": {
+          "mean": 6,
+          "median": 5,
+          "min": 1,
+          "p1": 1,
+          "p99": 17,
+          "max": 19
+        },
+        "cv": {
+          "mean": 80,
+          "median": 70,
+          "min": 50,
+          "p1": 60,
+          "p99": 140,
+          "max": 170
+        },
+        "km": {
+          "mean": 70,
+          "median": 60,
+          "min": 0,
+          "p1": 0,
+          "p99": 230,
+          "max": 370
+        },
+        "fuel": {
+          "mode": "gasoline",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 280,
+          "median": 220,
+          "min": 140,
+          "p1": 140,
+          "p99": 550,
+          "max": 790
+        },
+        "length": {
+          "mean": 390,
+          "median": 360,
+          "min": 330,
+          "p1": 350,
+          "p99": 490,
+          "max": 490
+        },
+        "width": {
+          "mean": 170,
+          "median": 160,
+          "min": 150,
+          "p1": 160,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 170,
+          "median": 160,
+          "min": 150,
+          "p1": 160,
+          "p99": 200,
+          "max": 210
+        },
+        "cmixto": {
+          "mean": 5,
+          "median": 5,
+          "min": 3,
+          "p1": 3,
+          "p99": 8,
+          "max": 8
+        },
+        "displac": {
+          "mean": 1300,
+          "median": 1200,
+          "min": 900,
+          "p1": 900,
+          "p99": 2000,
+          "max": 2200
+        },
+        "gear": {
+          "mean": 5,
+          "median": 5,
+          "min": 5,
+          "p1": 5,
+          "p99": 6,
+          "max": 6
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 2,
+          "p1": 2,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "volvo": {
+        "age": {
+          "mean": 7,
+          "median": 6,
+          "min": 1,
+          "p1": 1,
+          "p99": 18,
+          "max": 19
+        },
+        "cv": {
+          "mean": 160,
+          "median": 150,
+          "min": 100,
+          "p1": 100,
+          "p99": 410,
+          "max": 410
+        },
+        "km": {
+          "mean": 110,
+          "median": 100,
+          "min": 0,
+          "p1": 0,
+          "p99": 260,
+          "max": 300
+        },
+        "fuel": {
+          "mode": "diesel",
+          "unique": [
+            "diesel",
+            "gasoline",
+            "hybrid"
+          ]
+        },
+        "gearbox": {
+          "mode": "manual",
+          "unique": [
+            "manual",
+            "automatic"
+          ]
+        },
+        "boot": {
+          "mean": 440,
+          "median": 430,
+          "min": 250,
+          "p1": 250,
+          "p99": 660,
+          "max": 660
+        },
+        "length": {
+          "mean": 460,
+          "median": 460,
+          "min": 420,
+          "p1": 420,
+          "p99": 500,
+          "max": 500
+        },
+        "width": {
+          "mean": 180,
+          "median": 180,
+          "min": 180,
+          "p1": 180,
+          "p99": 190,
+          "max": 190
+        },
+        "max_sp": {
+          "mean": 210,
+          "median": 200,
+          "min": 180,
+          "p1": 180,
+          "p99": 250,
+          "max": 250
+        },
+        "cmixto": {
+          "mean": 4,
+          "median": 4,
+          "min": 2,
+          "p1": 2,
+          "p99": 8,
+          "max": 10
+        },
+        "displac": {
+          "mean": 1900,
+          "median": 2000,
+          "min": 1500,
+          "p1": 1500,
+          "p99": 2400,
+          "max": 3000
+        },
+        "gear": {
+          "mean": 6,
+          "median": 6,
+          "min": 5,
+          "p1": 5,
+          "p99": 8,
+          "max": 8
+        },
+        "n_cylinders": {
+          "mean": 4,
+          "median": 4,
+          "min": 4,
+          "p1": 4,
+          "p99": 5,
+          "max": 6
+        }
+      }
+    }
+  }
+}
