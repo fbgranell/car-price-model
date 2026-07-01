@@ -11,9 +11,9 @@ from car_price_model.processing.encoder import Encoder
 
 @lru_cache
 def get_model() -> CarPriceModel:
-    return reading.read_object("models/car_price_model.joblib")
+    return reading.read_object("./models/car_price_model.joblib", absolute=True)
 
 
 @lru_cache
 def get_encoder() -> Encoder:
-    return reading.read_object("models/encoder.joblib")
+    return reading.read_object("./models/encoder.joblib", absolute=True)
