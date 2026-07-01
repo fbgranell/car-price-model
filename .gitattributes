@@ -1,2 +1,4 @@
 backend/models/*.joblib filter=lfs diff=lfs merge=lfs -text
 backend/notebooks/*.ipynb linguist-vendored
+*.ts linguist-vendored
+*.tsx linguist-vendored
