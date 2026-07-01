@@ -1,0 +1,36 @@
+"""
+This defines what a request looks like coming in, and what a response looks like going out,
+using Pydantic models. Pydantic validates automatically: it is the contract between frontend & backend.
+"""
+
+from pydantic import BaseModel
+from pydantic import Field
+from datetime import datetime
+from car_price_model.api.enums import Fuel, Gearbox, CarClass
+
+CURRENT_YEAR = datetime.now().year
+
+
+class CarSpecs(BaseModel):
+    """Defines the incoming request shape. Numeric fields are bounded to roughly the
+    min/max range seen in training; categorical fields are limited to known values."""
+
+    year: int = Field(ge=1990, le=CURRENT_YEAR)
+    cv: int = Field(ge=0, le=1000)
+    km: int = Field(ge=0, le=1000)
+    fuel: Fuel
+    gearbox: Gearbox
+    brand: str
+    boot: int = Field(ge=0, le=1000)
+    length: int = Field(ge=0, le=750)
+    width: int = Field(ge=0, le=300)
+    max_sp: int = Field(ge=0, le=400)
+    cmixto: float = Field(ge=0, le=30)
+    displac: int = Field(ge=0, le=8000)
+    gear: int = Field(ge=0, le=10)
+    class_: CarClass
+    n_cylinders: int = Field(ge=0, le=15)
+
+
+class PricePrediction(BaseModel):
+    predicted_price: int
