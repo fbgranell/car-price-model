@@ -7,6 +7,8 @@ import StandardCar from '../three/StandardCar'
 
 // ── Inline 3D scene — home-specific camera angle and lighting ────────────────
 
+const CAR_SCALE = 1.2
+
 function CarReadySignal({ onReady }: { onReady: () => void }) {
   useEffect(() => { onReady() }, [onReady])
   return null
@@ -28,7 +30,7 @@ function Scene({ onCarReady }: { onCarReady: () => void }) {
       <pointLight position={[2, -0.5, 7]} color="#ffffff" intensity={0.4} />
       <Environment preset="city" />
       <Suspense fallback={null}>
-        <group scale={1.4}>
+        <group scale={CAR_SCALE}>
           <StandardCar />
         </group>
         <CarReadySignal onReady={onCarReady} />
