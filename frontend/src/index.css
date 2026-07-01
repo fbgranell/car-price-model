@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-background text-slate-100 font-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-[#0A1628]/75 backdrop-blur-md border border-[#00D4FF]/[0.12];
+  }
+
+  .glass-strong {
+    @apply bg-[#0A1628]/90 backdrop-blur-lg border border-[#00D4FF]/30;
+  }
+}
+
+@keyframes btn-shine {
+  0%   { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateX(300%) skewX(-15deg); opacity: 0; }
+}
+
+.animate-btn-shine {
+  animation: btn-shine 0.9s ease-in-out forwards;
+}
+
+/* Subtle radial glow backdrop used across pages */
+.bg-grid {
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(0, 212, 255, 0.1), transparent 32%),
+    radial-gradient(circle at 0% 100%, rgba(0, 212, 255, 0.06), transparent 28%);
+}
+
+/* ── Predict page: custom scrollbar ────────────────────────────────────────── */
+.predict-scroll::-webkit-scrollbar { width: 4px; }
+.predict-scroll::-webkit-scrollbar-track { background: transparent; }
+.predict-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.09); border-radius: 2px; }
+.predict-scroll::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
+
+/* ── Predict page: custom range slider ─────────────────────────────────────── */
+.predict-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 3px;
+  border-radius: 9999px;
+  outline: none;
+  cursor: pointer;
+}
+.predict-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--thumb-color, #00D4FF);
+  box-shadow: 0 0 8px var(--thumb-glow, rgba(0,212,255,0.55)), 0 0 2px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.predict-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+  box-shadow: 0 0 14px var(--thumb-glow, rgba(0,212,255,0.8));
+}
+.predict-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--thumb-color, #00D4FF);
+  border: none;
+  box-shadow: 0 0 8px var(--thumb-glow, rgba(0,212,255,0.55));
+  cursor: pointer;
+}
+
+/* Hide number input spinners for a cleaner look */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
