@@ -1,10 +1,11 @@
-import { Suspense, useEffect, useRef, useState } from 'react'
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Environment, MeshReflectorMaterial, OrbitControls, useGLTF } from '@react-three/drei'
+import { AnimatePresence, motion } from 'framer-motion'
 import * as THREE from 'three'
 import CarModel from '../three/CarModel'
-import { setModelDissolve, getDissolveBounds, registerDissolveTopY, getSharedDissolveTopY } from '../three/dissolveEffect'
-import { getCarModelPath, getCarModelOffsetY } from '../../constants/carModels'
+import { setModelDissolve, getDissolveBounds, getSharedDissolveTopY } from '../three/dissolveEffect'
+import { getCarModelPath } from '../../constants/carModels'
 import useIsMobile from '../../hooks/useIsMobile'
 import type { CarClass } from '../../types/api'
 
@@ -71,7 +72,7 @@ function RotatingCar({ class_ }: { class_: CarClass }) {
       const worldMinY = activeModel.position.y + bounds.minY
       // Sweep up to the tallest car class's roof (not this model's own, possibly shorter one) so
       // the ring doesn't teleport when it swaps to a taller/shorter model mid-transition.
-      const worldMaxY = getSharedDissolveTopY() ?? activeModel.position.y + bounds.maxY
+      const worldMaxY = getSharedDissolveTopY()
       scan.position.y = THREE.MathUtils.lerp(worldMinY, worldMaxY, dissolveAmount)
       scan.scale.setScalar(Math.max(bounds.radius * 1.15, 0.05))
       scan.visible = true
@@ -99,17 +100,15 @@ function RotatingCar({ class_ }: { class_: CarClass }) {
   )
 }
 
-/** Loads one car class's GLTF purely to measure its roof height and register it via registerDissolveTopY - never rendered. Mounted for all three classes up front so the shared dissolve top is known before the user ever triggers a class switch. */
-function DissolveTopYProbe({ class_ }: { class_: CarClass }) {
-  const { scene } = useGLTF(getCarModelPath(class_))
-  useEffect(() => {
-    const maxY = new THREE.Box3().setFromObject(scene).max.y
-    registerDissolveTopY(class_, maxY + getCarModelOffsetY(class_))
-  }, [scene, class_])
+/** Fires onReady once mounted - since it's a sibling of RotatingCar inside the same Suspense
+ *  boundary, React withholds committing both until RotatingCar's GLTF suspense resolves, so this
+ *  only fires the moment the first car model is actually ready to show. */
+function SceneReadySignal({ onReady }: { onReady: () => void }) {
+  useEffect(() => { onReady() }, [onReady])
   return null
 }
 
-function Scene({ class_ }: { class_: CarClass }) {
+function Scene({ class_, onReady }: { class_: CarClass; onReady: () => void }) {
   return (
     <>
       <ambientLight intensity={0.35} />
@@ -125,14 +124,7 @@ function Scene({ class_ }: { class_: CarClass }) {
 
       <Suspense fallback={null}>
         <RotatingCar class_={class_} />
-      </Suspense>
-
-      {/* Own Suspense boundary so measuring the other two (not-yet-displayed) classes never
-          delays the initial reveal of the currently active one above. */}
-      <Suspense fallback={null}>
-        {ALL_CAR_CLASSES.map((c) => (
-          <DissolveTopYProbe key={c} class_={c} />
-        ))}
+        <SceneReadySignal onReady={onReady} />
       </Suspense>
 
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.42, 0]}>
@@ -162,7 +154,45 @@ function Scene({ class_ }: { class_: CarClass }) {
   )
 }
 
+/** Themed cover shown until the scene's first car model has rendered - hides the pop-in of the
+ *  model, lighting and reflective floor materializing piece by piece on a slow connection. */
+function SceneLoadingOverlay() {
+  return (
+    <motion.div
+      className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
+      style={{ background: '#060B14' }}
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div
+        className="h-9 w-9 rounded-full animate-spin"
+        style={{ border: '2px solid rgba(0,212,255,0.15)', borderTopColor: '#00D4FF' }}
+      />
+    </motion.div>
+  )
+}
+
 export default function PredictCarScene({ class_ }: { class_: CarClass }) {
+  const [ready, setReady] = useState(false)
+  const handleReady = useCallback(() => setReady(true), [])
+
+  useEffect(() => {
+    // The currently shown class already loads via CarModel's own lazy import + useGLTF -
+    // once that settles, warm the cache for the other two classes too (in the background, off the
+    // critical path) so a later class swap is an instant dissolve instead of stalling on a fresh
+    // multi-MB GLB fetch. Only fires once per mount, using the class shown on first render.
+    const others = ALL_CAR_CLASSES.filter((c) => c !== class_)
+    const prefetch = () => others.forEach((c) => useGLTF.preload(getCarModelPath(c)))
+    if (typeof window.requestIdleCallback === 'function') {
+      const handle = window.requestIdleCallback(prefetch)
+      return () => window.cancelIdleCallback(handle)
+    }
+    const timer = setTimeout(prefetch, 300)
+    return () => clearTimeout(timer)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div className="absolute inset-0" style={{ background: '#060B14' }}>
       <Canvas
@@ -172,8 +202,10 @@ export default function PredictCarScene({ class_ }: { class_: CarClass }) {
       >
         <color attach="background" args={['#050A14']} />
         <fog attach="fog" args={['#050A14', 14, 30]} />
-        <Scene class_={class_} />
+        <Scene class_={class_} onReady={handleReady} />
       </Canvas>
+
+      <AnimatePresence>{!ready && <SceneLoadingOverlay />}</AnimatePresence>
     </div>
   )
 }
