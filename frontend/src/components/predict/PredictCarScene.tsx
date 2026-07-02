@@ -113,13 +113,7 @@ function Scene({ class_ }: { class_: CarClass }) {
   return (
     <>
       <ambientLight intensity={0.35} />
-      <directionalLight
-        position={[5, 10, 5]}
-        intensity={2.8}
-        castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
-      />
+      <directionalLight position={[5, 10, 5]} intensity={2.8} />
       {/* Cyan key light from front-left */}
       <pointLight position={[-4, 6, 4]} color="#00D4FF" intensity={2.2} />
       {/* Purple/violet rim from rear-right */}
@@ -141,7 +135,7 @@ function Scene({ class_ }: { class_: CarClass }) {
         ))}
       </Suspense>
 
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.42, 0]} receiveShadow>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.42, 0]}>
         <planeGeometry args={[40, 40]} />
         <MeshReflectorMaterial
           blur={[300, 80]}
@@ -172,7 +166,6 @@ export default function PredictCarScene({ class_ }: { class_: CarClass }) {
   return (
     <div className="absolute inset-0" style={{ background: '#060B14' }}>
       <Canvas
-        shadows
         dpr={[1, 2]}
         camera={{ position: [0, 3.5, 7.5], fov: 42 }}
         gl={{ antialias: true }}

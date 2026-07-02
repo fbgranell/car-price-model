@@ -109,9 +109,6 @@ export function applyCarMaterials(model: THREE.Object3D, bodyColor: string) {
     const mesh = child as THREE.Mesh
     if (!mesh.isMesh) return
 
-    mesh.castShadow = false
-    mesh.receiveShadow = true
-
     const name = mesh.name.toLowerCase()
     const base = mesh.material as THREE.MeshStandardMaterial
     const mat = base.clone()

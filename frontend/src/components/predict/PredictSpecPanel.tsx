@@ -22,7 +22,7 @@ const B = {
   width:       { min: _g.width.p1,       max: _g.width.p99 },
   boot:        { min: _g.boot.p1,        max: _g.boot.p99 },
   year:        { min: _CY - _g.age.p99,  max: _CY - _g.age.p1 },
-  km:          { min: _g.km.p1,          max: _g.km.p99 },
+  km:          { min: _g.km.p1,          max: 500 },
 }
 
 // ── Icons ────────────────────────────────────────────────────────────────────
