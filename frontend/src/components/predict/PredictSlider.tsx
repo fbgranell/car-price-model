@@ -82,20 +82,8 @@ export default function PredictSlider({ label, unit, value, min, max, step, onCh
         step={step}
         value={local}
         onChange={(e) => setLocal(Number(e.target.value))}
-        onPointerDown={(e) => {
-          // Click-to-jump on the track is convenient with a precise mouse
-          // cursor, but on phone screens it causes accidental value changes
-          // from mistaps. So on mobile layouts, only allow the drag to
-          // start if the pointer landed reasonably close to the thumb.
-          if (!isMobile) return
-          const rect = e.currentTarget.getBoundingClientRect()
-          const thumbX = (pct / 100) * rect.width
-          const clickX = e.clientX - rect.left
-          const tolerance = 30
-          if (Math.abs(clickX - thumbX) > tolerance) e.preventDefault()
-        }}
         onPointerUp={(e) => onChange(Number((e.target as HTMLInputElement).value))}
-        className="predict-slider w-full"
+        className={`predict-slider w-full${isMobile ? ' predict-slider--thumb-only' : ''}`}
         style={{
           background: `linear-gradient(to right, ${fillColor} ${pct}%, rgba(255,255,255,0.09) ${pct}%)`,
           ...thumbVars,

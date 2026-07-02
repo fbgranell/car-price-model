@@ -88,6 +88,22 @@
   cursor: pointer;
 }
 
+/* Mobile: tapping the track jumps the native thumb to that point, which is
+   too easy to trigger by accident on a touchscreen. Make the track itself
+   ignore pointer events so only the thumb (re-enabled below) is draggable.
+   Done in CSS rather than JS preventDefault() since mobile Safari/Chrome
+   handle the native slider-thumb drag at a level that ignores
+   preventDefault() on pointerdown/touchstart. */
+.predict-slider--thumb-only {
+  pointer-events: none;
+}
+.predict-slider--thumb-only::-webkit-slider-thumb {
+  pointer-events: auto;
+}
+.predict-slider--thumb-only::-moz-range-thumb {
+  pointer-events: auto;
+}
+
 /* Hide number input spinners for a cleaner look */
 input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button {
