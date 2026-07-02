@@ -120,7 +120,11 @@ function Scene({ class_, onReady }: { class_: CarClass; onReady: () => void }) {
       {/* Warm white floor fill */}
       <pointLight position={[0, -0.5, 6]} color="#ffffff" intensity={0.45} />
 
-      <Environment preset="city" />
+      {/* Self-hosted instead of drei's preset="city" (which fetches from raw.githack.com,
+          redirecting to raw.githubusercontent.com) so the scene doesn't depend on a third-party
+          host being up/fast - public/hdri/potsdamer_platz_1k.hdr is the same file that preset
+          points to. */}
+      <Environment files="/hdri/potsdamer_platz_1k.hdr" />
 
       <Suspense fallback={null}>
         <RotatingCar class_={class_} />

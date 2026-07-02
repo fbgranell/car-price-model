@@ -28,7 +28,10 @@ function Scene({ onCarReady }: { onCarReady: () => void }) {
       <pointLight position={[-5, 7, 4]} color="#00D4FF" intensity={2.4} />
       <pointLight position={[5, 2, -5]} color="#8B5CF6" intensity={1.6} />
       <pointLight position={[2, -0.5, 7]} color="#ffffff" intensity={0.4} />
-      <Environment preset="city" />
+      {/* Self-hosted instead of drei's preset="city" (which fetches from raw.githack.com,
+          redirecting to raw.githubusercontent.com) so the scene doesn't depend on a third-party
+          host being up/fast. Same file drei's "city" preset points to - see PredictCarScene.tsx. */}
+      <Environment files="/hdri/potsdamer_platz_1k.hdr" />
       <Suspense fallback={null}>
         <group scale={CAR_SCALE}>
           <StandardCar />
