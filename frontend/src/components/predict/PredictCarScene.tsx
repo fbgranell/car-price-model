@@ -4,6 +4,7 @@ import { Environment, MeshReflectorMaterial, OrbitControls, useGLTF } from '@rea
 import { AnimatePresence, motion } from 'framer-motion'
 import * as THREE from 'three'
 import CarModel from '../three/CarModel'
+import SceneBrightnessReveal from '../three/SceneBrightnessReveal'
 import { setModelDissolve, getDissolveBounds, getSharedDissolveTopY } from '../three/dissolveEffect'
 import {
   LOADING_SCAN_VERTEX_SHADER,
@@ -209,16 +210,18 @@ function Scene({ class_, loading, onReady }: { class_: CarClass; loading: boolea
   )
 }
 
-/** Themed cover shown until the scene's first car model has rendered - hides the pop-in of the
- *  model, lighting and reflective floor materializing piece by piece on a slow connection. */
+const REVEAL_EASE = [0.22, 1, 0.36, 1] as [number, number, number, number]
+
+/** Spinner shown until the scene's first car model has rendered. Doesn't need to mask the
+ *  scene behind it (SceneBrightnessReveal already keeps that black until ready), so it can
+ *  clear quickly once ready flips true instead of carrying the slow reveal itself. */
 function SceneLoadingOverlay() {
   return (
     <motion.div
       className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
-      style={{ background: '#060B14' }}
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.25, ease: REVEAL_EASE }}
     >
       <div
         className="h-9 w-9 rounded-full animate-spin"
@@ -227,6 +230,8 @@ function SceneLoadingOverlay() {
     </motion.div>
   )
 }
+
+const REVEAL_DURATION = 5 // seconds - brightness ramp-up once the model has loaded
 
 export default function PredictCarScene({ class_, loading = false }: { class_: CarClass; loading?: boolean }) {
   const [ready, setReady] = useState(false)
@@ -250,15 +255,17 @@ export default function PredictCarScene({ class_, loading = false }: { class_: C
 
   return (
     <div className="absolute inset-0" style={{ background: '#060B14' }}>
-      <Canvas
-        dpr={[1, 2]}
-        camera={{ position: [0, 3.5, 7.5], fov: 42 }}
-        gl={{ antialias: true }}
-      >
-        <color attach="background" args={['#050A14']} />
-        <fog attach="fog" args={['#050A14', 14, 30]} />
-        <Scene class_={class_} loading={loading} onReady={handleReady} />
-      </Canvas>
+      <SceneBrightnessReveal ready={ready} duration={REVEAL_DURATION}>
+        <Canvas
+          dpr={[1, 2]}
+          camera={{ position: [0, 3.5, 7.5], fov: 42 }}
+          gl={{ antialias: true }}
+        >
+          <color attach="background" args={['#050A14']} />
+          <fog attach="fog" args={['#050A14', 14, 30]} />
+          <Scene class_={class_} loading={loading} onReady={handleReady} />
+        </Canvas>
+      </SceneBrightnessReveal>
 
       <AnimatePresence>{!ready && <SceneLoadingOverlay />}</AnimatePresence>
     </div>

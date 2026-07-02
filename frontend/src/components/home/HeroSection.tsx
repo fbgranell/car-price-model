@@ -4,10 +4,12 @@ import { useNavigate } from 'react-router-dom'
 import { Canvas } from '@react-three/fiber'
 import { Environment, MeshReflectorMaterial, OrbitControls } from '@react-three/drei'
 import StandardCar from '../three/StandardCar'
+import SceneBrightnessReveal from '../three/SceneBrightnessReveal'
 
 // ── Inline 3D scene — home-specific camera angle and lighting ────────────────
 
 const CAR_SCALE = 1.2
+const REVEAL_DURATION = 3 // seconds - matches PredictCarScene's brightness ramp-up
 
 function CarReadySignal({ onReady }: { onReady: () => void }) {
   useEffect(() => { onReady() }, [onReady])
@@ -171,12 +173,7 @@ export default function HeroSection() {
 
         {/* ── Right: 3D car ─────────────────────────────────────────── */}
         <div className="relative h-72 sm:h-96 lg:h-auto lg:flex-1" style={{ background: '#060B14' }}>
-          <motion.div
-            style={{ position: 'absolute', inset: 0 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: carReady ? 1 : 0 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          >
+          <SceneBrightnessReveal ready={carReady} duration={REVEAL_DURATION}>
             <Canvas
               shadows
               dpr={[1, 2]}
@@ -188,7 +185,7 @@ export default function HeroSection() {
               <fog attach="fog" args={['#050A14', 14, 30]} />
               <Scene onCarReady={handleCarReady} />
             </Canvas>
-          </motion.div>
+          </SceneBrightnessReveal>
 
           {/* Blend into left text panel on desktop */}
           <div
