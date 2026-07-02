@@ -70,7 +70,7 @@ pipelines.summary      data/processed -> models/summary.json (copied into fronte
 
 Cleaning (`processing/cleaning.py`) turned out to be mostly about duplicates, not bad data: the same car gets posted in more than one region, units get glued onto numbers as strings, colors and locations and fuel types get spelled a dozen different ways. Raw rows go from ~359K to ~52K, and most of that drop is cross-region dupes. The mapping tables that unify categoricals live in `processing/mappings/`.
 
-Processing (`pipelines/processing.py`) trims outliers by quantile (price, boot) and by count (age), splits 85/15, and fits the `Encoder` on train only — obvious, but easy to get wrong. `processing/features.py` bins locations into price-tier quantiles rather than one-hot encoding raw location, which worked better once there were enough distinct locations to make one-hot unwieldy.
+Processing (`pipelines/processing.py`) trims outliers by quantile (price, boot) and by count (age), splits 85/15, and fits the `Encoder` on train only. 
 
 Every cleaning/outlier step logs its row count (`@log_row_count` in `utils/decorators.py`), so `backend/logs/pipeline.log` gives a full trace of what got dropped and when.
 
@@ -78,7 +78,7 @@ Every cleaning/outlier step logs its row count (`@log_row_count` in `utils/decor
 
 `CarPriceModel` (`modeling/car_price_model.py`) is a thin wrapper around `XGBRegressor`, using its native categorical support instead of one-hot encoding everything (`enable_categorical=True`, `tree_method="hist"`).
 
-Tried linear regression, KNN and Random Forest first — XGBoost won by a comfortable margin. Hyperparameters come from Optuna (`modeling/tune.py`): TPE sampler, median pruner, 300 trials, 5-fold CV maximizing R², with trials logged to MLflow. Tuning is opt-in (`modeling.run(tuning=True)`); day to day it just reuses `models/best_params.json`.
+Tried linear regression, KNN, Random Forest and Catboost, but XGBoost won by a comfortable margin. Hyperparameters come from Optuna (`modeling/tune.py`): TPE sampler, median pruner, 300 trials, 5-fold CV maximizing R², with trials logged to MLflow. Tuning is opt-in (`modeling.run(tuning=True)`); day to day it just reuses `models/best_params.json`.
 
 Current numbers on the held-out test set: R² 0.95, MAE ~€1,619, RMSE ~€2,440.
 
