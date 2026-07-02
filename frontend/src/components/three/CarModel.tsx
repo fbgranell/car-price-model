@@ -1,4 +1,5 @@
 import type { CarClass } from '../../types/api'
+import './dracoSetup' // must run before the car imports below, which preload GLTFs on module eval
 import StandardCar from './StandardCar'
 import FourByFourCar from './FourByFourCar'
 import SportCar from './SportCar'
