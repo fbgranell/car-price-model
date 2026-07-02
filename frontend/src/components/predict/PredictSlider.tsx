@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import InfoTooltip from './InfoTooltip'
+import useIsMobile from '../../hooks/useIsMobile'
 
 interface InfoText { en: string; es: string }
 
@@ -44,6 +45,7 @@ function heatColor(pct: number): string {
 
 export default function PredictSlider({ label, unit, value, min, max, step, onChange, heatScale, perfScale, invertScale, tooltip, lang }: PredictSliderProps) {
   const [local, setLocal] = useState(value)
+  const isMobile = useIsMobile()
 
   // Keep in sync if parent resets the value (e.g. loading a preset)
   useEffect(() => { setLocal(value) }, [value])
@@ -80,6 +82,18 @@ export default function PredictSlider({ label, unit, value, min, max, step, onCh
         step={step}
         value={local}
         onChange={(e) => setLocal(Number(e.target.value))}
+        onPointerDown={(e) => {
+          // Click-to-jump on the track is convenient with a precise mouse
+          // cursor, but on phone screens it causes accidental value changes
+          // from mistaps. So on mobile layouts, only allow the drag to
+          // start if the pointer landed reasonably close to the thumb.
+          if (!isMobile) return
+          const rect = e.currentTarget.getBoundingClientRect()
+          const thumbX = (pct / 100) * rect.width
+          const clickX = e.clientX - rect.left
+          const tolerance = 30
+          if (Math.abs(clickX - thumbX) > tolerance) e.preventDefault()
+        }}
         onPointerUp={(e) => onChange(Number((e.target as HTMLInputElement).value))}
         className="predict-slider w-full"
         style={{
