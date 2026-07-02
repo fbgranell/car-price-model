@@ -31,6 +31,7 @@ const SIGMA = summary.global.sigma
 const JITTER_AMPLITUDE = 5 * SIGMA // how far the number scans either side of the anchor while thinking
 const TRAVEL_PX = 56 // how far the curve slides either side of center while thinking
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
+const RESOLVE_DURATION = 1.3 // seconds for the wander/spread/color to settle back to center on resolve
 
 // Marker wander while thinking — independent of the curve's own movement above.
 const MARKER_TRAVEL_PX = 30 // how far the marker slides either side of center, in px (its "min/max movement")
@@ -94,6 +95,11 @@ export default function PredictPriceDistribution({ loading, price, low, high, la
   // "confident" shape, once resolved.
   const spread = useMotionValue(RESOLVED_SPREAD)
 
+  // Height companion to `spread` — a real PDF that widens also flattens (area stays ~1), so
+  // scaling width alone reads as taffy being stretched rather than uncertainty changing. This
+  // derives the peak height directly from the current width so they always move together.
+  const spreadHeight = useTransform(spread, [RESOLVED_SPREAD, SPREAD_MIN, SPREAD_MAX], [1, 0.82, 0.65])
+
   // The displayed number is a spring that either chases the jittering target (thinking)
   // or the real price (resolved) — same mechanism, so it always "runs" smoothly to wherever
   // it's headed instead of snapping.
@@ -107,10 +113,10 @@ export default function PredictPriceDistribution({ loading, price, low, high, la
   useEffect(() => {
     if (!loading) {
       // Both converge to center at the same rate — this is the "coming together" moment.
-      animateValue(sweep, 0, { duration: 0.7, ease })
-      animateValue(markerSweep, 0, { duration: 0.7, ease })
-      animateValue(spread, RESOLVED_SPREAD, { duration: 0.7, ease })
-      animateValue(markerColor, RESOLVED_MARKER_COLOR, { duration: 0.7, ease })
+      animateValue(sweep, 0, { duration: RESOLVE_DURATION, ease })
+      animateValue(markerSweep, 0, { duration: RESOLVE_DURATION, ease })
+      animateValue(spread, RESOLVED_SPREAD, { duration: RESOLVE_DURATION, ease })
+      animateValue(markerColor, RESOLVED_MARKER_COLOR, { duration: RESOLVE_DURATION, ease })
       if (price !== null) numSpring.set(price)
       return
     }
@@ -212,14 +218,23 @@ export default function PredictPriceDistribution({ loading, price, low, high, la
             <line x1="0" y1={CURVE_BOTTOM} x2={WIDTH} y2={CURVE_BOTTOM} stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
 
             {/* the distribution slides + breathes as one unit — wanders/widens while thinking, settles on resolve */}
-            <motion.g style={{ x: groupX, scaleX: spread, transformOrigin: `${CENTER_X}px ${CURVE_BOTTOM}px` }}>
+            <motion.g style={{ x: groupX, scaleX: spread, scaleY: spreadHeight, transformOrigin: `${CENTER_X}px ${CURVE_BOTTOM}px` }}>
               <motion.path
                 d={areaPath}
                 fill="url(#pdf-fill)"
                 animate={{ opacity: loading ? [0.45, 0.9, 0.45] : 1 }}
                 transition={loading ? { duration: 1.8, repeat: Infinity, ease: 'easeInOut' } : { duration: 0.4 }}
               />
-              <path d={linePath} fill="none" stroke="url(#pdf-stroke)" strokeWidth="2" strokeLinecap="round" />
+              {/* non-scaling-stroke: the group above applies non-uniform scaleX/scaleY, which would
+                  otherwise skew this stroke's width unevenly around the curve */}
+              <path
+                d={linePath}
+                fill="none"
+                stroke="url(#pdf-stroke)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
             </motion.g>
 
             {/* the marker mirrors the curve's wander while thinking but settles faster — locks in first */}

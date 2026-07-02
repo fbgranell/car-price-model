@@ -231,7 +231,7 @@ function SceneLoadingOverlay() {
   )
 }
 
-const REVEAL_DURATION = 5 // seconds - brightness ramp-up once the model has loaded
+const REVEAL_DURATION = 4 // seconds - brightness ramp-up once the model has loaded
 
 export default function PredictCarScene({ class_, loading = false }: { class_: CarClass; loading?: boolean }) {
   const [ready, setReady] = useState(false)
