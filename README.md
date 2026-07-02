@@ -1,4 +1,4 @@
-# Predicting Used Cars Prices
+# Car Price Model
 
 <a href="https://fbgranell.com/projects/car-price-model/"><img src="./figures/header_rounded.png"></a>
 
@@ -6,73 +6,114 @@
   <img src="https://img.shields.io/github/license/fbgranell/car-price-model" alt="License" />
   <img src="https://img.shields.io/github/languages/top/fbgranell/car-price-model" alt="Language" />
   <img src="https://img.shields.io/github/contributors/fbgranell/car-price-model" alt="Contributors" />
+  <img src="https://img.shields.io/github/last-commit/fbgranell/car-price-model" alt="Last commit" />
 </p>
 
-## Index:
+Predicts second-hand vehicles prices in Spain: train an XGBoost regressor on scrapped listings, serve the model behind a small FastAPI service, and show it off with a 3D frontend.
 
-* [Introduction](#section1)
-* [Materials](#section2)
-* [Methods](#section3)
-* [Visualizations](#section4)
-* [Results](#section5)
-* [References](#section6)
-* [License](#section7)
+Live demo: https://www.carpricemodel.com/
 
-<a id='section1'></a>
-## 1. Introduction
+## Quickstart
 
-Predicting the price of a second-hand car can be a tricky business, but with the help of machine learning and XGBoost, we're here to make the process way, way easier. There's no need to rely on chance or intuition when you have a model that can predict prices with a high degree of accuracy at your disposal. Thanks to the power of XGBoost we will learn how to avoid getting ripped off on our next used car purchase in Spain.
+```bash
+# backend, :8000
+cd backend
+pip install -e .
+uvicorn car_price_model.api.app:app --reload
+```
 
-<a id='section2'></a>
-## 2. Materials 
+```bash
+# frontend, :5173
+cd frontend
+npm install
+npm run dev
+```
 
-This project was developed using **Python** and several popular data processing and machine learning libraries. All the data was obtained through web scraping with the aid of the <em>Beautiful Soup</em> library and was then cleaned, analyzed and merged using <em>pandas</em> and <em>numpy</em>.
+Full pipeline (cleaning → processing → training → summary):
 
-<em>Scikit-learn</em> library, <em>TensorFlow</em> and <em>XGBoost</em> were used for building the machine-learning models. These libraries are widely adopted in the field of machine learning and provide a comprehensive set of tools for implementing various machine learning algorithms and techniques.
+```bash
+python -m car_price_model.main
+```
 
-<a id='section3'></a>
-## 3. Methods 
+## API
 
-The data for this project was obtained through **web scraping over 350,000 car listings**, including their prices and technical features. To improve performance, the "concurrent" library was used to compute functions in parallel, resulting in a speed increase of x10. The dataset was then cleaned to address missing and incorrectly-displayed values disguised as zeros in order to prevent misleading the model.
+Small FastAPI app (`api/app.py`), one endpoint. `CarSpecs` (`api/schemas.py`) keeps garbage out before it ever reaches the model. Numeric fields are bounded to roughly the training range, categoricals are locked to known enums (`api/enums.py`).
 
-After obtaining the data, it underwent a thorough **cleaning process**. Null and NaN values were removed as it is impossible for any of the features to have a zero value. Categorical features were also unified, such as merging locations by autonomous communities, or specific colors (like ocean blue) to basic ones (blue). Likewise, feature normalization was performed to improve the performance while training the models.
+```bash
+curl -X POST https://<api-host>/predict \
+  -H "Content-Type: application/json" \
+  -d '{
+        "year": 2019, "cv": 150, "km": 60000,
+        "fuel": "diesel", "gearbox": "automatic",
+        "brand": "volkswagen", "boot": 380,
+        "length": 450, "width": 180, "max_sp": 210,
+        "cmixto": 5.2, "displac": 2000, "gear": 6,
+        "class_": "standard", "n_cylinders": 4
+      }'
+# {"predicted_price": 18420}
+```
 
-In addition to data cleaning, a **visual exploratory analysis** was carried out to identify patterns within the data. To train the model, the dataset was divided into three parts: one for training, one for cross-validation (which also allowed for hyperparameter search), and one for testing. Finally, a pipeline was then created that evaluated various models (linear regression, KNN, Random Forest and **XGBoost**) through cross-validation, which allows us to choose the best one.
+`api/predict.py` runs the request through the same age/type conversions and the same fitted `Encoder` the model saw during training — nothing fancy, just making sure inference and training never drift apart.
 
-<a id='section4'></a>
-## 4. Visualizations
+## Data & pipeline
 
-Exploratory data analysis provides insights and understanding of the underlying patterns and relationships within the data, enabling informed decisions for further analysis and modeling. That is why before building the model, I conducted some exploratory data analysis. 
+I scraped ~358K listings from [coches.com](https://www.coches.com/), split across six Spanish regions, into `backend/data/raw/`. From there it's four stages, each runnable on its own:
 
-First I did an examination of the devaluation of cars over time. The mean price per age was visually represented in a bar plot, as we can see below:
+```
+pipelines.cleaning     data/raw       -> data/interim/listings.parquet
+pipelines.processing   data/interim   -> data/processed/{train,test,listings}.parquet
+pipelines.modeling     data/processed -> models/car_price_model.joblib
+pipelines.summary      data/processed -> models/summary.json (copied into frontend/)
+```
 
-<img src="./figures/price-age_rounded.png">
+`main.py` just chains all four.
 
-With the insights gained from the bar plot, we can delve into more complex inquiries. For instance, do different car brands experience the same rate of depreciation? Do some brands maintain their value for a longer duration? By aggregating the data, we can uncover the answers to these questions and present them in a line plot, showcasing the top 5 popular brands (although the same can be done for a larger number of brands). The resulting visualization is presented below:
+Cleaning (`processing/cleaning.py`) turned out to be mostly about duplicates, not bad data: the same car gets posted in more than one region, units get glued onto numbers as strings, colors and locations and fuel types get spelled a dozen different ways. Raw rows go from ~359K to ~52K, and most of that drop is cross-region dupes. The mapping tables that unify categoricals live in `processing/mappings/`.
 
-<img src="./figures/price-brand-age_rounded.png">
+Processing (`pipelines/processing.py`) trims outliers by quantile (price, boot) and by count (age), splits 85/15, and fits the `Encoder` on train only — obvious, but easy to get wrong. `processing/features.py` bins locations into price-tier quantiles rather than one-hot encoding raw location, which worked better once there were enough distinct locations to make one-hot unwieldy.
 
+Every cleaning/outlier step logs its row count (`@log_row_count` in `utils/decorators.py`), so `backend/logs/pipeline.log` gives a full trace of what got dropped and when.
 
-It is evident from the line plot that brands such as BMW tend to experience a faster rate of depreciation, particularly within the first four years. Specifically, a BMW loses more than 40% of its value from year one to year four, while brands like Audi, Volkswagen, and Mercedes may take up to six or eight years to incur the same relative decrease.
+## Model
 
-If you are in the market for a pre-owned vehicle and prioritize cost savings over color preference, the following graph will be of interest to you. It compares the mean prices of cars across different color options, and it shows that choosing less popular options like beige can result in significant cost savings.
+`CarPriceModel` (`modeling/car_price_model.py`) is a thin wrapper around `XGBRegressor`, using its native categorical support instead of one-hot encoding everything (`enable_categorical=True`, `tree_method="hist"`).
 
-<img src="./figures/price-color_rounded.png">
+Tried linear regression, KNN and Random Forest first — XGBoost won by a comfortable margin. Hyperparameters come from Optuna (`modeling/tune.py`): TPE sampler, median pruner, 300 trials, 5-fold CV maximizing R², with trials logged to MLflow. Tuning is opt-in (`modeling.run(tuning=True)`); day to day it just reuses `models/best_params.json`.
 
-To wrap up, I am plotting a final map displaying the regional car prices throughout the country. The prices are not uniform and one may save a significant amount of money by buying a car in a neighboring region. We can see that the provinces of Salamanca, Zamora, and Leon currently have the highest average car prices in Spain.
+Current numbers on the held-out test set: R² 0.95, MAE ~€1,619, RMSE ~€2,440.
 
-<img src="./figures/map_rounded.png">
+The residual std gets stored on the fitted model (`sigma`) and the API uses it to give a rough uncertainty range around each prediction, rather than just a bare number. `pipelines/summary.py` also precomputes per-column/class/brand stats and drops them straight into the frontend as `summary.json`, so the UI has context to show without another round trip to the API.
 
-<a id='section5'></a>
-## 5. Results
-The pipeline gave me an initial clue into which were the top models for the project. Next, I selected the best ones and optimized their hyperparameters through a randomized grid search, where XGBoost excelled and emerged as the winner. Its score was comparable to models like Random Forest or the Neural Network, but it boasts greater efficiency and faster training times. The chosen model was then trained and evaluated, providing an estimate of the real error. Specifically, the test data produced a remarkable R2 value of 0.92. [Try it out!](https://fbgranell-car-price-model-streamlit-app-ep4g59.streamlit.app/)
+## Frontend
 
-In conclusion, this project aimed to gather and analyze data on used cars in Spain. The data was collected through web scraping and analyzed using various statistical methods and machine learning techniques. The results showed strong correlation between the price and various features such as age, mileage or horsepowerof the cars. Additionally, the analysis revealed that XGBoost was the best model for predicting the prices. These findings provide valuable insights for both car sellers and buyers on the Spanish market.
+React + TypeScript, Vite, Tailwind, Framer Motion. The interesting bit is `frontend/src/components/three`: a 3D car (`@react-three/fiber`/`drei`) that reacts live as you drag the sliders in `components/predict`, hitting `/predict` on every change.
 
-<a id='section6'></a>
-## 6. References
-The data for this project was obtained through web scraping from <a href="https://www.coches.com/">coches.com</a>, a popular Spanish website for buying used cars. The web scraping was performed using the BeautifulSoup and Requests libraries in Python.
+## Project structure
 
-<a id='section7'></a>
-## 7. License
-This project is licensed under the **MIT License**, which permits the use, distribution, and modification of the code and materials with proper attribution and the sharing of any modifications made under the same license.
+```
+backend/
+  src/car_price_model/
+    api/            FastAPI app, request/response schemas, inference
+    pipelines/      cleaning -> processing -> modeling -> summary
+    processing/     cleaning, feature engineering, encoding, outlier removal
+    modeling/       CarPriceModel (XGBoost wrapper), Optuna tuning
+    data_io/        parquet/json/joblib read-write helpers
+    statistics/     per-column / per-class / per-brand summary stats
+  data/             raw -> interim -> processed
+  models/           trained model, encoder, best hyperparameters, summary.json
+  notebooks/        EDA, training and prediction exploration
+
+frontend/
+  src/
+    api/            typed client for the /predict endpoint
+    components/     predict form, 3D car viewer, layout, home
+    pages/          HomePage, PredictPage
+```
+
+## Deployment
+
+Two GitHub Actions workflows, split by path so a frontend change doesn't trigger a backend redeploy: `backend/**` pushes the Docker image to a [Hugging Face Space](https://huggingface.co/spaces/fbgranell/car-price-api), `frontend/**` deploys to Vercel.
+
+## License
+
+MIT — see [LICENSE.md](./LICENSE.md).
