@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PredictPriceDistribution from './PredictPriceDistribution'
 import type { Lang } from './PredictSpecPanel'
@@ -27,8 +28,17 @@ export default function PredictPriceCard({ price, loading, error, onSubmit, onRe
   const low = price !== null ? Math.max(0, Math.round(price - BAND_Z * SIGMA)) : null
   const high = price !== null ? Math.round(price + BAND_Z * SIGMA) : null
 
+  const containerRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    // The card grows taller once a request starts (label + chart appear above
+    // the button), which on mobile pushes that new content below the fold
+    // since the button was already at the bottom of the viewport. Scroll it
+    // into view so the result is visible without the user hunting for it.
+    if (loading) containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [loading])
+
   return (
-    <div className="shrink-0 p-4 pt-5 border-t" style={{ borderColor: 'rgba(0,212,255,0.1)' }}>
+    <div ref={containerRef} className="shrink-0 p-4 pt-5 border-t" style={{ borderColor: 'rgba(0,212,255,0.1)' }}>
       <motion.div
         layout
         transition={{ layout: { duration: 0.45, ease } }}

@@ -5,26 +5,16 @@ import * as THREE from 'three'
 import CarModel from '../three/CarModel'
 import { setModelDissolve, getDissolveBounds, registerDissolveTopY, getSharedDissolveTopY } from '../three/dissolveEffect'
 import { getCarModelPath, getCarModelOffsetY } from '../../constants/carModels'
+import useIsMobile from '../../hooks/useIsMobile'
 import type { CarClass } from '../../types/api'
 
 const ALL_CAR_CLASSES: CarClass[] = ['standard', '4x4', 'sport']
 
 const SCALE = 0.95
-const SCALE_MOBILE = 1.38
+const SCALE_MOBILE = 1.1
 const DISSOLVE_SPEED = 1.8 // ~0.45s per phase (out, then in)
 const DISSOLVE_HOLD = 0.1 // seconds to pause fully hidden between the out and in phases
 const SCAN_RING_INNER_RADIUS = 0.92 // fraction of the outer radius (1) - lower = thicker glowing band
-
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640)
-  useEffect(() => {
-    const mql = window.matchMedia('(max-width: 639px)')
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
-    mql.addEventListener('change', handler)
-    return () => mql.removeEventListener('change', handler)
-  }, [])
-  return isMobile
-}
 
 function RotatingCar({ class_ }: { class_: CarClass }) {
   const groupRef = useRef<THREE.Group>(null)
