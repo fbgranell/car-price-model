@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { OUTLINE_TAG } from './applyCarMaterials'
+import type { CarClass } from '../../types/api'
 
 const EDGE_WIDTH = 0.05 // local-space thickness of the glowing scan line right at the cut
 const EDGE_GLOW_STRENGTH = 2.2
@@ -17,21 +18,41 @@ export function getDissolveBounds(model: THREE.Object3D): DissolveBounds | undef
   return boundsByModel.get(model)
 }
 
-const topYByClass = new Map<string, number>()
-
-/** Records a car class's roof height (group-local Y, i.e. already including that class's own vertical offset) - see getSharedDissolveTopY. */
-export function registerDissolveTopY(class_: string, groupLocalMaxY: number) {
-  topYByClass.set(class_, groupLocalMaxY)
+/**
+ * Roof height (group-local Y, i.e. already including that class's own vertical offset from
+ * carModels.ts) for each car class. This used to be measured at runtime by loading all three
+ * GLTFs on every page view just to compute a bounding box (see git history for
+ * DissolveTopYProbe) - since the detailed/ models rarely change, it's cheaper to measure once
+ * offline and hardcode the result.
+ *
+ * Recompute by running, from a Node shell with @gltf-transform/core, @gltf-transform/extensions
+ * and draco3dgltf installed:
+ *
+ *   import { NodeIO, getBounds } from '@gltf-transform/core'
+ *   import { ALL_EXTENSIONS } from '@gltf-transform/extensions'
+ *   import draco3d from 'draco3dgltf'
+ *   const io = new NodeIO().registerExtensions(ALL_EXTENSIONS)
+ *     .registerDependencies({ 'draco3d.decoder': await draco3d.createDecoderModule() })
+ *   const doc = await io.read('frontend/public/models/detailed/<sedan|suv|sport>.glb')
+ *   const rawMaxY = getBounds(doc.getRoot().listScenes()[0]).max[1]
+ *   const groupLocalMaxY = rawMaxY + getCarModelOffsetY(class_) // from constants/carModels.ts
+ *
+ * (rawMaxY is the same value `new THREE.Box3().setFromObject(scene).max.y` would give in-browser
+ * on the loaded scene - Y-axis rotation, which is all the app applies, doesn't change it.)
+ */
+const DISSOLVE_TOP_Y_BY_CLASS: Record<CarClass, number> = {
+  standard: 1.304,
+  '4x4': 1.292,
+  sport: 1.027,
 }
 
 /**
- * Tallest roof height among every car class registered so far. PredictCarScene sweeps the scan
- * ring up to this shared height (instead of each model's own, differing roof height) so switching
- * between car classes mid-transition doesn't make the ring visibly teleport up or down.
+ * Tallest roof height among all car classes. PredictCarScene sweeps the scan ring up to this
+ * shared height (instead of each model's own, differing roof height) so switching between car
+ * classes mid-transition doesn't make the ring visibly teleport up or down.
  */
-export function getSharedDissolveTopY(): number | undefined {
-  if (topYByClass.size === 0) return undefined
-  return Math.max(...topYByClass.values())
+export function getSharedDissolveTopY(): number {
+  return Math.max(...Object.values(DISSOLVE_TOP_Y_BY_CLASS))
 }
 
 const COMMON_PATCH = `

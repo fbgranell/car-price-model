@@ -30,5 +30,3 @@ export default function SportCar({ initialDissolve = 0 }: { initialDissolve?: nu
     />
   )
 }
-
-useGLTF.preload(MODEL_PATH)

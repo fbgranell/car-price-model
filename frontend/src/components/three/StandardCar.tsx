@@ -29,5 +29,3 @@ export default function StandardCar({ initialDissolve = 0 }: { initialDissolve?:
     />
   )
 }
-
-useGLTF.preload(MODEL_PATH)

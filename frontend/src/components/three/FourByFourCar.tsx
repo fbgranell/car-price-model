@@ -30,5 +30,3 @@ export default function FourByFourCar({ initialDissolve = 0 }: { initialDissolve
     />
   )
 }
-
-useGLTF.preload(MODEL_PATH)
