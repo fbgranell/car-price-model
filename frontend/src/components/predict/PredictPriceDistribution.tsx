@@ -24,7 +24,7 @@ interface PredictPriceDistributionProps {
 }
 
 const CAPTION = { en: 'Analyzing patterns…', es: 'Analizando patrones…' } satisfies Record<Lang, string>
-const RANGE_LABEL = { en: 'Likely range (80%)', es: 'Rango probable (80%)' } satisfies Record<Lang, string>
+const RANGE_LABEL = { en: 'Likely range', es: 'Rango probable' } satisfies Record<Lang, string>
 
 const DEFAULT_ANCHOR = 15000
 const SIGMA = summary.global.sigma
@@ -35,10 +35,24 @@ const RESOLVE_DURATION = 1.3 // seconds for the wander/spread/color to settle ba
 
 // Marker wander while thinking — independent of the curve's own movement above.
 const MARKER_TRAVEL_PX = 30 // how far the marker slides either side of center, in px (its "min/max movement")
-const MARKER_PERIOD = 3.4 // seconds for one full wander loop — lower = faster
-// Shape of the search pattern, in -1..1 units (multiplied by MARKER_TRAVEL_PX above). Add/remove
-// stops or change the peak values to reshape how it moves; first and last must stay 0 to loop cleanly.
-const MARKER_WANDER_KEYFRAMES = [0, 0.9, -0.5, 0.3, -1, 0.6, 0]
+
+// Both the curve's and marker's wander patterns are randomized fresh each time a request starts
+// (see randomWander below), so the "thinking" animation doesn't play out identically every time.
+const WANDER_STEPS = 5 // intermediate points in the random search pattern (excludes the 0 at each end)
+const WANDER_MAG_MIN = 0.3 // smallest magnitude (in -1..1 units) a random wander point can take
+const WANDER_MAG_MAX = 1 // largest magnitude a random wander point can take
+const WANDER_PERIOD_MIN = 2.8 // seconds — fastest a random wander loop can run
+const WANDER_PERIOD_MAX = 4.2 // seconds — slowest a random wander loop can run
+
+const randRange = (min: number, max: number) => min + Math.random() * (max - min)
+const randSign = () => (Math.random() < 0.5 ? -1 : 1)
+
+/** A random search pattern in -1..1 units. Starts and ends at 0 so it loops seamlessly (repeat:
+ *  Infinity replays the same array) and so it's already at rest when the resolve transition
+ *  takes over from wherever `sweep`/`markerSweep` currently sit. */
+function randomWander(steps: number): number[] {
+  return [0, ...Array.from({ length: steps }, () => randSign() * randRange(WANDER_MAG_MIN, WANDER_MAG_MAX)), 0]
+}
 
 // Marker color while thinking — cycles through this palette, then converges to RESOLVED_MARKER_COLOR.
 const MARKER_COLOR_PERIOD = 2.4 // seconds for one full color cycle
@@ -48,15 +62,19 @@ const RESOLVED_MARKER_COLOR = '#00FF88'
 // Curve-width ("std") breathing while thinking — tunable independently of the X wander above.
 const SPREAD_MIN = 0.5 // narrowest the curve gets, as a multiple of its real (resolved) width
 const SPREAD_MAX = 0.8 // widest the curve gets, as a multiple of its real (resolved) width
-const SPREAD_PERIOD = 3.4 // seconds for one full narrow→wide→settle breathing cycle
+const SPREAD_PERIOD_MIN = 2.8 // seconds — fastest a random breathing cycle can run
+const SPREAD_PERIOD_MAX = 4.2 // seconds — slowest a random breathing cycle can run
 
 // The resolved curve narrows to this multiple of its "true" width — <1 reads as a sharper,
 // more confident peak. Band ticks/labels are scaled by the same factor so everything stays aligned.
 const RESOLVED_SPREAD = 0.35
 
-// Each breathing cycle starts and ends at RESOLVED_SPREAD (not the neutral 1), so the loop is
-// already resting near its final value — the snap to RESOLVED_SPREAD on resolve stays tiny.
-const SPREAD_KEYFRAMES = [RESOLVED_SPREAD, SPREAD_MIN, SPREAD_MAX, RESOLVED_SPREAD]
+/** A random narrow→wide→settle breathing cycle, randomized fresh each request. Starts and ends at
+ *  RESOLVED_SPREAD (not the neutral 1) so the loop is already resting near its final value — the
+ *  snap to RESOLVED_SPREAD on resolve stays tiny regardless of where in the cycle it was cut off. */
+function randomSpreadKeyframes(): number[] {
+  return [RESOLVED_SPREAD, randRange(SPREAD_MIN, SPREAD_MAX), randRange(SPREAD_MIN, SPREAD_MAX), RESOLVED_SPREAD]
+}
 
 const roundToTen = (v: number) => Math.round(v / 10) * 10
 const formatK = (v: number) => `${Math.round(v / 1000)}k`
@@ -120,20 +138,21 @@ export default function PredictPriceDistribution({ loading, price, low, high, la
       if (price !== null) numSpring.set(price)
       return
     }
-    // While thinking, the curve and marker wander independently — different keyframes and a
-    // different period each — so they visibly search out of sync, rather than moving as one.
-    const sweepControls = animateValue(sweep, [0, -1, 0.7, -0.4, 1, -0.8, 0], {
-      duration: 3.4,
+    // While thinking, the curve and marker wander independently — freshly randomized shapes and
+    // periods each time a request starts — so they visibly search out of sync, rather than moving
+    // as one, and the animation doesn't play out identically on every request.
+    const sweepControls = animateValue(sweep, randomWander(WANDER_STEPS), {
+      duration: randRange(WANDER_PERIOD_MIN, WANDER_PERIOD_MAX),
       repeat: Infinity,
       ease: 'easeInOut',
     })
-    const markerControls = animateValue(markerSweep, MARKER_WANDER_KEYFRAMES, {
-      duration: MARKER_PERIOD,
+    const markerControls = animateValue(markerSweep, randomWander(WANDER_STEPS), {
+      duration: randRange(WANDER_PERIOD_MIN, WANDER_PERIOD_MAX),
       repeat: Infinity,
       ease: 'easeInOut',
     })
-    const spreadControls = animateValue(spread, SPREAD_KEYFRAMES, {
-      duration: SPREAD_PERIOD,
+    const spreadControls = animateValue(spread, randomSpreadKeyframes(), {
+      duration: randRange(SPREAD_PERIOD_MIN, SPREAD_PERIOD_MAX),
       repeat: Infinity,
       ease: 'easeInOut',
     })
