@@ -1,6 +1,6 @@
 import { useGLTF } from '@react-three/drei'
 import { useMemo } from 'react'
-import { dampenReflections, applyOutlines, fixGlassRendering } from './applyCarMaterials'
+import { dampenReflections, applyOutlines } from './applyCarMaterials'
 import { applyDissolveEffect } from './dissolveEffect'
 import { getCarModelPath, getCarModelOffsetY, getCarModelDirection } from '../../constants/carModels'
 
