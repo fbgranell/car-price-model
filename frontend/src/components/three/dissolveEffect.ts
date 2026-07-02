@@ -17,6 +17,23 @@ export function getDissolveBounds(model: THREE.Object3D): DissolveBounds | undef
   return boundsByModel.get(model)
 }
 
+const topYByClass = new Map<string, number>()
+
+/** Records a car class's roof height (group-local Y, i.e. already including that class's own vertical offset) - see getSharedDissolveTopY. */
+export function registerDissolveTopY(class_: string, groupLocalMaxY: number) {
+  topYByClass.set(class_, groupLocalMaxY)
+}
+
+/**
+ * Tallest roof height among every car class registered so far. PredictCarScene sweeps the scan
+ * ring up to this shared height (instead of each model's own, differing roof height) so switching
+ * between car classes mid-transition doesn't make the ring visibly teleport up or down.
+ */
+export function getSharedDissolveTopY(): number | undefined {
+  if (topYByClass.size === 0) return undefined
+  return Math.max(...topYByClass.values())
+}
+
 const COMMON_PATCH = `
   uniform float uDissolve;
   uniform float uDissolveMinY;

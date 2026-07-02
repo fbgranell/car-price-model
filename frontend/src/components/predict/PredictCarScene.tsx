@@ -1,14 +1,18 @@
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Environment, MeshReflectorMaterial, OrbitControls } from '@react-three/drei'
+import { Environment, MeshReflectorMaterial, OrbitControls, useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 import CarModel from '../three/CarModel'
-import { setModelDissolve, getDissolveBounds } from '../three/dissolveEffect'
+import { setModelDissolve, getDissolveBounds, registerDissolveTopY, getSharedDissolveTopY } from '../three/dissolveEffect'
+import { getCarModelPath, getCarModelOffsetY } from '../../constants/carModels'
 import type { CarClass } from '../../types/api'
+
+const ALL_CAR_CLASSES: CarClass[] = ['standard', '4x4', 'sport']
 
 const SCALE = 0.95
 const SCALE_MOBILE = 1.38
-const DISSOLVE_SPEED = 1.5 // ~0.45s per phase (out, then in)
+const DISSOLVE_SPEED = 1.8 // ~0.45s per phase (out, then in)
+const DISSOLVE_HOLD = 0.1 // seconds to pause fully hidden between the out and in phases
 const SCAN_RING_INNER_RADIUS = 0.92 // fraction of the outer radius (1) - lower = thicker glowing band
 
 function useIsMobile() {
@@ -27,7 +31,8 @@ function RotatingCar({ class_ }: { class_: CarClass }) {
   const scanRef = useRef<THREE.Mesh>(null)
   const [displayedClass, setDisplayedClass] = useState<CarClass>(class_)
   const progress = useRef(1) // 0 = fully dissolved out, 1 = fully materialized in
-  const phase = useRef<'idle' | 'out' | 'in'>('idle')
+  const phase = useRef<'idle' | 'out' | 'hold' | 'in'>('idle')
+  const holdTimer = useRef(0)
   const nextClass = useRef<CarClass>(class_)
   const isMobile = useIsMobile()
   const scale = isMobile ? SCALE_MOBILE : SCALE
@@ -53,6 +58,12 @@ function RotatingCar({ class_ }: { class_: CarClass }) {
       if (activeModel) setModelDissolve(activeModel, 1 - progress.current)
       if (progress.current === 0) {
         setDisplayedClass(nextClass.current)
+        holdTimer.current = 0
+        phase.current = 'hold'
+      }
+    } else if (phase.current === 'hold') {
+      holdTimer.current += delta
+      if (holdTimer.current >= DISSOLVE_HOLD) {
         phase.current = 'in'
       }
     } else if (phase.current === 'in') {
@@ -67,8 +78,11 @@ function RotatingCar({ class_ }: { class_: CarClass }) {
     const bounds = activeModel ? getDissolveBounds(activeModel) : undefined
     if (scan && activeModel && bounds && phase.current !== 'idle') {
       const dissolveAmount = 1 - progress.current
-      const sweepLocalY = THREE.MathUtils.lerp(bounds.minY, bounds.maxY, dissolveAmount)
-      scan.position.y = activeModel.position.y + sweepLocalY
+      const worldMinY = activeModel.position.y + bounds.minY
+      // Sweep up to the tallest car class's roof (not this model's own, possibly shorter one) so
+      // the ring doesn't teleport when it swaps to a taller/shorter model mid-transition.
+      const worldMaxY = getSharedDissolveTopY() ?? activeModel.position.y + bounds.maxY
+      scan.position.y = THREE.MathUtils.lerp(worldMinY, worldMaxY, dissolveAmount)
       scan.scale.setScalar(Math.max(bounds.radius * 1.15, 0.05))
       scan.visible = true
     } else if (scan) {
@@ -95,6 +109,16 @@ function RotatingCar({ class_ }: { class_: CarClass }) {
   )
 }
 
+/** Loads one car class's GLTF purely to measure its roof height and register it via registerDissolveTopY - never rendered. Mounted for all three classes up front so the shared dissolve top is known before the user ever triggers a class switch. */
+function DissolveTopYProbe({ class_ }: { class_: CarClass }) {
+  const { scene } = useGLTF(getCarModelPath(class_))
+  useEffect(() => {
+    const maxY = new THREE.Box3().setFromObject(scene).max.y
+    registerDissolveTopY(class_, maxY + getCarModelOffsetY(class_))
+  }, [scene, class_])
+  return null
+}
+
 function Scene({ class_ }: { class_: CarClass }) {
   return (
     <>
@@ -117,6 +141,14 @@ function Scene({ class_ }: { class_: CarClass }) {
 
       <Suspense fallback={null}>
         <RotatingCar class_={class_} />
+      </Suspense>
+
+      {/* Own Suspense boundary so measuring the other two (not-yet-displayed) classes never
+          delays the initial reveal of the currently active one above. */}
+      <Suspense fallback={null}>
+        {ALL_CAR_CLASSES.map((c) => (
+          <DissolveTopYProbe key={c} class_={c} />
+        ))}
       </Suspense>
 
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.42, 0]} receiveShadow>

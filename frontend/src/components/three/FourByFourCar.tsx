@@ -1,6 +1,6 @@
 import { useGLTF } from '@react-three/drei'
 import { useMemo } from 'react'
-import { dampenReflections, applyOutlines } from './applyCarMaterials'
+import { dampenReflections } from './applyCarMaterials'
 import { applyDissolveEffect } from './dissolveEffect'
 import { getCarModelPath, getCarModelOffsetY, getCarModelDirection } from '../../constants/carModels'
 
@@ -16,7 +16,7 @@ export default function FourByFourCar({ initialDissolve = 0 }: { initialDissolve
   const model = useMemo(() => {
     const clone = scene.clone()
     dampenReflections(clone, { maxMetalness: 0.9, minRoughness: 0.3 })
-    applyOutlines(clone, 0.000)
+    // applyOutlines(clone, 0.000)
     // fixGlassRendering(clone)
     applyDissolveEffect(clone, '#00D4FF', initialDissolve)
     return clone

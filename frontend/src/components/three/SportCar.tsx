@@ -1,6 +1,6 @@
 import { useGLTF } from '@react-three/drei'
 import { useMemo } from 'react'
-import { applyCarMaterials, applyOutlines, dampenReflections } from './applyCarMaterials'
+import { applyCarMaterials, dampenReflections } from './applyCarMaterials'
 import { applyDissolveEffect } from './dissolveEffect'
 import { getCarModelPath, getCarModelOffsetY, getCarModelDirection } from '../../constants/carModels'
 
@@ -16,7 +16,7 @@ export default function SportCar({ initialDissolve = 0 }: { initialDissolve?: nu
   const model = useMemo(() => {
     const clone = scene.clone()
     applyCarMaterials(clone, '#323041')
-    applyOutlines(clone, 0.0)
+    // applyOutlines(clone, 0.0)
     dampenReflections(clone, { maxMetalness: 0.9, minRoughness: 0.12 })
     applyDissolveEffect(clone, '#00D4FF', initialDissolve)
     return clone
