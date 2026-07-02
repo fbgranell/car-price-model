@@ -249,7 +249,12 @@ export default function PredictSpecPanel({
 
       {/* ── 2-column spec grid ─────────────────────────────────────── */}
       <div className="sm:flex-1 sm:overflow-y-auto predict-scroll sm:min-h-0 p-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {/* fieldset (not div) so `disabled` natively locks every chip/select/slider inside while
+            a request is in flight, with no need to thread a `disabled` prop through each one. */}
+        <fieldset
+          disabled={loading}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-3 border-0 p-0 m-0 min-w-0 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity duration-300"
+        >
           {/* ── Left column ────────────────────────────────────────── */}
           <div className="space-y-3">
             {/* Vehicle */}
@@ -478,7 +483,7 @@ export default function PredictSpecPanel({
               />
             </Section>
           </div>
-        </div>
+        </fieldset>
       </div>
 
       {/* Price card */}
