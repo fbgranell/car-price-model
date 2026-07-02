@@ -93,7 +93,7 @@ export default function PredictPage() {
     try {
       // Force a minimum "thinking" duration so the distribution animation is
       // actually visible even when the API responds near-instantly.
-      const MIN_THINKING_MS = 3500
+      const MIN_THINKING_MS = 4000
       const delay = new Promise((resolve) => setTimeout(resolve, MIN_THINKING_MS))
       const [result] = await Promise.all([fetchPrediction(specs), delay])
       setPrice(result.predicted_price)
@@ -124,7 +124,7 @@ export default function PredictPage() {
       <div className="flex flex-col sm:flex-row sm:flex-1 sm:min-h-0">
         {/* ── Car viewer ──────────────────────────────────────────── */}
         <motion.div {...rise(0)} className="relative h-64 sm:h-auto sm:flex-none sm:w-[42%]">
-          <PredictCarScene class_={specs.class_} />
+          <PredictCarScene class_={specs.class_} loading={loading} />
 
           {/* Right-edge blend into spec panel (desktop only) */}
 

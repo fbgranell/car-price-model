@@ -5,6 +5,11 @@ import { AnimatePresence, motion } from 'framer-motion'
 import * as THREE from 'three'
 import CarModel from '../three/CarModel'
 import { setModelDissolve, getDissolveBounds, getSharedDissolveTopY } from '../three/dissolveEffect'
+import {
+  LOADING_SCAN_VERTEX_SHADER,
+  LOADING_SCAN_FRAGMENT_SHADER,
+  createLoadingScanUniforms,
+} from '../three/loadingScanEffect'
 import { getCarModelPath } from '../../constants/carModels'
 import useIsMobile from '../../hooks/useIsMobile'
 import type { CarClass } from '../../types/api'
@@ -16,10 +21,17 @@ const SCALE_MOBILE = 1.1
 const DISSOLVE_SPEED = 1.8 // ~0.45s per phase (out, then in)
 const DISSOLVE_HOLD = 0.1 // seconds to pause fully hidden between the out and in phases
 const SCAN_RING_INNER_RADIUS = 0.92 // fraction of the outer radius (1) - lower = thicker glowing band
+const LOADING_SCAN_SCALE = 1.1 // fraction of the model's footprint radius the scan disc covers
+const LOADING_SCAN_SWEEP_SPEED = 1.1 // radians/sec fed into the sin() ping-pong sweep
+const LOADING_SCAN_FADE_LAMBDA = 4 // opacity damp rate (in/out) when `loading` toggles
 
-function RotatingCar({ class_ }: { class_: CarClass }) {
+function RotatingCar({ class_, loading }: { class_: CarClass; loading: boolean }) {
   const groupRef = useRef<THREE.Group>(null)
   const scanRef = useRef<THREE.Mesh>(null)
+  const loadingScanRef = useRef<THREE.Mesh>(null)
+  const loadingScanUniforms = useRef(createLoadingScanUniforms())
+  const loadingScanSweep = useRef(0)
+  const loadingScanOpacity = useRef(0)
   const [displayedClass, setDisplayedClass] = useState<CarClass>(class_)
   const progress = useRef(1) // 0 = fully dissolved out, 1 = fully materialized in
   const phase = useRef<'idle' | 'out' | 'hold' | 'in'>('idle')
@@ -79,6 +91,32 @@ function RotatingCar({ class_ }: { class_: CarClass }) {
     } else if (scan) {
       scan.visible = false
     }
+
+    // Loading scan: a sparse grid disc that ping-pongs floor<->roof for as long as `loading` is
+    // true, independent of the class-dissolve phase above - the car itself never dissolves for
+    // this one, it just gets "scanned" while the prediction request is in flight.
+    const loadingScan = loadingScanRef.current
+    const uniforms = loadingScanUniforms.current
+    if (loadingScan && activeModel && bounds) {
+      loadingScanSweep.current += delta * LOADING_SCAN_SWEEP_SPEED
+      const wave = (Math.sin(loadingScanSweep.current) + 1) / 2
+      const worldMinY = activeModel.position.y + bounds.minY
+      const worldMaxY = getSharedDissolveTopY()
+      loadingScan.position.y = THREE.MathUtils.lerp(worldMinY, worldMaxY, wave)
+      loadingScan.scale.setScalar(Math.max(bounds.radius * LOADING_SCAN_SCALE, 0.05))
+
+      loadingScanOpacity.current = THREE.MathUtils.damp(
+        loadingScanOpacity.current,
+        loading ? 1 : 0,
+        LOADING_SCAN_FADE_LAMBDA,
+        delta
+      )
+      uniforms.uOpacity.value = loadingScanOpacity.current
+      uniforms.uTime.value += delta
+      loadingScan.visible = loadingScanOpacity.current > 0.01
+    } else if (loadingScan) {
+      loadingScan.visible = false
+    }
   })
 
   return (
@@ -90,6 +128,19 @@ function RotatingCar({ class_ }: { class_: CarClass }) {
           color="#00D4FF"
           transparent
           opacity={0.9}
+          side={THREE.DoubleSide}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+          toneMapped={false}
+        />
+      </mesh>
+      <mesh ref={loadingScanRef} rotation={[-Math.PI / 2, 0, 0]} visible={false}>
+        <circleGeometry args={[1, 64]} />
+        <shaderMaterial
+          uniforms={loadingScanUniforms.current}
+          vertexShader={LOADING_SCAN_VERTEX_SHADER}
+          fragmentShader={LOADING_SCAN_FRAGMENT_SHADER}
+          transparent
           side={THREE.DoubleSide}
           blending={THREE.AdditiveBlending}
           depthWrite={false}
@@ -108,7 +159,7 @@ function SceneReadySignal({ onReady }: { onReady: () => void }) {
   return null
 }
 
-function Scene({ class_, onReady }: { class_: CarClass; onReady: () => void }) {
+function Scene({ class_, loading, onReady }: { class_: CarClass; loading: boolean; onReady: () => void }) {
   return (
     <>
       <ambientLight intensity={0.35} />
@@ -127,7 +178,7 @@ function Scene({ class_, onReady }: { class_: CarClass; onReady: () => void }) {
       <Environment files="/hdri/potsdamer_platz_1k.hdr" />
 
       <Suspense fallback={null}>
-        <RotatingCar class_={class_} />
+        <RotatingCar class_={class_} loading={loading} />
         <SceneReadySignal onReady={onReady} />
       </Suspense>
 
@@ -177,7 +228,7 @@ function SceneLoadingOverlay() {
   )
 }
 
-export default function PredictCarScene({ class_ }: { class_: CarClass }) {
+export default function PredictCarScene({ class_, loading = false }: { class_: CarClass; loading?: boolean }) {
   const [ready, setReady] = useState(false)
   const handleReady = useCallback(() => setReady(true), [])
 
@@ -206,7 +257,7 @@ export default function PredictCarScene({ class_ }: { class_: CarClass }) {
       >
         <color attach="background" args={['#050A14']} />
         <fog attach="fog" args={['#050A14', 14, 30]} />
-        <Scene class_={class_} onReady={handleReady} />
+        <Scene class_={class_} loading={loading} onReady={handleReady} />
       </Canvas>
 
       <AnimatePresence>{!ready && <SceneLoadingOverlay />}</AnimatePresence>
