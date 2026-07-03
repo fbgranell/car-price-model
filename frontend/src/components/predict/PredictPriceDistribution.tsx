@@ -95,7 +95,7 @@ const bandRightPct = (axisRightX / WIDTH) * 100
 // No values on them: with no real low/high yet, made-up numbers would have nothing sensible to
 // converge into once resolved, so only the marks themselves move.
 const SPIN_TICK_SPACING = 32 // px between scrolling tick marks
-const SPIN_TICK_PERIOD = 0.50 // seconds to travel one tick-spacing while thinking
+const SPIN_TICK_PERIOD = 0.55 // seconds to travel one tick-spacing while thinking
 const SPIN_DECEL_DURATION = 1 // seconds for the spin to ease to a stop once resolved
 const spinEase = [0.16, 1, 0.3, 1] as [number, number, number, number] // pronounced ease-out - losing momentum
 const BAND_REVEAL_DELAY = 0.5 // seconds after resolve before the real ticks/labels/band start drawing in, so the spin visibly settles first
