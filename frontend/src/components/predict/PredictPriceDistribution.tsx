@@ -90,6 +90,21 @@ const axisRightX = CENTER_X + (bandRightX - CENTER_X) * AXIS_BAND_SCALE
 const bandLeftPct = (axisLeftX / WIDTH) * 100
 const bandRightPct = (axisRightX / WIDTH) * 100
 
+// Spinning axis while thinking — ticks scroll continuously, like the straight-line cross-section
+// of a circular dial's rim that's been given a push, instead of tracking the jittering mean.
+// No values on them: with no real low/high yet, made-up numbers would have nothing sensible to
+// converge into once resolved, so only the marks themselves move.
+const SPIN_TICK_SPACING = 32 // px between scrolling tick marks
+const SPIN_TICK_PERIOD = 0.50 // seconds to travel one tick-spacing while thinking
+const SPIN_DECEL_DURATION = 1 // seconds for the spin to ease to a stop once resolved
+const spinEase = [0.16, 1, 0.3, 1] as [number, number, number, number] // pronounced ease-out - losing momentum
+const BAND_REVEAL_DELAY = 0.5 // seconds after resolve before the real ticks/labels/band start drawing in, so the spin visibly settles first
+const BAND_DRAW_DURATION = 0.5
+const SPIN_TICK_XS = Array.from(
+  { length: Math.ceil(WIDTH / SPIN_TICK_SPACING) + 3 },
+  (_, i) => -SPIN_TICK_SPACING + i * SPIN_TICK_SPACING
+)
+
 export default function PredictPriceDistribution({ loading, price, low, high, lang }: PredictPriceDistributionProps) {
   const anchor = price ?? DEFAULT_ANCHOR
 
@@ -118,6 +133,9 @@ export default function PredictPriceDistribution({ loading, price, low, high, la
   // derives the peak height directly from the current width so they always move together.
   const spreadHeight = useTransform(spread, [RESOLVED_SPREAD, SPREAD_MIN, SPREAD_MAX], [1, 0.82, 0.65])
 
+  // Scroll offset for the "spinning" placeholder axis ticks while thinking - see SPIN_TICK_XS.
+  const spinX = useMotionValue(0)
+
   // The displayed number is a spring that either chases the jittering target (thinking)
   // or the real price (resolved) — same mechanism, so it always "runs" smoothly to wherever
   // it's headed instead of snapping.
@@ -135,6 +153,9 @@ export default function PredictPriceDistribution({ loading, price, low, high, la
       animateValue(markerSweep, 0, { duration: RESOLVE_DURATION, ease })
       animateValue(spread, RESOLVED_SPREAD, { duration: RESOLVE_DURATION, ease })
       animateValue(markerColor, RESOLVED_MARKER_COLOR, { duration: RESOLVE_DURATION, ease })
+      // The spin decelerates to rest rather than just vanishing - see the fade-out delay on the
+      // spinning ticks below, timed to let it visibly slow down first.
+      animateValue(spinX, 0, { duration: SPIN_DECEL_DURATION, ease: spinEase })
       if (price !== null) numSpring.set(price)
       return
     }
@@ -146,10 +167,19 @@ export default function PredictPriceDistribution({ loading, price, low, high, la
       repeat: Infinity,
       ease: 'easeInOut',
     })
-    const markerControls = animateValue(markerSweep, randomWander(WANDER_STEPS), {
+    const markerWander = randomWander(WANDER_STEPS)
+    const markerControls = animateValue(markerSweep, markerWander, {
       duration: randRange(WANDER_PERIOD_MIN, WANDER_PERIOD_MAX),
       repeat: Infinity,
       ease: 'easeInOut',
+    })
+    // Axis ticks spin in the same first direction the marker wanders off in, so the whole thing
+    // reads as one push rather than two unrelated animations.
+    const spinDirection = markerWander[1] >= 0 ? 1 : -1
+    const spinControls = animateValue(spinX, spinDirection * SPIN_TICK_SPACING, {
+      duration: SPIN_TICK_PERIOD,
+      repeat: Infinity,
+      ease: 'linear',
     })
     const spreadControls = animateValue(spread, randomSpreadKeyframes(), {
       duration: randRange(SPREAD_PERIOD_MIN, SPREAD_PERIOD_MAX),
@@ -162,16 +192,19 @@ export default function PredictPriceDistribution({ loading, price, low, high, la
       ease: 'easeInOut',
     })
     const unsubscribe = markerSweep.on('change', (v) => {
-      numSpring.set(roundToTen(anchor + v * JITTER_AMPLITUDE))
+      // Jitter can swing past 0 when the anchor is small - abs() keeps the wandering number
+      // reading as a plausible price instead of flashing negative.
+      numSpring.set(roundToTen(Math.abs(anchor + v * JITTER_AMPLITUDE)))
     })
     return () => {
       sweepControls.stop()
       markerControls.stop()
       spreadControls.stop()
+      spinControls.stop()
       colorControls.stop()
       unsubscribe()
     }
-  }, [loading, price, anchor, sweep, markerSweep, spread, markerColor, numSpring])
+  }, [loading, price, anchor, sweep, markerSweep, spread, markerColor, spinX, numSpring])
 
   const bandLabelPct = ((GLOBAL_AXIS_Y + 10) / HEIGHT) * 100 // shared row for both the vibrant and muted axis labels
 
@@ -285,19 +318,25 @@ export default function PredictPriceDistribution({ loading, price, low, high, la
             </motion.g>
 
             {/* real market-range axis — true scale, fading out toward the edges since it actually
-                extends far beyond this card in both directions */}
-            <motion.line
-              x1="0"
-              y1={GLOBAL_AXIS_Y}
-              x2={WIDTH}
-              y2={GLOBAL_AXIS_Y}
-              stroke="url(#axis-fade)"
-              strokeWidth="1.5"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: !loading ? 1 : 0 }}
-              transition={{ duration: 0.4 }}
-            />
-            {/* axis ticks — values extrapolated from the likely range's own known scale */}
+                extends far beyond this card in both directions. Always visible (not tied to
+                loading) - it's the backdrop the spinning ticks below scroll along while thinking. */}
+            <line x1="0" y1={GLOBAL_AXIS_Y} x2={WIDTH} y2={GLOBAL_AXIS_Y} stroke="url(#axis-fade)" strokeWidth="1.5" />
+
+            {/* spinning placeholder ticks while thinking — no values, just marks sliding past, like
+                the straight-line cross-section of a circular dial that's been given a push. Fades
+                out with a delay on resolve so the spin visibly decelerates before it disappears. */}
+            <motion.g
+              style={{ x: spinX }}
+              animate={{ opacity: loading ? 1 : 0 }}
+              transition={{ duration: 0.35, delay: loading ? 0 : SPIN_DECEL_DURATION * 0.55 }}
+            >
+              {SPIN_TICK_XS.map((x) => (
+                <line key={x} x1={x} y1={GLOBAL_AXIS_Y - 3} x2={x} y2={GLOBAL_AXIS_Y + 3} stroke="rgba(148,163,184,0.35)" strokeWidth="1" />
+              ))}
+            </motion.g>
+
+            {/* axis ticks — values extrapolated from the likely range's own known scale. Delayed
+                on resolve so they land right as the spin settles, not the instant it starts easing. */}
             {axisTicks.map((tick) => (
               <motion.line
                 key={tick.x}
@@ -309,12 +348,22 @@ export default function PredictPriceDistribution({ loading, price, low, high, la
                 strokeWidth="1"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: !loading ? 1 : 0 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.4, delay: !loading ? BAND_REVEAL_DELAY : 0 }}
               />
             ))}
 
-            {/* likely range (80%) — vibrant, centered on the curve's own marker, scaled to match its resolved width */}
-            <motion.g initial={{ opacity: 0 }} animate={{ opacity: !loading ? 1 : 0 }} transition={{ duration: 0.4 }}>
+            {/* likely range (80%) — vibrant, centered on the curve's own marker, scaled to match its
+                resolved width. Draws outward from the center instead of a flat fade, landing just
+                after the ticks above so it reads as the last piece settling into place. */}
+            <motion.g
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={{ opacity: !loading ? 1 : 0, scaleX: !loading ? 1 : 0 }}
+              transition={{
+                opacity: { duration: 0.3, delay: !loading ? BAND_REVEAL_DELAY + 0.15 : 0 },
+                scaleX: { duration: BAND_DRAW_DURATION, delay: !loading ? BAND_REVEAL_DELAY + 0.15 : 0, ease },
+              }}
+              style={{ transformOrigin: `${CENTER_X}px ${GLOBAL_AXIS_Y}px` }}
+            >
               <line x1={axisLeftX} y1={GLOBAL_AXIS_Y} x2={axisRightX} y2={GLOBAL_AXIS_Y} stroke="#00D4FF" strokeWidth="3" strokeLinecap="round" />
               <line x1={axisLeftX} y1={GLOBAL_AXIS_Y - 4} x2={axisLeftX} y2={GLOBAL_AXIS_Y + 4} stroke="#00D4FF" strokeWidth="1.5" />
               <line x1={axisRightX} y1={GLOBAL_AXIS_Y - 4} x2={axisRightX} y2={GLOBAL_AXIS_Y + 4} stroke="#00D4FF" strokeWidth="1.5" />
@@ -333,26 +382,28 @@ export default function PredictPriceDistribution({ loading, price, low, high, la
               style={{ left: `${(tick.x / WIDTH) * 100}%`, top: `${bandLabelPct}%` }}
               initial={{ opacity: 0 }}
               animate={{ opacity: !loading ? 1 : 0 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.4, delay: !loading ? BAND_REVEAL_DELAY : 0 }}
             >
               &euro;{formatK(tick.value)}
             </motion.span>
           ))}
 
-        {/* likely range (80%) labels — vibrant, aligned under the band */}
+        {/* likely range (80%) labels — vibrant, aligned under the band, landing in step with it */}
         <motion.span
           className="absolute text-[11px] font-semibold -translate-x-1/2"
           style={{ left: `${bandLeftPct}%`, top: `${bandLabelPct}%`, color: '#5FD4FF' }}
-          animate={{ opacity: !loading && low !== null ? 1 : 0 }}
-          transition={{ duration: 0.4 }}
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: !loading && low !== null ? 1 : 0, y: !loading && low !== null ? 0 : 4 }}
+          transition={{ duration: 0.35, delay: !loading ? BAND_REVEAL_DELAY + 0.25 : 0 }}
         >
           {low !== null && <>&euro;{formatK(low)}</>}
         </motion.span>
         <motion.span
           className="absolute text-[11px] font-semibold -translate-x-1/2"
           style={{ left: `${bandRightPct}%`, top: `${bandLabelPct}%`, color: '#5FD4FF' }}
-          animate={{ opacity: !loading && high !== null ? 1 : 0 }}
-          transition={{ duration: 0.4 }}
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: !loading && high !== null ? 1 : 0, y: !loading && high !== null ? 0 : 4 }}
+          transition={{ duration: 0.35, delay: !loading ? BAND_REVEAL_DELAY + 0.25 : 0 }}
         >
           {high !== null && <>&euro;{formatK(high)}</>}
         </motion.span>
