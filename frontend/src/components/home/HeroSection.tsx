@@ -173,7 +173,7 @@ export default function HeroSection() {
 
         {/* ── Right: 3D car ─────────────────────────────────────────── */}
         <div className="relative h-72 sm:h-96 lg:h-auto lg:flex-1" style={{ background: '#060B14' }}>
-          <SceneBrightnessReveal ready={carReady} duration={REVEAL_DURATION}>
+          <SceneBrightnessReveal ready={carReady} duration={REVEAL_DURATION} background="#050A14">
             <Canvas
               shadows
               dpr={[1, 2]}

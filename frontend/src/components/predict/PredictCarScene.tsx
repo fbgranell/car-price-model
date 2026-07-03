@@ -255,7 +255,7 @@ export default function PredictCarScene({ class_, loading = false }: { class_: C
 
   return (
     <div className="absolute inset-0" style={{ background: '#060B14' }}>
-      <SceneBrightnessReveal ready={ready} duration={REVEAL_DURATION}>
+      <SceneBrightnessReveal ready={ready} duration={REVEAL_DURATION} background="#050A14">
         <Canvas
           dpr={[1, 2]}
           camera={{ position: [0, 3.5, 7.5], fov: 42 }}
