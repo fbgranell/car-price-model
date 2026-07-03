@@ -164,6 +164,10 @@ function Section({ title, icon, children }: { title: string; icon: ReactNode; ch
 interface PredictSpecPanelProps {
   specs: CarSpecs
   onChange: <K extends keyof CarSpecs>(field: K, value: CarSpecs[K]) => void
+  /** Class the user picked but whose 3D model is still being confirmed loaded - `class_` itself
+   *  isn't committed (and the dissolve animation doesn't start) until it clears. */
+  pendingClass: CarClass | null
+  onSelectClass: (class_: CarClass) => void
   price: number | null
   loading: boolean
   error: string | null
@@ -176,6 +180,8 @@ interface PredictSpecPanelProps {
 export default function PredictSpecPanel({
   specs,
   onChange,
+  pendingClass,
+  onSelectClass,
   price,
   loading,
   error,
@@ -265,8 +271,9 @@ export default function PredictSpecPanel({
                 </span>
                 <PredictChips
                   options={classOpts}
-                  value={specs.class_}
-                  onChange={(v) => onChange('class_', v)}
+                  value={pendingClass ? null : specs.class_}
+                  onChange={onSelectClass}
+                  loadingValue={pendingClass ?? undefined}
                 />
               </div>
               <div className="space-y-1.5">

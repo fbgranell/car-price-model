@@ -1,13 +1,26 @@
-import { useState, useCallback } from 'react'
+import { Suspense, useState, useCallback, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { useGLTF } from '@react-three/drei'
 import type { CarSpecs, CarClass, Fuel, Gearbox } from '../types/api'
 import { fetchPrediction } from '../api/predict'
 import PredictCarScene from '../components/predict/PredictCarScene'
 import PredictSpecPanel, { T, type Lang } from '../components/predict/PredictSpecPanel'
 import { displayBrand } from '../constants/brands'
+import { getCarModelPath } from '../constants/carModels'
 import summary from '../summary.json'
 
 type ClassKey = keyof typeof summary.by_class
+
+/** Mounted only while a class switch is pending confirmation. Rendered outside the Canvas -
+ *  useGLTF's Suspense integration doesn't need a WebGL context, just a Suspense boundary - so it
+ *  can gate the class swap without touching the 3D scene at all: it suspends until `class_`'s
+ *  model is actually loaded (or resolves instantly if already cached), then fires `onLoaded`. */
+function ModelPreloadGate({ class_, onLoaded }: { class_: CarClass; onLoaded: (class_: CarClass) => void }) {
+  useGLTF(getCarModelPath(class_))
+  useEffect(() => { onLoaded(class_) }, [class_, onLoaded])
+  return null
+}
+
 type BrandData = typeof summary.by_brand.standard.peugeot
 
 function brandDefaults(brand: string, class_: CarClass): Partial<CarSpecs> {
@@ -72,6 +85,7 @@ export default function PredictPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [lang, setLang] = useState<Lang>('en')
+  const [pendingClass, setPendingClass] = useState<CarClass | null>(null)
 
   const handleChange = useCallback(<K extends keyof CarSpecs>(field: K, value: CarSpecs[K]) => {
     if (field === 'class_') {
@@ -86,6 +100,22 @@ export default function PredictPage() {
     setPrice(null)
     setError(null)
   }, [])
+
+  // Clicking a class chip doesn't commit `class_` right away - it only marks that class as
+  // "pending" so the button can show a spinner. ModelPreloadGate below confirms the model is
+  // actually loaded, then handleClassPreloaded commits it via the normal handleChange path,
+  // which is what kicks off PredictCarScene's dissolve animation.
+  const handleSelectClass = useCallback((newClass: CarClass) => {
+    setPendingClass((current) => (newClass === specs.class_ || newClass === current ? current : newClass))
+  }, [specs.class_])
+
+  const handleClassPreloaded = useCallback((loadedClass: CarClass) => {
+    setPendingClass((current) => {
+      if (current !== loadedClass) return current // superseded by a later click - ignore
+      handleChange('class_', loadedClass)
+      return null
+    })
+  }, [handleChange])
 
   const handleSubmit = useCallback(async () => {
     setError(null)
@@ -120,6 +150,12 @@ export default function PredictPage() {
     >
       {/* spacer for fixed navbar */}
       <div className="h-16 shrink-0" />
+
+      {pendingClass && (
+        <Suspense fallback={null}>
+          <ModelPreloadGate class_={pendingClass} onLoaded={handleClassPreloaded} />
+        </Suspense>
+      )}
 
       <div className="flex flex-col sm:flex-row sm:flex-1 sm:min-h-0">
         {/* ── Car viewer ──────────────────────────────────────────── */}
@@ -170,6 +206,8 @@ export default function PredictPage() {
           <PredictSpecPanel
             specs={specs}
             onChange={handleChange}
+            pendingClass={pendingClass}
+            onSelectClass={handleSelectClass}
             price={price}
             loading={loading}
             error={error}
