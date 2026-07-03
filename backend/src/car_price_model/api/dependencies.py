@@ -1,6 +1,5 @@
 """
-This handles loading your artifacts once and reusing them, rather than re-reading the 20MB model
-file on every request. In FastAPI this is often done with a cached loader function.
+This handles loading artifacts once and reusing them, rather than re-reading the 20MB model.
 """
 
 from functools import lru_cache
