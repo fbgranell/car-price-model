@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import PredictPriceDistribution from './PredictPriceDistribution'
 import type { Lang } from './PredictSpecPanel'
 import summary from '../../summary.json'
@@ -15,7 +15,6 @@ interface PredictPriceCardProps {
 
 const SIGMA = summary.global.sigma
 const BAND_Z = 1.2816 // ~80% two-sided confidence band, matches PredictPriceDistribution
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
 const LABELS = {
   en: { title: 'Estimated Price', estimating: 'Estimating price…', calculating: 'Calculating…', recalc: 'Recalculate →', estimate: 'Estimate Price →', reset: 'Reset' },
@@ -39,9 +38,12 @@ export default function PredictPriceCard({ price, loading, error, onSubmit, onRe
 
   return (
     <div ref={containerRef} className="shrink-0 p-4 pt-5 border-t" style={{ borderColor: 'rgba(0,212,255,0.1)' }}>
+      {/* No `layout` prop: the idle→active growth (CTA-only → label+chart+CTA) used to animate
+          via framer-motion's layout tween, but the heavy 3D canvas mounting at the same moment
+          starved it of frame time, so it was still visibly creeping toward its final height deep
+          into "thinking" - meaning thinking and resolved never actually matched heights. Snapping
+          straight to natural content height, always, guarantees they can't drift apart. */}
       <motion.div
-        layout
-        transition={{ layout: { duration: 0.45, ease } }}
         className="rounded-2xl p-px transition-shadow duration-500"
         style={{
           background: hasContent
@@ -51,70 +53,75 @@ export default function PredictPriceCard({ price, loading, error, onSubmit, onRe
         }}
       >
         <div
-          className="relative rounded-[15px] px-5 py-5 space-y-4 flex flex-col items-center text-center"
+          className="relative rounded-[15px] px-5 py-5 flex flex-col items-center text-center"
           style={{ background: 'linear-gradient(180deg,#0A1830 0%,#070D1B 100%)' }}
         >
-          {/* Reset button — clears the current estimate (hidden mid-request) */}
-          <AnimatePresence>
-            {price !== null && !loading && (
-              <motion.button
-                type="button"
-                onClick={onReset}
-                aria-label={t.reset}
-                initial={{ opacity: 0, scale: 0.6 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.6 }}
-                transition={{ duration: 0.2 }}
-                className="absolute top-3 right-3 h-6 w-6 flex items-center justify-center rounded-full text-slate-500 hover:text-slate-200 transition-colors"
-                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
-              >
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                  <path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-                </svg>
-              </motion.button>
-            )}
-          </AnimatePresence>
-
-          {/* Idle state: just the CTA, no empty label/dash taking up space */}
-          {hasContent && (
-            <>
-              {/* Label row */}
-              <div className="flex items-center gap-2">
-                {loading ? (
-                  <svg className="h-3 w-3 animate-spin text-accent/70" viewBox="0 0 24 24" fill="none">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3.5" />
-                    <path className="opacity-90" d="M22 12a10 10 0 0 0-10-10" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" />
-                  </svg>
-                ) : (
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_6px_#00FF88]" />
-                )}
-                <span className="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-semibold">
-                  {loading ? t.estimating : t.title}
-                </span>
-              </div>
-
-              {/* Single persistent component: smoothly morphs between thinking and resolved states */}
-              <PredictPriceDistribution loading={loading} price={price} low={low} high={high} lang={lang} />
-            </>
-          )}
-
-          {error && (
-            <p className="text-xs text-red-400 bg-red-500/10 rounded-lg px-3 py-2 w-full">{error}</p>
-          )}
-
-          {/* CTA button */}
-          <button
-            onClick={onSubmit}
-            disabled={loading}
-            className="w-full py-3 rounded-xl text-sm font-semibold transition-all disabled:opacity-50 disabled:cursor-wait"
+          {/* Reset button — clears the current estimate (hidden mid-request). Always mounted,
+              never inserted/removed from the DOM (toggling visibility instead of presence, since
+              mounting/unmounting it was nudging the card's own height), and kept as a sibling of
+              -  not inside - the space-y-4 wrapper below: space-y-4's margin selector counts ALL
+              direct children regardless of position/opacity, so living inside it was silently
+              adding an extra margin-top to whatever child came after it. */}
+          <motion.button
+            type="button"
+            onClick={onReset}
+            aria-label={t.reset}
+            animate={price !== null && !loading ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.6 }}
+            transition={{ duration: 0.2 }}
             style={{
-              background: 'linear-gradient(135deg,#00D4FF,#0088FF)',
-              color: '#050A14',
-              boxShadow: '0 0 20px rgba(0,212,255,0.25)',
+              background: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              pointerEvents: price !== null && !loading ? 'auto' : 'none',
             }}
+            className="absolute top-3 right-3 h-6 w-6 flex items-center justify-center rounded-full text-slate-500 hover:text-slate-200 transition-colors"
           >
-            {loading ? t.calculating : price !== null ? t.recalc : t.estimate}
-          </button>
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+            </svg>
+          </motion.button>
+
+          <div className="w-full flex flex-col items-center space-y-4">
+            {/* Idle state: just the CTA, no empty label/dash taking up space */}
+            {hasContent && (
+              <>
+                {/* Label row */}
+                <div className="flex items-center gap-2">
+                  {loading ? (
+                    <svg className="h-3 w-3 animate-spin text-accent/70" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3.5" />
+                      <path className="opacity-90" d="M22 12a10 10 0 0 0-10-10" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" />
+                    </svg>
+                  ) : (
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_6px_#00FF88]" />
+                  )}
+                  <span className="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-semibold">
+                    {loading ? t.estimating : t.title}
+                  </span>
+                </div>
+
+                {/* Single persistent component: smoothly morphs between thinking and resolved states */}
+                <PredictPriceDistribution loading={loading} price={price} low={low} high={high} lang={lang} />
+              </>
+            )}
+
+            {error && (
+              <p className="text-xs text-red-400 bg-red-500/10 rounded-lg px-3 py-2 w-full">{error}</p>
+            )}
+
+            {/* CTA button */}
+            <button
+              onClick={onSubmit}
+              disabled={loading}
+              className="w-full py-3 rounded-xl text-sm font-semibold transition-all disabled:opacity-50 disabled:cursor-wait"
+              style={{
+                background: 'linear-gradient(135deg,#00D4FF,#0088FF)',
+                color: '#050A14',
+                boxShadow: '0 0 20px rgba(0,212,255,0.25)',
+              }}
+            >
+              {loading ? t.calculating : price !== null ? t.recalc : t.estimate}
+            </button>
+          </div>
         </div>
       </motion.div>
     </div>
