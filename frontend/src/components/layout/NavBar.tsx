@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 const LINKS = [
   { to: '/', label: 'Home' },
-  { to: '/predict', label: 'Predict' },
+  { to: '/estimate', label: 'Estimate' },
 ]
 
 export default function NavBar() {

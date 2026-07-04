@@ -128,15 +128,15 @@ export default function HeroSection() {
               {...rise(0.18)}
               className="mt-8 text-base sm:text-lg text-slate-400 max-w-md leading-relaxed"
             >
-              Machine learning predictions trained on real listings
+              Machine learning estimates trained on real listings
               from the Spanish used-car market. Tune 15 vehicle specs
-              and get your estimate instantly.
+              and get your price instantly.
             </motion.p>
 
             {/* CTA */}
             <motion.div {...rise(0.28)} className="mt-10">
               <button
-                onClick={() => navigate('/predict')}
+                onClick={() => navigate('/estimate')}
                 className="group inline-flex items-center gap-3 font-semibold text-sm text-white
                            border rounded-full px-6 py-3 transition-all duration-300
                            hover:text-primary"

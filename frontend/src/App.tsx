@@ -19,7 +19,7 @@ export default function App() {
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/predict" element={<PredictPage />} />
+          <Route path="/estimate" element={<PredictPage />} />
         </Routes>
       </AnimatePresence>
     </AppShell>

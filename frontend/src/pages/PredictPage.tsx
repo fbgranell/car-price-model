@@ -128,7 +128,7 @@ export default function PredictPage() {
       const [result] = await Promise.all([fetchPrediction(specs), delay])
       setPrice(result.predicted_price)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Prediction failed')
+      setError(err instanceof Error ? err.message : 'Estimate failed')
     } finally {
       setLoading(false)
     }
