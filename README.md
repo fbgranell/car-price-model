@@ -11,7 +11,10 @@
 
 Predicts second-hand vehicles prices in Spain: train an XGBoost regressor on scrapped listings, serve the model behind a small FastAPI service, and show it off with a 3D frontend.
 
-Live demo: https://www.carpricemodel.com/
+# Live demo 
+
+<a href="https://www.carpricemodel.com/"><img src="./figures/demo.png"></a>
+
 
 ## Quickstart
 
