@@ -160,7 +160,43 @@ function SceneReadySignal({ onReady }: { onReady: () => void }) {
   return null
 }
 
-function Scene({ class_, loading, onReady }: { class_: CarClass; loading: boolean; onReady: () => void }) {
+/** Mounted in the real Canvas (not just a network/parse Suspense gate) while a class switch is
+ *  pending, held fully dissolved via initialDissolve=1 - the dissolve shader discards every
+ *  fragment right at the end of the shader (after texture sampling/lighting still runs), so this
+ *  draws nothing on screen but still forces one real render pass: geometry upload and shader
+ *  compilation for the target class happen here, off the critical path, instead of stalling the
+ *  dissolve-in transition the instant RotatingCar actually swaps to it.
+ *
+ *  Signals onWarmed on the 2nd useFrame tick rather than the 1st: R3F runs all useFrame callbacks
+ *  for a tick before its own internal gl.render() call for that same tick, so this object isn't
+ *  actually drawn until the end of the tick where the counter first reaches 1 - by the time the
+ *  counter reaches 2, that render has already completed. */
+function PendingModelWarmup({ class_, onWarmed }: { class_: CarClass; onWarmed: (class_: CarClass) => void }) {
+  const framesRef = useRef(0)
+
+  useEffect(() => { framesRef.current = 0 }, [class_])
+
+  useFrame(() => {
+    framesRef.current += 1
+    if (framesRef.current === 2) onWarmed(class_)
+  })
+
+  return <CarModel class_={class_} initialDissolve={1} />
+}
+
+function Scene({
+  class_,
+  loading,
+  onReady,
+  pendingClass,
+  onPendingWarmed,
+}: {
+  class_: CarClass
+  loading: boolean
+  onReady: () => void
+  pendingClass: CarClass | null
+  onPendingWarmed: (class_: CarClass) => void
+}) {
   return (
     <>
       <ambientLight intensity={0.35} />
@@ -182,6 +218,12 @@ function Scene({ class_, loading, onReady }: { class_: CarClass; loading: boolea
         <RotatingCar class_={class_} loading={loading} />
         <SceneReadySignal onReady={onReady} />
       </Suspense>
+
+      {pendingClass && (
+        <Suspense fallback={null}>
+          <PendingModelWarmup class_={pendingClass} onWarmed={onPendingWarmed} />
+        </Suspense>
+      )}
 
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.42, 0]}>
         <planeGeometry args={[40, 40]} />
@@ -233,7 +275,17 @@ function SceneLoadingOverlay() {
 
 const REVEAL_DURATION = 4 // seconds - brightness ramp-up once the model has loaded
 
-export default function PredictCarScene({ class_, loading = false }: { class_: CarClass; loading?: boolean }) {
+export default function PredictCarScene({
+  class_,
+  loading = false,
+  pendingClass = null,
+  onPendingWarmed = () => {},
+}: {
+  class_: CarClass
+  loading?: boolean
+  pendingClass?: CarClass | null
+  onPendingWarmed?: (class_: CarClass) => void
+}) {
   const [ready, setReady] = useState(false)
   const handleReady = useCallback(() => setReady(true), [])
 
@@ -263,7 +315,13 @@ export default function PredictCarScene({ class_, loading = false }: { class_: C
         >
           <color attach="background" args={['#050A14']} />
           <fog attach="fog" args={['#050A14', 14, 30]} />
-          <Scene class_={class_} loading={loading} onReady={handleReady} />
+          <Scene
+            class_={class_}
+            loading={loading}
+            onReady={handleReady}
+            pendingClass={pendingClass}
+            onPendingWarmed={onPendingWarmed}
+          />
         </Canvas>
       </SceneBrightnessReveal>
 
