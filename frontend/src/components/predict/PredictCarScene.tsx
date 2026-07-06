@@ -1,5 +1,5 @@
 import { Suspense, useCallback, useEffect, useRef, useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment, MeshReflectorMaterial, OrbitControls, useGLTF } from '@react-three/drei'
 import { AnimatePresence, motion } from 'framer-motion'
 import * as THREE from 'three'
@@ -161,27 +161,42 @@ function SceneReadySignal({ onReady }: { onReady: () => void }) {
 }
 
 /** Mounted in the real Canvas (not just a network/parse Suspense gate) while a class switch is
- *  pending, held fully dissolved via initialDissolve=1 - the dissolve shader discards every
- *  fragment right at the end of the shader (after texture sampling/lighting still runs), so this
- *  draws nothing on screen but still forces one real render pass: geometry upload and shader
- *  compilation for the target class happen here, off the critical path, instead of stalling the
- *  dissolve-in transition the instant RotatingCar actually swaps to it.
+ *  pending, so shader compilation for the target class's materials happens off the critical path
+ *  instead of stalling the dissolve-in transition the instant RotatingCar actually swaps to it.
  *
- *  Signals onWarmed on the 2nd useFrame tick rather than the 1st: R3F runs all useFrame callbacks
- *  for a tick before its own internal gl.render() call for that same tick, so this object isn't
- *  actually drawn until the end of the tick where the counter first reaches 1 - by the time the
- *  counter reaches 2, that render has already completed. */
+ *  Kept `visible={false}` so R3F's normal per-frame render never draws it - three.js skips
+ *  invisible subtrees entirely, so this costs nothing on the regular render path. Warming instead
+ *  goes through gl.compileAsync(), which builds/links the shader programs (running each
+ *  material's onBeforeCompile, including the dissolve patch from applyDissolveEffect) without a
+ *  real draw call - a real draw's first use of a brand-new program forces the CPU to block until
+ *  the driver finishes linking it, which is exactly the stall this is meant to avoid: with the car
+ *  itself invisible instead, there's nothing else on screen for that stall to be visible on.
+ *  compileAsync polls link status non-blockingly (via KHR_parallel_shader_compile where available)
+ *  instead, so onWarmed only fires once the program is actually ready to draw with.
+ *
+ *  This only pre-warms shaders, not geometry/texture GPU upload - those still happen lazily on
+ *  the model's first real (visible) draw, but are normally far cheaper than shader link. */
 function PendingModelWarmup({ class_, onWarmed }: { class_: CarClass; onWarmed: (class_: CarClass) => void }) {
-  const framesRef = useRef(0)
+  const groupRef = useRef<THREE.Group>(null)
+  const { gl, camera, scene } = useThree()
 
-  useEffect(() => { framesRef.current = 0 }, [class_])
+  useEffect(() => {
+    const group = groupRef.current
+    if (!group) return
+    let cancelled = false
+    gl.compileAsync(group, camera, scene).then(() => {
+      if (!cancelled) onWarmed(class_)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [class_, gl, camera, scene, onWarmed])
 
-  useFrame(() => {
-    framesRef.current += 1
-    if (framesRef.current === 2) onWarmed(class_)
-  })
-
-  return <CarModel class_={class_} initialDissolve={1} />
+  return (
+    <group ref={groupRef} visible={false}>
+      <CarModel class_={class_} initialDissolve={1} />
+    </group>
+  )
 }
 
 function Scene({
